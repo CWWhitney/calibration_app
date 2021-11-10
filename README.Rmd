@@ -1,0 +1,38 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Calibration Training App <img src='www/university_logo.jpg' align="right" height="200" />
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of the Calibration Training App is to help the [University of Bonn](https://www.uni-bonn.de/en/university/) administer *calibration* assessments ...
+
+## Installation
+
+1. Clone this repository to your local machine
+
+2. Open the **calibration_app.R** file from the directory on your local machine where you cloned this repository. This should install the {renv} package if you do not already have it installed, but if you don't see that happen in the console, run `install.packages("renv")`.
+
+3. Run `renv::restore()` to install the package dependencies needed to run this app successfully
+
+4. Open the app.R file and execute the code in that script to launch the app
+
+*** 
+
+See below for session info for full reproducibility: 
+
+```{r session_info}
+sessionInfo()
+```
+
