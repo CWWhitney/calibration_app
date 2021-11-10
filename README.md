@@ -23,8 +23,8 @@ assessments …
 3.  Run `renv::restore()` to install the package dependencies needed to
     run this app successfully
 
-4.  Open the app.R file and execute the code in that script to launch
-    the app
+4.  Open the [app.R](app.R) file and execute the code in that script to
+    launch the app
 
 ------------------------------------------------------------------------
 
