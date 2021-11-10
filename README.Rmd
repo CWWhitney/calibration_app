@@ -22,7 +22,7 @@ The goal of the Calibration Training App is to help the [University of Bonn](htt
 
 1. Clone this repository to your local machine
 
-2. Open the **calibration_app.R** file from the directory on your local machine where you cloned this repository. This should install the {renv} package if you do not already have it installed, but if you don't see that happen in the console, run `install.packages("renv")`.
+2. Open the **calibration_app.Rproj** file from the directory on your local machine where you cloned this repository. This should install the {renv} package if you do not already have it installed, but if you don't see that happen in the console, run `install.packages("renv")`.
 
 3. Run `renv::restore()` to install the package dependencies needed to run this app successfully
 
