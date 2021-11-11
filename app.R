@@ -30,11 +30,15 @@ ui <- shiny::navbarPage(
         width = 7, 
         shiny::wellPanel(
           
-          shiny::h2("Question 1:"), 
+          shiny::h2(
+            shiny::textOutput(outputId = "question_no_ui")
+          ), 
           
           shiny::hr(), 
           
-          shiny::p("The question ..."), 
+          shiny::p(
+            shiny::textOutput(outputId = "question_text_ui")
+          ), 
           
           shiny::br(), 
           
@@ -89,9 +93,45 @@ ui <- shiny::navbarPage(
   
   server <- function(input, output, session) {
     
-    # output$tmp <- shiny::renderPrint(
-    #   questions$Question
-    # )
+    # Create a `reactiveValues` object that holds a reactive variable called 
+    # 'current_question_no', which is set to 1 (to start)
+    rctv <- shiny::reactiveValues(current_question_no = 1)
+    
+    # When the "Next" button is clicked...
+    shiny::observeEvent(input$next_btn, {
+      
+      # ... require that you are not on the last question of the quiz
+      shiny::req(rctv$current_question_no < nrow(questions))
+      
+      # Increase the 'current_question_no' value by 1
+      rctv$current_question_no <- rctv$current_question_no + 1
+      
+    })
+    
+    # When the "Next" button is clicked...
+    shiny::observeEvent(input$back_btn, {
+      
+      # ... require that you are not on the first question of the quiz
+      shiny::req(rctv$current_question_no > 1)
+      
+      # Decrease the 'current_question_no' value by 1
+      rctv$current_question_no <- rctv$current_question_no - 1
+      
+    })
+    
+    # Create the Question UI Header
+    output$question_no_ui <- shiny::renderText(
+      
+      paste0("Question ", rctv$current_question_no, ":")
+      
+    )
+    
+    # Create the Question UI question text
+    output$question_text_ui <- shiny::renderText(
+      
+      questions$Question[rctv$current_question_no]
+      
+    )
     
   }
   
