@@ -9,7 +9,7 @@ questions <- read.csv("data/example_questions_db.csv")
 app_theme <- bslib::bs_theme(
   version = 5, 
   bootswatch = "sketchy", 
-  bg = "#929084", 
+  bg = "#006600", 
   fg = "#FFFFFF", 
   primary = "#004F9E",   # Bonn blue
   secondary = "#FBBA00"   # Bonn yellow
@@ -96,36 +96,45 @@ server <- function(input, output, session) {
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
-    # ... require that you are not on the last question of the quiz
-    shiny::req(rctv$current_question_no < nrow(questions))
-    
-    # Increase the 'current_question_no' value by 1
-    rctv$current_question_no <- rctv$current_question_no + 1
+    shiny::modalDialog(
+      title = "Are You Sure?", 
+      glue::glue("You answered: [placeholder]"), 
+      size = "l", 
+      easyClose = FALSE, 
+      footer = shiny::tagList(
+        shiny::div(
+          # Button to dismiss the modal
+          shiny::modalButton(
+            label = "Go Back", 
+            icon = shiny::icon("pen")
+          ), 
+          # Button to move to the next question
+          shiny::actionButton(
+            inputId = "submit_answer_btn", 
+            label = "Submit", 
+            icon = shiny::icon("check")
+          )
+        )
+      ),
+    ) |> 
+      shiny::showModal()
     
   })
   
   # When the "Next" button is clicked...
-  shiny::observeEvent(input$back_btn, {
+  shiny::observeEvent(input$submit_answer_btn, {
+
+    # Remove the open modal dialogue
+    shiny::removeModal()
     
-    # ... require that you are not on the first question of the quiz
-    shiny::req(rctv$current_question_no > 1)
-    
-    # Decrease the 'current_question_no' value by 1
-    rctv$current_question_no <- rctv$current_question_no - 1
-    
+    # ... require that you are not on the last question of the quiz
+    shiny::req(rctv$current_question_no < nrow(questions))
+
+    # Increase the 'current_question_no' value by 1
+    rctv$current_question_no <- rctv$current_question_no + 1
+
   })
-  
-  # Trying to disable "Back"/"Next" buttons when it makes sense to do so
-  # shiny::observe({
-  # 
-  #   if (rctv$current_question_no == 1) {
-  # 
-  #     shinyjs::disable(id = "back_btn")
-  # 
-  #   } else {}
-  # 
-  # })
-  
+
   # Create the Question UI Header
   output$question_no_ui <- shiny::renderText(
     
