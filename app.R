@@ -96,10 +96,10 @@ server <- function(input, output, session) {
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
+    # Launch a modal dialogue asking user to confirm their answer
     shiny::modalDialog(
       title = "Are You Sure?", 
       glue::glue("You answered: [placeholder]"), 
-      size = "l", 
       easyClose = FALSE, 
       footer = shiny::tagList(
         shiny::div(
