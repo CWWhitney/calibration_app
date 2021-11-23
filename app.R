@@ -9,7 +9,7 @@ questions <- read.csv("data/example_questions_db.csv")
 app_theme <- bslib::bs_theme(
   version = 5, 
   bootswatch = "sketchy", 
-  bg = "#006600", 
+  bg = "#153015", 
   fg = "#FFFFFF", 
   primary = "#004F9E",   # Bonn blue
   secondary = "#FBBA00"   # Bonn yellow
@@ -47,14 +47,14 @@ ui <- shiny::navbarPage(
           
           shiny::br(), 
           
-          shiny::p("Placeholder for response options ..."), 
+          shiny::uiOutput(outputId = "answer_ui"), 
           
           shiny::hr(), 
           
           # 1.3 Previous / Next Buttons ----
           # Create a button to go back to the prior question
           shiny::div(
-            style = "display:inline-block; float: right;",
+            style = "float: right;",
             shiny::actionButton(
               inputId = "next_btn", 
               label = "Next", 
@@ -96,10 +96,14 @@ server <- function(input, output, session) {
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
+    current_answer_id <- eval(
+      parse(text = paste0("input$answer_ui_", rctv$current_question_no))
+    )
+    
     # Launch a modal dialogue asking user to confirm their answer
     shiny::modalDialog(
       title = "Are You Sure?", 
-      glue::glue("You answered: [placeholder]"), 
+      glue::glue("You answered: {current_answer_id}"), 
       easyClose = FALSE, 
       footer = shiny::tagList(
         shiny::div(
@@ -124,10 +128,10 @@ server <- function(input, output, session) {
   # When the "Next" button is clicked...
   shiny::observeEvent(input$submit_answer_btn, {
 
-    # Remove the open modal dialogue
+    # ... remove the open modal dialogue
     shiny::removeModal()
     
-    # ... require that you are not on the last question of the quiz
+    # Require that you are not on the last question of the quiz
     shiny::req(rctv$current_question_no < nrow(questions))
 
     # Increase the 'current_question_no' value by 1
@@ -149,6 +153,27 @@ server <- function(input, output, session) {
     
   )
   
+  # Create the Answer UI
+  output$answer_ui <- shiny::renderUI({
+    
+    if (questions$Answer[rctv$current_question_no] %in% c("T", "F")) {
+      
+      shiny::tagList(
+        shiny::radioButtons(
+          inputId = paste0("answer_ui_", rctv$current_question_no), 
+          label = "Answer:", 
+          choices = c("TRUE", "FALSE")
+        )
+      )
+      
+    } else {
+      
+      shiny::p("[Placeholder]")
+      
+    }
+    
+  })
+    
 }
 
 shinyApp(ui, server)
