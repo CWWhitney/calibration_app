@@ -1,6 +1,7 @@
 
 library(shiny)
 library(bslib)
+# library(shinyjs)
 
 # Load data outside of server, so it can be shared across all user sessions
 questions <- read.csv("data/example_questions_db.csv")
@@ -8,11 +9,15 @@ questions <- read.csv("data/example_questions_db.csv")
 app_theme <- bslib::bs_theme(
   version = 5, 
   bootswatch = "sketchy", 
+  bg = "#929084", 
+  fg = "#FFFFFF", 
   primary = "#004F9E",   # Bonn blue
   secondary = "#FBBA00"   # Bonn yellow
 )
 
 ui <- shiny::navbarPage(
+  
+  # shinyjs::useShinyjs(), 
   
   title = "Calibrator", 
   
@@ -36,7 +41,7 @@ ui <- shiny::navbarPage(
           
           shiny::hr(), 
           
-          shiny::p(
+          shiny::h4(
             shiny::textOutput(outputId = "question_text_ui")
           ), 
           
@@ -47,28 +52,19 @@ ui <- shiny::navbarPage(
           shiny::hr(), 
           
           # 1.3 Previous / Next Buttons ----
-          # Create a button to go back to the prior question 
+          # Create a button to go back to the prior question
           shiny::div(
-            
+            style = "display:inline-block; float: right;",
             shiny::actionButton(
-              class = "btn btn-secondary", 
-              inputId = "back_btn",
-              label = "Previous",
-              icon = shiny::icon(name = "arrow-left")
-            ),
-            
-            # Create a button to go to the next question
-            shiny::div(
-              style = "float:right;", 
-              shiny::actionButton(
-                class = "btn btn-primary", 
-                inputId = "next_btn", 
-                label = "Next", 
-                icon = shiny::icon(name = "arrow-right")
-              )
+              inputId = "next_btn", 
+              label = "Next", 
+              icon = shiny::icon(name = "arrow-right")
             )
-            
-          )
+          ), 
+          
+          # Add some extra padding below the button
+          shiny::br(), 
+          shiny::br()
           
         )
         
@@ -87,52 +83,63 @@ ui <- shiny::navbarPage(
   )
   
 )
+
+
+
+
+server <- function(input, output, session) {
   
+  # Create a `reactiveValues` object that holds a reactive variable called 
+  # 'current_question_no', which is set to 1 (to start)
+  rctv <- shiny::reactiveValues(current_question_no = 1)
   
+  # When the "Next" button is clicked...
+  shiny::observeEvent(input$next_btn, {
+    
+    # ... require that you are not on the last question of the quiz
+    shiny::req(rctv$current_question_no < nrow(questions))
+    
+    # Increase the 'current_question_no' value by 1
+    rctv$current_question_no <- rctv$current_question_no + 1
+    
+  })
   
+  # When the "Next" button is clicked...
+  shiny::observeEvent(input$back_btn, {
+    
+    # ... require that you are not on the first question of the quiz
+    shiny::req(rctv$current_question_no > 1)
+    
+    # Decrease the 'current_question_no' value by 1
+    rctv$current_question_no <- rctv$current_question_no - 1
+    
+  })
   
-  server <- function(input, output, session) {
-    
-    # Create a `reactiveValues` object that holds a reactive variable called 
-    # 'current_question_no', which is set to 1 (to start)
-    rctv <- shiny::reactiveValues(current_question_no = 1)
-    
-    # When the "Next" button is clicked...
-    shiny::observeEvent(input$next_btn, {
-      
-      # ... require that you are not on the last question of the quiz
-      shiny::req(rctv$current_question_no < nrow(questions))
-      
-      # Increase the 'current_question_no' value by 1
-      rctv$current_question_no <- rctv$current_question_no + 1
-      
-    })
-    
-    # When the "Next" button is clicked...
-    shiny::observeEvent(input$back_btn, {
-      
-      # ... require that you are not on the first question of the quiz
-      shiny::req(rctv$current_question_no > 1)
-      
-      # Decrease the 'current_question_no' value by 1
-      rctv$current_question_no <- rctv$current_question_no - 1
-      
-    })
-    
-    # Create the Question UI Header
-    output$question_no_ui <- shiny::renderText(
-      
-      paste0("Question ", rctv$current_question_no, ":")
-      
-    )
-    
-    # Create the Question UI question text
-    output$question_text_ui <- shiny::renderText(
-      
-      questions$Question[rctv$current_question_no]
-      
-    )
-    
-  }
+  # Trying to disable "Back"/"Next" buttons when it makes sense to do so
+  # shiny::observe({
+  # 
+  #   if (rctv$current_question_no == 1) {
+  # 
+  #     shinyjs::disable(id = "back_btn")
+  # 
+  #   } else {}
+  # 
+  # })
   
-  shinyApp(ui, server)
+  # Create the Question UI Header
+  output$question_no_ui <- shiny::renderText(
+    
+    paste0("Question ", rctv$current_question_no, ":")
+    
+  )
+  
+  # Create the Question UI question text
+  output$question_text_ui <- shiny::renderText(
+    
+    questions$Question[rctv$current_question_no]
+    
+  )
+  
+}
+
+shinyApp(ui, server)
