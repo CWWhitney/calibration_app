@@ -1,7 +1,6 @@
 
 library(shiny)
 library(bslib)
-# library(shinyjs)
 
 # Load data outside of server, so it can be shared across all user sessions
 questions <- read.csv("data/example_questions_db.csv")
@@ -16,8 +15,6 @@ app_theme <- bslib::bs_theme(
 )
 
 ui <- shiny::navbarPage(
-  
-  # shinyjs::useShinyjs(), 
   
   title = "Calibrator", 
   
@@ -56,6 +53,7 @@ ui <- shiny::navbarPage(
           shiny::div(
             style = "float: right;",
             shiny::actionButton(
+              class = "btn btn-lg", 
               inputId = "next_btn", 
               label = "Next", 
               icon = shiny::icon(name = "arrow-right")
@@ -93,11 +91,14 @@ server <- function(input, output, session) {
   # 'current_question_no', which is set to 1 (to start)
   rctv <- shiny::reactiveValues(current_question_no = 1)
   
+  # rctv$answers_range <- data.frame()
+  # rctv$answers_binary <- data.frame()
+  
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
     current_answer_id <- eval(
-      parse(text = paste0("input$answer_ui_", rctv$current_question_no))
+      parse(text = paste0("input$answer_ui_", rctv$current_question_no, "_A"))
     )
     
     # Launch a modal dialogue asking user to confirm their answer
@@ -160,15 +161,35 @@ server <- function(input, output, session) {
       
       shiny::tagList(
         shiny::radioButtons(
-          inputId = paste0("answer_ui_", rctv$current_question_no), 
+          inputId = paste0("answer_ui_", rctv$current_question_no, "_A"), 
           label = "Answer:", 
           choices = c("TRUE", "FALSE")
+        ), 
+        shiny::selectInput(
+          inputId = paste0("answer_ui_", rctv$current_question_no, "_B"), 
+          label = "Confidence:", 
+          choices = paste0(seq.int(from = 50, to = 100, by = 10), "%")
         )
       )
       
     } else {
       
-      shiny::p("[Placeholder]")
+      shiny::tagList(
+        shiny::h5("90% Confidence Interval:"), 
+        shiny::div(
+          style = "display: inline-block;", 
+          shiny::numericInput(
+            inputId = paste0("answer_ui_", rctv$current_question_no, "_A"), 
+            label = "Lower Bound", 
+            value = 0
+          ), 
+          shiny::numericInput(
+            inputId = paste0("answer_ui_", rctv$current_question_no, "_B"), 
+            label = "Upper Bound", 
+            value = 100
+          )
+        )
+      )
       
     }
     
