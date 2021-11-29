@@ -1,0 +1,6 @@
+UserID,QuestionNumber,UserAnswer,UserConfidence
+18602,1,TRUE,70%
+"18602",1,"FALSE","50%"
+"18602",1,"TRUE","70%"
+"18602",1,"FALSE","90%"
+"18602",2,"TRUE","80%"

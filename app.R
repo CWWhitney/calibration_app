@@ -1,9 +1,13 @@
 
 library(shiny)
 library(bslib)
+library(glue)
 
 # Load data outside of server, so it can be shared across all user sessions
-questions <- read.csv("data/example_questions_db.csv")
+questions <- list(
+  binary = read.csv("data/questions/example_questions_db_binary.csv"), 
+  range = read.csv("data/questions/example_questions_db_range.csv")
+)
 
 app_theme <- bslib::bs_theme(
   version = 5, 
@@ -88,23 +92,30 @@ ui <- shiny::navbarPage(
 server <- function(input, output, session) {
   
   # Create a `reactiveValues` object that holds a reactive variable called 
-  # 'current_question_no', which is set to 1 (to start)
-  rctv <- shiny::reactiveValues(current_question_no = 1)
+  # 'current_question_number', which is set to 1 (to start)
+  rctv <- shiny::reactiveValues(current_question_number = 1)
   
-  # rctv$answers_range <- data.frame()
-  # rctv$answers_binary <- data.frame()
-  
+  # TODO // We will need some way to define whether the current question is type
+  # "binary" or "range"
+  # rctv$current_question_type <- ...
+
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
-    current_answer_id <- eval(
-      parse(text = paste0("input$answer_ui_", rctv$current_question_no, "_A"))
+    rctv$current_response_1 <- eval(
+      parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_A"))
+    )
+    
+    rctv$current_response_2 <- eval(
+      parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_B"))
     )
     
     # Launch a modal dialogue asking user to confirm their answer
     shiny::modalDialog(
       title = "Are You Sure?", 
-      glue::glue("You answered: {current_answer_id}"), 
+      glue::glue("You answered: {rctv$current_response_1}"), 
+      shiny::br(), 
+      glue::glue("With confidence: {rctv$current_response_2}"), 
       easyClose = FALSE, 
       footer = shiny::tagList(
         shiny::div(
@@ -132,41 +143,50 @@ server <- function(input, output, session) {
     # ... remove the open modal dialogue
     shiny::removeModal()
     
+    # Write out the current response to the database
+    write_to_db(
+      question_type = "binary", 
+      user = Sys.getenv("USERNAME"), 
+      question_number = rctv$current_question_number, 
+      answer_1 = rctv$current_response_1, 
+      answer_2 = rctv$current_response_2
+    )
+    
     # Require that you are not on the last question of the quiz
-    shiny::req(rctv$current_question_no < nrow(questions))
+    shiny::req(rctv$current_question_number < nrow(questions$binary))
 
-    # Increase the 'current_question_no' value by 1
-    rctv$current_question_no <- rctv$current_question_no + 1
+    # Increase the 'current_question_number' value by 1
+    rctv$current_question_number <- rctv$current_question_number + 1
 
   })
 
   # Create the Question UI Header
   output$question_no_ui <- shiny::renderText(
     
-    paste0("Question ", rctv$current_question_no, ":")
+    glue::glue("Question {rctv$current_question_number}:")
     
   )
   
   # Create the Question UI question text
-  output$question_text_ui <- shiny::renderText(
+  output$question_text_ui <- shiny::renderText({
     
-    questions$Question[rctv$current_question_no]
+    questions$binary$Question[rctv$current_question_number]
     
-  )
+  })
   
   # Create the Answer UI
   output$answer_ui <- shiny::renderUI({
     
-    if (questions$Answer[rctv$current_question_no] %in% c("T", "F")) {
+    if (questions$binary$QuestionType[rctv$current_question_number] == "Binary") {
       
       shiny::tagList(
         shiny::radioButtons(
-          inputId = paste0("answer_ui_", rctv$current_question_no, "_A"), 
+          inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"), 
           label = "Answer:", 
           choices = c("TRUE", "FALSE")
         ), 
         shiny::selectInput(
-          inputId = paste0("answer_ui_", rctv$current_question_no, "_B"), 
+          inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
           label = "Confidence:", 
           choices = paste0(seq.int(from = 50, to = 100, by = 10), "%")
         )
@@ -179,12 +199,12 @@ server <- function(input, output, session) {
         shiny::div(
           style = "display: inline-block;", 
           shiny::numericInput(
-            inputId = paste0("answer_ui_", rctv$current_question_no, "_A"), 
+            inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"), 
             label = "Lower Bound", 
             value = 0
           ), 
           shiny::numericInput(
-            inputId = paste0("answer_ui_", rctv$current_question_no, "_B"), 
+            inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
             label = "Upper Bound", 
             value = 100
           )
