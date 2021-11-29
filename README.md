@@ -14,7 +14,7 @@ assessments …
 
 1.  Clone this repository to your local machine
 
-2.  Open the **calibration\_app.R** file from the directory on your
+2.  Open the **calibration\_app.Rproj** file from the directory on your
     local machine where you cloned this repository. This should install
     the {renv} package if you do not already have it installed, but if
     you don’t see that happen in the console, run
@@ -25,6 +25,10 @@ assessments …
 
 4.  Open the [app.R](app.R) file and execute the code in that script to
     launch the app
+
+## Workflow
+
+![](www/calibration_app_workflow.png)
 
 ------------------------------------------------------------------------
 

@@ -28,6 +28,10 @@ The goal of the Calibration Training App is to help the [University of Bonn](htt
 
 4. Open the [app.R](app.R) file and execute the code in that script to launch the app
 
+## Workflow
+
+![](www/calibration_app_workflow.png)
+
 *** 
 
 See below for session info for full reproducibility: 
