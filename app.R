@@ -2,6 +2,7 @@
 library(shiny)
 library(bslib)
 library(glue)
+library(waiter)
 
 # Load data outside of server, so it can be shared across all user sessions
 questions <- list(
@@ -29,12 +30,15 @@ ui <- shiny::navbarPage(
   shiny::tabPanel(
     title = "Questions", 
     
+    waiter::use_waiter(), 
+    
     shiny::fluidRow(
       
       # Column for the assessment questions
       shiny::column(
         width = 7, 
         shiny::wellPanel(
+          style = "background: #153015;", 
           
           shiny::h2(
             shiny::textOutput(outputId = "question_no_ui")
@@ -91,6 +95,15 @@ ui <- shiny::navbarPage(
 
 server <- function(input, output, session) {
   
+  w <- waiter::Waiter$new(
+    id = c("answer_ui"),
+    html = shiny::tagList(
+      waiter::spin_flower(), 
+      "Loading Next Question..."
+    ), 
+    color = "#153015",
+  )
+  
   # Create a `reactiveValues` object that holds a reactive variable called 
   # 'current_question_number', which is set to 1 (to start)
   rctv <- shiny::reactiveValues(current_question_number = 1)
@@ -142,6 +155,9 @@ server <- function(input, output, session) {
 
     # ... remove the open modal dialogue
     shiny::removeModal()
+    
+    # Show the waiting screen
+    w$show()
     
     # Write out the current response to the database
     write_to_db(
