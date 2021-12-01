@@ -52,7 +52,10 @@ ui <- shiny::navbarPage(
           
           shiny::br(), 
           
-          shiny::uiOutput(outputId = "answer_ui"), 
+          shiny::div(
+            style = "padding-left: 50px; padding-right: 50px;",
+            shiny::uiOutput(outputId = "answer_ui") 
+          ), 
           
           shiny::hr(), 
           
@@ -204,7 +207,8 @@ server <- function(input, output, session) {
         shiny::selectInput(
           inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
           label = "Confidence:", 
-          choices = paste0(seq.int(from = 50, to = 100, by = 10), "%")
+          choices = paste0(seq.int(from = 50, to = 100, by = 10), "%"), 
+          width = "50%"
         )
       )
       
