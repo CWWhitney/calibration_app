@@ -4,7 +4,7 @@
 write_to_db <- function(question_type, user, question_number, 
                         answer_1, answer_2) {
   
-  if (question_type == "binary") {
+  if (question_type == "Binary") {
     
     answer_info <- data.frame(
       UserID = user, 
@@ -15,7 +15,7 @@ write_to_db <- function(question_type, user, question_number,
     
   }
   
-  if (question_type == "range") {
+  if (question_type == "Range") {
     
     answer_info <- data.frame(
       UserID = user, 
@@ -25,6 +25,9 @@ write_to_db <- function(question_type, user, question_number,
     )
     
   }
+  
+  # Make 'question_type' string all lowercase before writing .csv
+  question_type <- tolower(question_type)
   
   write.table(
     x = answer_info, 

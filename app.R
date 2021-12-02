@@ -6,10 +6,34 @@ library(waiter)
 
 # Load data outside of server, so it can be shared across all user sessions
 questions <- list(
-  binary = read.csv("data/questions/example_questions_db_binary.csv"), 
-  range = read.csv("data/questions/example_questions_db_range.csv")
+  Binary = read.csv("data/questions/example_questions_db_binary.csv"), 
+  Range = read.csv("data/questions/example_questions_db_range.csv")
 )
 
+# Subset the data frames in 'questions' to keep only the "QuestionNumber" and 
+# "QuestionType" columns
+question_type_df <- lapply(
+  questions, 
+  function(x) x[, c("QuestionNumber", "QuestionType")]
+)
+
+# Combine the listed data frames in 'question_type_df' into a single data frame
+question_type_df <- do.call("rbind", question_type_df)
+
+# Stop execution if there are any redundant or missing question numbers
+if (length(unique(question_type_df$QuestionNumber)) != nrow(question_type_df)) {
+  
+  stop("Redundant \"QuestionNumber\ found; please correct and try again.")
+  
+}
+
+if (max(question_type_df$QuestionNumber) != nrow(question_type_df)) {
+  
+  stop("A \"QuestionNumber\ was missed; please correct and try again.")
+  
+}
+
+# Develop the Bootstrap theme for the app
 app_theme <- bslib::bs_theme(
   version = 5, 
   bootswatch = "sketchy", 
@@ -19,6 +43,7 @@ app_theme <- bslib::bs_theme(
   secondary = "#FBBA00"   # Bonn yellow
 )
 
+# Build the UI ----
 ui <- shiny::navbarPage(
   
   title = "Calibrator", 
@@ -109,12 +134,11 @@ server <- function(input, output, session) {
   
   # Create a `reactiveValues` object that holds a reactive variable called 
   # 'current_question_number', which is set to 1 (to start)
-  rctv <- shiny::reactiveValues(current_question_number = 1)
+  rctv <- shiny::reactiveValues(
+    current_question_number = 1, 
+    current_question_type = question_type_df$QuestionType[1]
+  )
   
-  # TODO // We will need some way to define whether the current question is type
-  # "binary" or "range"
-  # rctv$current_question_type <- ...
-
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
@@ -126,12 +150,24 @@ server <- function(input, output, session) {
       parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_B"))
     )
     
+    modal_text_1 <- ifelse(
+      rctv$current_question_type == "Binary", 
+      "You answered:", 
+      "You answered (Lower 90%):"
+    )
+    
+    modal_text_2 <- ifelse(
+      rctv$current_question_type == "Binary", 
+      "With confidence:", 
+      "You answered (Upper 90%):"
+    )
+    
     # Launch a modal dialogue asking user to confirm their answer
     shiny::modalDialog(
       title = "Are You Sure?", 
-      glue::glue("You answered: {rctv$current_response_1}"), 
+      glue::glue("{modal_text_1} {rctv$current_response_1}"), 
       shiny::br(), 
-      glue::glue("With confidence: {rctv$current_response_2}"), 
+      glue::glue("{modal_text_2} {rctv$current_response_2}"), 
       easyClose = FALSE, 
       footer = shiny::tagList(
         shiny::div(
@@ -164,7 +200,7 @@ server <- function(input, output, session) {
     
     # Write out the current response to the database
     write_to_db(
-      question_type = "binary", 
+      question_type = rctv$current_question_type, 
       user = Sys.getenv("USERNAME"), 
       question_number = rctv$current_question_number, 
       answer_1 = rctv$current_response_1, 
@@ -172,10 +208,13 @@ server <- function(input, output, session) {
     )
     
     # Require that you are not on the last question of the quiz
-    shiny::req(rctv$current_question_number < nrow(questions$binary))
+    shiny::req(rctv$current_question_number < max(question_type_df$QuestionNumber))
 
     # Increase the 'current_question_number' value by 1
     rctv$current_question_number <- rctv$current_question_number + 1
+    
+    # Get the corresponding question type for the next question
+    rctv$current_question_type <- question_type_df$QuestionType[rctv$current_question_number]
 
   })
 
@@ -189,50 +228,55 @@ server <- function(input, output, session) {
   # Create the Question UI question text
   output$question_text_ui <- shiny::renderText({
     
-    questions$binary$Question[rctv$current_question_number]
+    eval(
+      parse(text = glue::glue(
+        "questions${rctv$current_question_type}$Question", 
+        "[questions${rctv$current_question_type}$QuestionNumber == rctv$current_question_number]"
+      ))
+    )
     
   })
   
   # Create the Answer UI
   output$answer_ui <- shiny::renderUI({
-    
-    if (questions$binary$QuestionType[rctv$current_question_number] == "Binary") {
-      
+
+    if (rctv$current_question_type == "Binary") {
+
       shiny::tagList(
         shiny::radioButtons(
-          inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"), 
-          label = "Answer:", 
+          inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
+          label = "Answer:",
           choices = c("TRUE", "FALSE")
-        ), 
+        ),
         shiny::selectInput(
-          inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
-          label = "Confidence:", 
-          choices = paste0(seq.int(from = 50, to = 100, by = 10), "%"), 
+          inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"),
+          label = "Confidence:",
+          choices = paste0(seq.int(from = 50, to = 100, by = 10), "%"),
           width = "50%"
         )
       )
-      
+
     } else {
-      
+
       shiny::tagList(
-        shiny::h5("90% Confidence Interval:"), 
+        shiny::h5("90% Confidence Interval:"),
         shiny::div(
-          style = "display: inline-block;", 
+          style = "display: inline-block;",
           shiny::numericInput(
-            inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"), 
-            label = "Lower Bound", 
+            inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
+            label = "Lower Bound",
             value = 0
-          ), 
+          ),
           shiny::numericInput(
-            inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
-            label = "Upper Bound", 
+            inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"),
+            label = "Upper Bound",
             value = 100
           )
         )
       )
-      
+
     }
-    
+
   })
     
 }
