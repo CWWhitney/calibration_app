@@ -1,6 +1,6 @@
 
 library(shiny)
-library(bslib)
+library(bslib)  # Bootstrap formatting 
 library(glue)
 library(waiter)
 
@@ -23,13 +23,13 @@ question_type_df <- do.call("rbind", question_type_df)
 # Stop execution if there are any redundant or missing question numbers
 if (length(unique(question_type_df$QuestionNumber)) != nrow(question_type_df)) {
   
-  stop("Redundant \"QuestionNumber\ found; please correct and try again.")
+  stop("Redundant \"QuestionNumber\" found; please correct and try again.")
   
 }
 
 if (max(question_type_df$QuestionNumber) != nrow(question_type_df)) {
   
-  stop("A \"QuestionNumber\ was missed; please correct and try again.")
+  stop("A \"QuestionNumber\" was missed; please correct and try again.")
   
 }
 
@@ -166,6 +166,7 @@ server <- function(input, output, session) {
     shiny::modalDialog(
       title = "Are You Sure?", 
       glue::glue("{modal_text_1} {rctv$current_response_1}"), 
+      
       shiny::br(), 
       glue::glue("{modal_text_2} {rctv$current_response_2}"), 
       easyClose = FALSE, 
