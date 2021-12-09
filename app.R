@@ -127,7 +127,8 @@ ui <- shiny::navbarPage(
             reactable::reactableOutput(outputId = "results_binary_tbl")
           ), 
           shiny::tabPanel(
-            title = "Range Results"
+            title = "Range Results", 
+            reactable::reactableOutput(outputId = "results_range_tbl")
           )
         )
         
@@ -145,7 +146,7 @@ ui <- shiny::navbarPage(
 server <- function(input, output, session) {
   
   w <- waiter::Waiter$new(
-    id = c("answer_ui", "results_binary_tbl"),
+    id = c("answer_ui"),# "results_binary_tbl", "results_range_tbl"),
     html = shiny::tagList(
       waiter::spin_flower(), 
       "Loading Next Question..."
@@ -158,6 +159,7 @@ server <- function(input, output, session) {
   rctv <- shiny::reactiveValues(
     current_question_number = 1, 
     current_question_type = question_type_df$QuestionType[1], 
+    
     binary_tbl = data.frame(
       Question = as.integer(), 
       Response = as.character(), 
@@ -165,6 +167,14 @@ server <- function(input, output, session) {
       Truth = as.character(), 
       Brier = as.numeric(), 
       stringsAsFactors = FALSE
+    ), 
+    
+    range_tbl = data.frame(
+      Question = as.integer(), 
+      Lower90 = as.numeric(), 
+      Upper90 = as.numeric(), 
+      Truth = as.numeric(), 
+      RelativeError = as.numeric()
     )
   )
   
@@ -221,7 +231,7 @@ server <- function(input, output, session) {
   
   # When the "Next" button is clicked...
   shiny::observeEvent(input$submit_answer_btn, {
-
+    
     # ... remove the open modal dialogue
     shiny::removeModal()
     
@@ -261,25 +271,36 @@ server <- function(input, output, session) {
           )
         )
       
-    } #else {
+    } else {
       
+      rctv$range_tbl <- rctv$range_tbl |>
+        rbind(
+          data.frame(
+            Question = rctv$current_question_number, 
+            Lower90 = rctv$current_response_1, 
+            Upper90 = rctv$current_response_2, 
+            Truth = questions$Range$Answer[questions$Range$QuestionNumber == rctv$current_question_number], 
+            RelativeError = relative_error(
+              lower_90 = rctv$current_response_1,
+              upper_90 = rctv$current_response_2,
+              correct_answer = questions$Range$Answer[questions$Range$QuestionNumber == rctv$current_question_number]
+            )
+          )
+        )
       
-      
-    #}
-    
-    
+    }
     
     # Require that you are not on the last question of the quiz
     shiny::req(rctv$current_question_number < max(question_type_df$QuestionNumber))
-
+    
     # Increase the 'current_question_number' value by 1
     rctv$current_question_number <- rctv$current_question_number + 1
     
     # Get the corresponding question type for the next question
     rctv$current_question_type <- question_type_df$QuestionType[rctv$current_question_number]
-
+    
   })
-
+  
   # Create the Question UI Header
   output$question_no_ui <- shiny::renderText(
     
@@ -301,9 +322,9 @@ server <- function(input, output, session) {
   
   # Create the Answer UI
   output$answer_ui <- shiny::renderUI({
-
+    
     if (rctv$current_question_type == "Binary") {
-
+      
       shiny::tagList(
         shiny::radioButtons(
           inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
@@ -317,9 +338,9 @@ server <- function(input, output, session) {
           width = "50%"
         )
       )
-
+      
     } else {
-
+      
       shiny::tagList(
         shiny::h5("90% Confidence Interval:"),
         
@@ -340,11 +361,11 @@ server <- function(input, output, session) {
             value = 100
           )
         )
-          
+        
       )
-
+      
     }
-
+    
   })
   
   # Create the table to hold the "Binary" results & scores
@@ -361,7 +382,30 @@ server <- function(input, output, session) {
     
   })
   
+  # Create the table to hold the "Range" results & scores
+  output$results_range_tbl <- reactable::renderReactable({
     
+    shiny::req(rctv$range_tbl)
+    
+    reactable::reactable(
+      rctv$range_tbl, 
+      columns = list(
+        Lower90 = colDef(name = "Lower Bound"),
+        Upper90 = colDef(name = "Upper Bound")
+      ), 
+      columnGroups = list(
+        reactable::colGroup(
+          name = "90% Confidence Interval", 
+          columns = c("Lower90", "Upper90")
+        )
+      ), 
+      theme = reactable::reactableTheme(
+        backgroundColor = "#153015"
+      )
+    )
+    
+  })
+  
 }
 
 shinyApp(ui, server)
