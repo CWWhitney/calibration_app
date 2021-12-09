@@ -3,11 +3,24 @@ library(shiny)
 library(bslib)  # Bootstrap formatting 
 library(glue)
 library(waiter)
+library(reactable)
 
 # Load data outside of server, so it can be shared across all user sessions
 questions <- list(
-  Binary = read.csv("data/questions/example_questions_db_binary.csv"), 
-  Range = read.csv("data/questions/example_questions_db_range.csv")
+  Binary = read.csv(
+    "data/questions/example_questions_db_binary.csv", 
+    colClasses = c("integer", "character", "character", "character")
+  ), 
+  Range = read.csv(
+    "data/questions/example_questions_db_range.csv", 
+    colClasses = c("integer", "character", "character", "numeric")
+  )
+)
+
+questions$Binary$Answer <- ifelse(
+  questions$Binary$Answer == "T", 
+  "TRUE", 
+  "FALSE"
 )
 
 # Subset the data frames in 'questions' to keep only the "QuestionNumber" and 
@@ -61,11 +74,11 @@ ui <- shiny::navbarPage(
       
       # Column for the assessment questions
       shiny::column(
-        width = 7, 
+        width = 6, 
         shiny::wellPanel(
           style = "background: #153015;", 
           
-          shiny::h2(
+          shiny::h3(
             shiny::textOutput(outputId = "question_no_ui")
           ), 
           
@@ -106,9 +119,17 @@ ui <- shiny::navbarPage(
       
       # Column for results 
       shiny::column(
-        width = 5, 
+        width = 6, 
         
-        shiny::h4("We'll make a reactive table containing the assessment results here")
+        shiny::tabsetPanel(
+          shiny::tabPanel(
+            title = "Binary Results", 
+            reactable::reactableOutput(outputId = "results_binary_tbl")
+          ), 
+          shiny::tabPanel(
+            title = "Range Results"
+          )
+        )
         
       )
       
@@ -124,7 +145,7 @@ ui <- shiny::navbarPage(
 server <- function(input, output, session) {
   
   w <- waiter::Waiter$new(
-    id = c("answer_ui"),
+    id = c("answer_ui", "results_binary_tbl"),
     html = shiny::tagList(
       waiter::spin_flower(), 
       "Loading Next Question..."
@@ -136,7 +157,15 @@ server <- function(input, output, session) {
   # 'current_question_number', which is set to 1 (to start)
   rctv <- shiny::reactiveValues(
     current_question_number = 1, 
-    current_question_type = question_type_df$QuestionType[1]
+    current_question_type = question_type_df$QuestionType[1], 
+    binary_tbl = data.frame(
+      Question = as.integer(), 
+      Response = as.character(), 
+      Confidence = as.character(), 
+      Truth = as.character(), 
+      Brier = as.numeric(), 
+      stringsAsFactors = FALSE
+    )
   )
   
   # When the "Next" button is clicked...
@@ -208,6 +237,38 @@ server <- function(input, output, session) {
       answer_2 = rctv$current_response_2
     )
     
+    if (rctv$current_question_type == "Binary") {
+      
+      confidence_numeric <- eval(
+        parse(
+          text = gsub("%", "", rctv$current_response_2)
+        )
+      )
+      
+      rctv$binary_tbl <- rctv$binary_tbl |>
+        rbind(
+          data.frame(
+            Question = rctv$current_question_number, 
+            Response = rctv$current_response_1, 
+            Confidence = rctv$current_response_2, 
+            Truth = questions$Binary$Answer[rctv$current_question_number], 
+            Brier = brier(
+              response = rctv$current_response_1, 
+              confidence = confidence_numeric, 
+              correct_answer = questions$Binary$Answer[rctv$current_question_number]
+            ), 
+            stringsAsFactors = FALSE
+          )
+        )
+      
+    } #else {
+      
+      
+      
+    #}
+    
+    
+    
     # Require that you are not on the last question of the quiz
     shiny::req(rctv$current_question_number < max(question_type_df$QuestionNumber))
 
@@ -261,24 +322,45 @@ server <- function(input, output, session) {
 
       shiny::tagList(
         shiny::h5("90% Confidence Interval:"),
+        
         shiny::div(
           style = "display: inline-block;",
           shiny::numericInput(
             inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
             label = "Lower Bound",
             value = 0
-          ),
+          )
+        ), 
+        
+        shiny::div(
+          style = "display: inline-block;",
           shiny::numericInput(
             inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"),
             label = "Upper Bound",
             value = 100
           )
         )
+          
       )
 
     }
 
   })
+  
+  # Create the table to hold the "Binary" results & scores
+  output$results_binary_tbl <- reactable::renderReactable({
+    
+    shiny::req(rctv$binary_tbl)
+    
+    reactable::reactable(
+      rctv$binary_tbl, 
+      theme = reactable::reactableTheme(
+        backgroundColor = "#153015"
+      )
+    )
+    
+  })
+  
     
 }
 

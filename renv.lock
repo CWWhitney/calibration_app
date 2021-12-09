@@ -121,6 +121,13 @@
       "Repository": "CRAN",
       "Hash": "526c484233f42522278ab06fb185cb26"
     },
+    "htmlwidgets": {
+      "Package": "htmlwidgets",
+      "Version": "1.5.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "76147821cd3fcd8c4b04e1ef0498e7fb"
+    },
     "httpuv": {
       "Package": "httpuv",
       "Version": "1.6.3",
@@ -191,6 +198,20 @@
       "Repository": "CRAN",
       "Hash": "5e3c5dc0b071b21fa128676560dbe94d"
     },
+    "reactR": {
+      "Package": "reactR",
+      "Version": "0.4.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "75389c8091eb14ee21c6bc87a88b3809"
+    },
+    "reactable": {
+      "Package": "reactable",
+      "Version": "0.2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ac1afe50d1c77470a72971a07fd146b1"
+    },
     "renv": {
       "Package": "renv",
       "Version": "0.14.0",
@@ -253,6 +274,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "1d7220fe46159fb9f5c99a44354a2bff"
+    },
+    "waiter": {
+      "Package": "waiter",
+      "Version": "0.2.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ac6ef9ebf3f60eb8f2fe5f0c829e3a08"
     },
     "withr": {
       "Package": "withr",
