@@ -1,5 +1,6 @@
 
 library(shiny)
+library(shinyWidgets)
 library(bslib)  # Bootstrap formatting 
 library(glue)
 library(waiter)
@@ -326,10 +327,12 @@ server <- function(input, output, session) {
     if (rctv$current_question_type == "Binary") {
       
       shiny::tagList(
-        shiny::radioButtons(
+        shinyWidgets::awesomeRadio(
           inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
           label = "Answer:",
-          choices = c("TRUE", "FALSE")
+          choices = c("TRUE", "FALSE"),
+          selected = "TRUE",
+          status = "warning"
         ),
         shiny::selectInput(
           inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"),
