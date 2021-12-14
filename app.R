@@ -211,13 +211,19 @@ server <- function(input, output, session) {
       "You answered (Upper 90%):"
     )
     
+    modal_text_3 <- ifelse(
+      rctv$current_question_type == "Binary", 
+      "%", 
+      ""
+    )
+    
     # Launch a modal dialogue asking user to confirm their answer
     shiny::modalDialog(
       title = "Are You Sure?", 
       glue::glue("{modal_text_1} {rctv$current_response_1}"), 
       
       shiny::br(), 
-      glue::glue("{modal_text_2} {rctv$current_response_2}"), 
+      glue::glue("{modal_text_2} {rctv$current_response_2}{modal_text_3}"), 
       easyClose = FALSE, 
       footer = shiny::tagList(
         shiny::div(
@@ -263,14 +269,14 @@ server <- function(input, output, session) {
         parse(
           text = gsub("%", "", rctv$current_response_2)
         )
-      )
+      ) / 100
       
       rctv$binary_tbl <- rctv$binary_tbl |>
         rbind(
           data.frame(
             Question = rctv$current_question_number, 
             Response = rctv$current_response_1, 
-            Confidence = rctv$current_response_2, 
+            Confidence = paste0(rctv$current_response_2, "%"), 
             Truth = questions$Binary$Answer[rctv$current_question_number], 
             Brier = brier(
               response = rctv$current_response_1, 
@@ -390,6 +396,11 @@ server <- function(input, output, session) {
     
     reactable::reactable(
       rctv$binary_tbl, 
+      columns = list(
+        Brier = reactable::colDef(
+          format = reactable::colFormat(digits = 2)
+        )
+      ), 
       theme = reactable::reactableTheme(
         backgroundColor = "#153015"
       )
@@ -405,8 +416,12 @@ server <- function(input, output, session) {
     reactable::reactable(
       rctv$range_tbl, 
       columns = list(
-        Lower90 = colDef(name = "Lower Bound"),
-        Upper90 = colDef(name = "Upper Bound")
+        Lower90 = reactable::colDef(name = "Lower Bound"),
+        Upper90 = reactable::colDef(name = "Upper Bound"), 
+        RelativeError = reactable::colDef(
+          name = "Relative Error", 
+          format = reactable::colFormat(digits = 2)
+        )
       ), 
       columnGroups = list(
         reactable::colGroup(
