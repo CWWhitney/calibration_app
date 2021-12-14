@@ -66,10 +66,19 @@ ui <- shiny::navbarPage(
   
   collapsible = TRUE, 
   
+  shiny::tags$style(
+    ".irs-grid-text {color: #FFFFFF}"
+  ), 
+  
   shiny::tabPanel(
     title = "Questions", 
     
     waiter::use_waiter(), 
+    
+    shinyWidgets::chooseSliderSkin(
+      skin = "Shiny", 
+      color = "#FBBA00"
+    ), 
     
     shiny::fluidRow(
       
@@ -333,12 +342,15 @@ server <- function(input, output, session) {
           choices = c("TRUE", "FALSE"),
           selected = "TRUE",
           status = "warning"
-        ),
-        shiny::selectInput(
-          inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"),
-          label = "Confidence:",
-          choices = paste0(seq.int(from = 50, to = 100, by = 10), "%"),
-          width = "50%"
+        ), 
+        shiny::sliderInput(
+          inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
+          label = "Confidence:", 
+          min = 50, 
+          max = 100, 
+          value = 60, 
+          step = 5, 
+          post = "%"
         )
       )
       
