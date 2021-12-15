@@ -1,4 +1,9 @@
 
+
+
+# 1.0 SETUP ----
+
+## 1.1 Load Packages ----
 library(shiny)
 library(shinyWidgets)
 library(bslib)  # Bootstrap formatting 
@@ -6,6 +11,7 @@ library(glue)
 library(waiter)
 library(reactable)
 
+## 1.2 Load Data ----
 # Load data outside of server, so it can be shared across all user sessions
 questions <- list(
   Binary = read.csv(
@@ -18,12 +24,14 @@ questions <- list(
   )
 )
 
+# Overwrite "T"/"F" values to full word ("TRUE"/"FALSE")
 questions$Binary$Answer <- ifelse(
   questions$Binary$Answer == "T", 
   "TRUE", 
   "FALSE"
 )
 
+## 1.3 Capture Question Types ----
 # Subset the data frames in 'questions' to keep only the "QuestionNumber" and 
 # "QuestionType" columns
 question_type_df <- lapply(
@@ -34,6 +42,7 @@ question_type_df <- lapply(
 # Combine the listed data frames in 'question_type_df' into a single data frame
 question_type_df <- do.call("rbind", question_type_df)
 
+## 1.4 Data Quality Checks ----
 # Stop execution if there are any redundant or missing question numbers
 if (length(unique(question_type_df$QuestionNumber)) != nrow(question_type_df)) {
   
@@ -47,6 +56,7 @@ if (max(question_type_df$QuestionNumber) != nrow(question_type_df)) {
   
 }
 
+## 1.5 Build UI Theme ----
 # Develop the Bootstrap theme for the app
 app_theme <- bslib::bs_theme(
   version = 5, 
@@ -57,24 +67,29 @@ app_theme <- bslib::bs_theme(
   secondary = "#FBBA00"   # Bonn yellow
 )
 
-# Build the UI ----
+# 2.0 UI ----
 ui <- shiny::navbarPage(
   
+  ## 2.1 Set Up Global UI Elements ----
   title = "Calibrator", 
   
   theme = app_theme, 
   
   collapsible = TRUE, 
   
+  # Ensure tickmark text on "Confidence" sliders is white  
   shiny::tags$style(
-    ".irs-grid-text {color: #FFFFFF}"
+    ".irs-grid-text {color: #FFFFFF}"   
   ), 
   
+  ## 2.2 "Questions" Page ----
   shiny::tabPanel(
     title = "Questions", 
     
+    # Enable use of {waiter} package 
     waiter::use_waiter(), 
     
+    # Set the color for all 'inputSlider()' widgets to "Bonn Yellow"
     shinyWidgets::chooseSliderSkin(
       skin = "Shiny", 
       color = "#FBBA00"
@@ -82,24 +97,27 @@ ui <- shiny::navbarPage(
     
     shiny::fluidRow(
       
-      # Column for the assessment questions
+      ### 2.3 Questions UI Elements ----
       shiny::column(
         width = 6, 
         shiny::wellPanel(
           style = "background: #153015;", 
           
+          #### 2.3.1 Question Number Header ----
           shiny::h3(
             shiny::textOutput(outputId = "question_no_ui")
           ), 
           
           shiny::hr(), 
           
+          #### 2.3.2 Question Text ----
           shiny::h4(
             shiny::textOutput(outputId = "question_text_ui")
           ), 
           
           shiny::br(), 
           
+          #### 2.3.3 Answer UI Elements ----
           shiny::div(
             style = "padding-left: 50px; padding-right: 50px;",
             shiny::uiOutput(outputId = "answer_ui") 
@@ -107,7 +125,7 @@ ui <- shiny::navbarPage(
           
           shiny::hr(), 
           
-          # 1.3 Previous / Next Buttons ----
+          #### 2.3.4 Previous / Next Buttons ----
           # Create a button to go back to the prior question
           shiny::div(
             style = "float: right;",
@@ -127,15 +145,19 @@ ui <- shiny::navbarPage(
         
       ), 
       
-      # Column for results 
+      ### 2.4 Response UI Elements ----
       shiny::column(
         width = 6, 
         
         shiny::tabsetPanel(
+          
+          #### 2.4.1 "Binary" Results Table ----
           shiny::tabPanel(
             title = "Binary Results", 
             reactable::reactableOutput(outputId = "results_binary_tbl")
           ), 
+          
+          #### 2.4.1 "Range" Results Table ----
           shiny::tabPanel(
             title = "Range Results", 
             reactable::reactableOutput(outputId = "results_range_tbl")
@@ -152,11 +174,12 @@ ui <- shiny::navbarPage(
 
 
 
-
+# 3.0 SERVER ----
 server <- function(input, output, session) {
   
+  ## 3.1 Build Waiting Screen ----
   w <- waiter::Waiter$new(
-    id = c("answer_ui"),# "results_binary_tbl", "results_range_tbl"),
+    id = c("answer_ui"), 
     html = shiny::tagList(
       waiter::spin_flower(), 
       "Loading Next Question..."
@@ -164,6 +187,7 @@ server <- function(input, output, session) {
     color = "#153015",
   )
   
+  ## 3.2 Initialize ReactiveValues ----
   # Create a `reactiveValues` object that holds a reactive variable called 
   # 'current_question_number', which is set to 1 (to start)
   rctv <- shiny::reactiveValues(
@@ -188,29 +212,83 @@ server <- function(input, output, session) {
     )
   )
   
+  # 3.3 User Info Modal ----
+  shiny::modalDialog(
+    title = "Enter User Information", 
+    shiny::tagList(
+      shiny::div(
+        shiny::textInput(
+          inputId = "user_first_name", 
+          label = "First Name", 
+          placeholder = "First Name"
+        ), 
+        shiny::textInput(
+          inputId = "user_last_name", 
+          label = "Last Name", 
+          placeholder = "Last Name"
+        )
+      )
+    ), 
+    easyClose = FALSE, 
+    footer = shiny::tagList(
+      shiny::div(
+        # Button to submit user's information
+        shiny::actionButton(
+          inputId = "submit_user_info_btn", 
+          label = "Submit", 
+          icon = shiny::icon("check")
+        )
+      )
+    )
+  ) |> 
+    shiny::showModal()
+  
+  # 3.4 "Submit" User Info Button ----
+  shiny::observeEvent(input$submit_user_info_btn, {
+    
+    # Require that the "First Name" and "Last Name" fields have been completed
+    shiny::req(input$user_first_name, input$user_last_name)
+    
+    # Remove the open modal dialogue
+    shiny::removeModal()
+    
+  })
+  
+  
+  output$tmp <- shiny::renderText(
+    paste0(input$user_first_name, " ", input$user_last_name)
+  )
+  
+  
+  # 3.3 "Next" Action Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
+    # Capture the current response / Lower90
     rctv$current_response_1 <- eval(
       parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_A"))
     )
     
+    # Capture the current Confidence / Upper90 
     rctv$current_response_2 <- eval(
       parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_B"))
     )
     
+    # Create the first modal text segment
     modal_text_1 <- ifelse(
       rctv$current_question_type == "Binary", 
       "You answered:", 
       "You answered (Lower 90%):"
     )
     
+    # Create the second modal text segment
     modal_text_2 <- ifelse(
       rctv$current_question_type == "Binary", 
       "With confidence:", 
       "You answered (Upper 90%):"
     )
     
+    # Create the modal text suffix
     modal_text_3 <- ifelse(
       rctv$current_question_type == "Binary", 
       "%", 
@@ -239,13 +317,13 @@ server <- function(input, output, session) {
             icon = shiny::icon("check")
           )
         )
-      ),
+      )
     ) |> 
       shiny::showModal()
     
   })
   
-  # When the "Next" button is clicked...
+  # When the "Submit" button is clicked...
   shiny::observeEvent(input$submit_answer_btn, {
     
     # ... remove the open modal dialogue
