@@ -66,7 +66,9 @@ binary_questions_final <- googlesheets4::read_sheet(
   dplyr::right_join(
     binary_questions, 
     by = c("Number" = "QuestionNumber")
-  )
+  ) %>% 
+  dplyr::rename_with(~ stringr::str_remove(.x, paste0("_", language))) %>% 
+  dplyr::rename(NumberGS = Number)
 
 range_questions_final <- googlesheets4::read_sheet(
   ss = url, 
@@ -76,6 +78,8 @@ range_questions_final <- googlesheets4::read_sheet(
   dplyr::right_join(
     range_questions, 
     by = c("Number" = "QuestionNumber")
-  )
+  ) %>% 
+  dplyr::rename_with(~ stringr::str_remove(.x, paste0("_", language))) %>% 
+  dplyr::rename(NumberGS = Number)
 
 
