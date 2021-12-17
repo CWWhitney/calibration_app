@@ -460,7 +460,6 @@ server <- function(input, output, session) {
             value = 100
           )
         )
-        
       )
       
     }
