@@ -11,52 +11,8 @@ library(glue)
 library(waiter)
 library(reactable)
 
-## 1.2 Load Data ----
-# Load data outside of server, so it can be shared across all user sessions
-questions <- list(
-  Binary = read.csv(
-    "data/questions/example_questions_db_binary.csv", 
-    colClasses = c("integer", "character", "character", "character")
-  ), 
-  Range = read.csv(
-    "data/questions/example_questions_db_range.csv", 
-    colClasses = c("integer", "character", "character", "numeric")
-  )
-)
 
-# Overwrite "T"/"F" values to full word ("TRUE"/"FALSE")
-questions$Binary$Answer <- ifelse(
-  questions$Binary$Answer == "T", 
-  "TRUE", 
-  "FALSE"
-)
-
-## 1.3 Capture Question Types ----
-# Subset the data frames in 'questions' to keep only the "QuestionNumber" and 
-# "QuestionType" columns
-question_type_df <- lapply(
-  questions, 
-  function(x) x[, c("QuestionNumber", "QuestionType")]
-)
-
-# Combine the listed data frames in 'question_type_df' into a single data frame
-question_type_df <- do.call("rbind", question_type_df)
-
-## 1.4 Data Quality Checks ----
-# Stop execution if there are any redundant or missing question numbers
-if (length(unique(question_type_df$QuestionNumber)) != nrow(question_type_df)) {
-  
-  stop("Redundant \"QuestionNumber\" found; please correct and try again.")
-  
-}
-
-if (max(question_type_df$QuestionNumber) != nrow(question_type_df)) {
-  
-  stop("A \"QuestionNumber\" was missed; please correct and try again.")
-  
-}
-
-## 1.5 Build UI Theme ----
+## 1.2 Build UI Theme ----
 # Develop the Bootstrap theme for the app
 app_theme <- bslib::bs_theme(
   version = 5, 
@@ -66,6 +22,7 @@ app_theme <- bslib::bs_theme(
   primary = "#004F9E",   # Bonn blue
   secondary = "#FBBA00"   # Bonn yellow
 )
+
 
 # 2.0 UI ----
 ui <- shiny::navbarPage(
@@ -394,6 +351,39 @@ server <- function(input, output, session) {
     rctv$current_question_type <- question_type_df$QuestionType[rctv$current_question_number]
     
   })
+  
+  
+  
+  output$question_ui <- shiny::uiOutput({
+    
+    shiny::req(
+      rctv$current_question_type, 
+      rctv$current_group_number, 
+      rctv$current_question_number
+    )
+    
+    if (rctv$current_question_type == "Binary") {
+      
+      binary_ui %>% 
+        purrr::pluck(
+          glue::glue("Group_{rctv$current_group_number}"), 
+          glue::glue("question_{rctv$current_question_number}")
+        )
+      
+    } else {
+      
+      binary_ui %>% 
+        purrr::pluck(
+          glue::glue("Group_{rctv$current_group_number}"), 
+          glue::glue("question_{rctv$current_question_number}")
+        )
+      
+    }
+    
+  })
+  
+  
+  
   
   # Create the Question UI Header
   output$question_no_ui <- shiny::renderText(
