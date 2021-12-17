@@ -5,6 +5,14 @@
 # Define the language questions will be asked in
 language <- "English"
 
+# Define Google API authentication type
+# If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
+# to indicate that no authentication is necessary
+googlesheets4::gs4_deauth()
+
+# Define the URL of the Google Sheet
+google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
+
 # Select the questions you want for each group (i.e., each "round")
 selected_questions <- list(
   Group_1 = list(
@@ -32,12 +40,6 @@ selected_questions <- list(
     range = c(60:79)
   )
 )
-
-# Define Google API authorization type
-googlesheets4::gs4_deauth()
-
-# Define the URL of the Google Sheet
-google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
