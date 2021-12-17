@@ -56,7 +56,7 @@ sheets_cols <- c(
   paste0("Question_", language), 
   "Answer", 
   "Source_link"
-) 
+)
 
 binary_questions_final <- googlesheets4::read_sheet(
   ss = url, 
@@ -68,7 +68,12 @@ binary_questions_final <- googlesheets4::read_sheet(
     by = c("Number" = "QuestionNumber")
   ) %>% 
   dplyr::rename_with(~ stringr::str_remove(.x, paste0("_", language))) %>% 
-  dplyr::rename(NumberGS = Number)
+  dplyr::rename(NumberGS = Number) %>% 
+  tidyr::unnest(cols = c(Source_link)) %>% 
+  dplyr::group_by(Group) %>% 
+  dplyr::mutate(QuestionNumber = dplyr::row_number()) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::arrange(Group, QuestionNumber)
 
 range_questions_final <- googlesheets4::read_sheet(
   ss = url, 
@@ -80,6 +85,11 @@ range_questions_final <- googlesheets4::read_sheet(
     by = c("Number" = "QuestionNumber")
   ) %>% 
   dplyr::rename_with(~ stringr::str_remove(.x, paste0("_", language))) %>% 
-  dplyr::rename(NumberGS = Number)
+  dplyr::rename(NumberGS = Number) %>% 
+  tidyr::unnest(cols = c(Source_link)) %>% 
+  dplyr::group_by(Group) %>% 
+  dplyr::mutate(QuestionNumber = dplyr::row_number()) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::arrange(Group, QuestionNumber)
 
 
