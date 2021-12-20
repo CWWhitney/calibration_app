@@ -44,12 +44,18 @@ selected_questions <- list(
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
+fs::dir_ls("R") %>% 
+  purrr::map(~ source(.x)) %>% 
+  purrr::quietly()
+
 # Import the binary & range questions from the Google Sheets
-questions <- get_data(
-  selected_questions_list = selected_questions, 
-  language = language, 
-  gs_url = google_sheets_url
-)
+# questions <- get_data(
+#   selected_questions_list = selected_questions, 
+#   language = language, 
+#   gs_url = google_sheets_url
+# )
+
+questions <- readRDS("data/gs_data.RDS")
 
 # Build the UI elements for each binary question
 binary_ui <- build_ui(

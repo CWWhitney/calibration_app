@@ -10,6 +10,22 @@ library(bslib)  # Bootstrap formatting
 library(glue)
 library(waiter)
 library(reactable)
+library(dplyr)
+library(purrr)
+library(tidyr)
+
+source("global.R")
+
+
+question_index <- questions %>% 
+  purrr::map_dfr(
+    ~ dplyr::select(.x, Group, QuestionNumber), 
+    .id = "QuestionType"
+  ) %>% 
+  dplyr::mutate(Group = as.integer(stringr::str_sub(Group, -1, -1))) %>% 
+  dplyr::arrange(Group, QuestionType, QuestionNumber) %>% 
+  dplyr::mutate(Index = dplyr::row_number())
+
 
 
 ## 1.2 Build UI Theme ----
@@ -60,25 +76,8 @@ ui <- shiny::navbarPage(
         shiny::wellPanel(
           style = "background: #153015;", 
           
-          #### 2.3.1 Question Number Header ----
-          shiny::h3(
-            shiny::textOutput(outputId = "question_no_ui")
-          ), 
-          
-          shiny::hr(), 
-          
-          #### 2.3.2 Question Text ----
-          shiny::h4(
-            shiny::textOutput(outputId = "question_text_ui")
-          ), 
-          
-          shiny::br(), 
-          
-          #### 2.3.3 Answer UI Elements ----
-          shiny::div(
-            style = "padding-left: 50px; padding-right: 50px;",
-            shiny::uiOutput(outputId = "answer_ui") 
-          ), 
+          #### 2.3.1 Question & Response UI ----
+          shiny::uiOutput(outputId = "question_ui"), 
           
           shiny::hr(), 
           
@@ -148,8 +147,9 @@ server <- function(input, output, session) {
   # Create a `reactiveValues` object that holds a reactive variable called 
   # 'current_question_number', which is set to 1 (to start)
   rctv <- shiny::reactiveValues(
+    current_group_number = 1, 
     current_question_number = 1, 
-    current_question_type = question_type_df$QuestionType[1], 
+    current_question_type = "binary", 
     
     binary_tbl = data.frame(
       Question = as.integer(), 
@@ -223,31 +223,39 @@ server <- function(input, output, session) {
     
     # Capture the current response / Lower90
     rctv$current_response_1 <- eval(
-      parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_A"))
+      parse(text = glue::glue(
+        "input$group_{rctv$current_group_number}_", 
+        "{rctv$current_question_type}_answer_", 
+        "{rctv$current_question_number}_ui_A"
+      ))
     )
     
     # Capture the current Confidence / Upper90 
     rctv$current_response_2 <- eval(
-      parse(text = glue::glue("input$answer_ui_{rctv$current_question_number}_B"))
+      parse(text = glue::glue(
+        "input$group_{rctv$current_group_number}_", 
+        "{rctv$current_question_type}_answer_", 
+        "{rctv$current_question_number}_ui_B"
+      ))
     )
     
     # Create the first modal text segment
     modal_text_1 <- ifelse(
-      rctv$current_question_type == "Binary", 
+      rctv$current_question_type == "binary", 
       "You answered:", 
       "You answered (Lower 90%):"
     )
     
     # Create the second modal text segment
     modal_text_2 <- ifelse(
-      rctv$current_question_type == "Binary", 
+      rctv$current_question_type == "binary", 
       "With confidence:", 
       "You answered (Upper 90%):"
     )
     
     # Create the modal text suffix
     modal_text_3 <- ifelse(
-      rctv$current_question_type == "Binary", 
+      rctv$current_question_type == "binary", 
       "%", 
       ""
     )
@@ -290,21 +298,26 @@ server <- function(input, output, session) {
     w$show()
     
     # Write out the current response to the database
-    write_to_db(
-      question_type = rctv$current_question_type, 
-      user = Sys.getenv("USERNAME"), 
-      question_number = rctv$current_question_number, 
-      answer_1 = rctv$current_response_1, 
-      answer_2 = rctv$current_response_2
-    )
+    # write_to_db(
+    #   question_type = rctv$current_question_type, 
+    #   user = glue::glue("{input$user_last_name}, {input$user_first_name}"), 
+    #   question_number = rctv$current_question_number, 
+    #   answer_1 = rctv$current_response_1, 
+    #   answer_2 = rctv$current_response_2
+    # )
     
-    if (rctv$current_question_type == "Binary") {
-      
-      confidence_numeric <- eval(
-        parse(
-          text = gsub("%", "", rctv$current_response_2)
-        )
-      ) / 100
+    
+    if (rctv$current_question_type == "binary") {
+
+      current_truth <- question_index %>% 
+        dplyr::filter(Index == rctv$current_question_number) %>% 
+        dplyr::select(Group, QuestionNumber) %>% 
+        dplyr::mutate(Group = paste0("Group_", Group)) %>% 
+        dplyr::inner_join(
+          questions$binary, 
+          by = c("Group", "QuestionNumber")
+        ) %>% 
+        dplyr::pull(Answer)
       
       rctv$binary_tbl <- rctv$binary_tbl |>
         rbind(
@@ -312,11 +325,11 @@ server <- function(input, output, session) {
             Question = rctv$current_question_number, 
             Response = rctv$current_response_1, 
             Confidence = paste0(rctv$current_response_2, "%"), 
-            Truth = questions$Binary$Answer[rctv$current_question_number], 
+            Truth = current_truth, 
             Brier = brier(
-              response = rctv$current_response_1, 
-              confidence = confidence_numeric, 
-              correct_answer = questions$Binary$Answer[rctv$current_question_number]
+              response = stringr::str_sub(rctv$current_response_1, 1L, 1L), 
+              confidence = (rctv$current_response_2 / 100), 
+              correct_answer = current_truth
             ), 
             stringsAsFactors = FALSE
           )
@@ -324,45 +337,60 @@ server <- function(input, output, session) {
       
     } else {
       
+      current_truth <- question_index %>% 
+        dplyr::filter(Index == rctv$current_question_number) %>% 
+        dplyr::select(Group, QuestionNumber) %>% 
+        dplyr::mutate(Group = paste0("Group_", Group)) %>% 
+        dplyr::inner_join(
+          questions$range, 
+          by = c("Group", "QuestionNumber")
+        ) %>% 
+        dplyr::pull(Answer)
+      
       rctv$range_tbl <- rctv$range_tbl |>
         rbind(
           data.frame(
             Question = rctv$current_question_number, 
             Lower90 = rctv$current_response_1, 
             Upper90 = rctv$current_response_2, 
-            Truth = questions$Range$Answer[questions$Range$QuestionNumber == rctv$current_question_number], 
+            Truth = current_truth, 
             RelativeError = relative_error(
               lower_90 = rctv$current_response_1,
               upper_90 = rctv$current_response_2,
-              correct_answer = questions$Range$Answer[questions$Range$QuestionNumber == rctv$current_question_number]
+              correct_answer = current_truth
             )
           )
         )
       
     }
     
-    # Require that you are not on the last question of the quiz
-    shiny::req(rctv$current_question_number < max(question_type_df$QuestionNumber))
+    # Require that you are *not* on the last group & last question of the quiz
+    shiny::req(rctv$current_question_number < max(question_index$Index))
     
     # Increase the 'current_question_number' value by 1
     rctv$current_question_number <- rctv$current_question_number + 1
     
+    # Get the corresponding group number for the next question
+    rctv$current_group_number <- question_index$Group[rctv$current_question_number]
+    
     # Get the corresponding question type for the next question
-    rctv$current_question_type <- question_type_df$QuestionType[rctv$current_question_number]
+    rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
     
   })
   
   
-  
-  output$question_ui <- shiny::uiOutput({
+  # 3.4 Render Question & Response UI  ----
+  output$question_ui <- shiny::renderUI({
     
+    # Require the current question type, group number, and question number
     shiny::req(
       rctv$current_question_type, 
       rctv$current_group_number, 
       rctv$current_question_number
     )
     
-    if (rctv$current_question_type == "Binary") {
+    
+    if (rctv$current_question_type == "binary") {
       
       binary_ui %>% 
         purrr::pluck(
@@ -372,7 +400,7 @@ server <- function(input, output, session) {
       
     } else {
       
-      binary_ui %>% 
+      range_ui %>% 
         purrr::pluck(
           glue::glue("Group_{rctv$current_group_number}"), 
           glue::glue("question_{rctv$current_question_number}")
@@ -382,79 +410,6 @@ server <- function(input, output, session) {
     
   })
   
-  
-  
-  
-  # Create the Question UI Header
-  output$question_no_ui <- shiny::renderText(
-    
-    glue::glue("Question {rctv$current_question_number}:")
-    
-  )
-  
-  # Create the Question UI question text
-  output$question_text_ui <- shiny::renderText({
-    
-    eval(
-      parse(text = glue::glue(
-        "questions${rctv$current_question_type}$Question", 
-        "[questions${rctv$current_question_type}$QuestionNumber == rctv$current_question_number]"
-      ))
-    )
-    
-  })
-  
-  # Create the Answer UI
-  output$answer_ui <- shiny::renderUI({
-    
-    if (rctv$current_question_type == "Binary") {
-      
-      shiny::tagList(
-        shinyWidgets::awesomeRadio(
-          inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
-          label = "Answer:",
-          choices = c("TRUE", "FALSE"),
-          selected = "TRUE",
-          status = "warning"
-        ), 
-        shiny::sliderInput(
-          inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"), 
-          label = "Confidence:", 
-          min = 50, 
-          max = 100, 
-          value = 60, 
-          step = 5, 
-          post = "%"
-        )
-      )
-      
-    } else {
-      
-      shiny::tagList(
-        shiny::h5("90% Confidence Interval:"),
-        
-        shiny::div(
-          style = "display: inline-block;",
-          shiny::numericInput(
-            inputId = glue::glue("answer_ui_{rctv$current_question_number}_A"),
-            label = "Lower Bound",
-            value = 0
-          )
-        ), 
-        
-        shiny::div(
-          style = "display: inline-block;",
-          shiny::numericInput(
-            inputId = glue::glue("answer_ui_{rctv$current_question_number}_B"),
-            label = "Upper Bound",
-            value = 100
-          )
-        )
-      )
-      
-    }
-    
-  })
   
   # Create the table to hold the "Binary" results & scores
   output$results_binary_tbl <- reactable::renderReactable({
