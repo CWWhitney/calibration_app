@@ -383,6 +383,22 @@ server <- function(input, output, session) {
     # {pins} database and show a pop-up
     if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
       
+      write_to_pin(
+        board = board, 
+        type = "binary", 
+        data = rctv$binary_tbl, 
+        user_first = trimws(input$user_first_name), 
+        user_last = trimws(input$user_last_name)
+      )
+      
+      write_to_pin(
+        board = board, 
+        type = "range", 
+        data = rctv$range_tbl, 
+        user_first = trimws(input$user_first_name), 
+        user_last = trimws(input$user_last_name)
+      )
+      
       shiny::modalDialog(
         title = "Group Complete!", 
         glue::glue(

@@ -15,14 +15,14 @@ pins::pin_write(
 pins::pin_write(
   board = board, 
   x = iris[31:40, ], 
-  name = "iris_test_2", 
+  name = "iris_test_1", 
   type = "rds"
 )
 
 # Read the current 'iris_test' pins information into a single data frame
 my_pins <- pins::pin_search(
   board = board, 
-  search = "iris_test"
+  search = "binary"
 )
 
 my_pins

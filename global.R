@@ -41,6 +41,9 @@ selected_questions <- list(
   )
 )
 
+# Connect to the {pins} board for this workshop
+board <- pins::board_local()
+
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
