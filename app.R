@@ -105,6 +105,8 @@ ui <- shiny::navbarPage(
       shiny::column(
         width = 6, 
         
+        shiny::verbatimTextOutput("tmp"), 
+        
         shiny::tabsetPanel(
           
           #### 2.4.1 "Binary" Results Table ----
@@ -144,8 +146,7 @@ server <- function(input, output, session) {
   )
   
   ## 3.2 Initialize ReactiveValues ----
-  # Create a `reactiveValues` object that holds a reactive variable called 
-  # 'current_question_number', which is set to 1 (to start)
+  # Create a `reactiveValues` object that holds our reactive objects
   rctv <- shiny::reactiveValues(
     current_group_number = 1, 
     current_question_number = 1, 
@@ -210,12 +211,7 @@ server <- function(input, output, session) {
     shiny::removeModal()
     
   })
-  
-  
-  output$tmp <- shiny::renderText(
-    paste0(input$user_first_name, " ", input$user_last_name)
-  )
-  
+
   
   # 3.3 "Next" Action Button ----
   # When the "Next" button is clicked...
@@ -226,7 +222,7 @@ server <- function(input, output, session) {
       parse(text = glue::glue(
         "input$group_{rctv$current_group_number}_", 
         "{rctv$current_question_type}_answer_", 
-        "{rctv$current_question_number}_ui_A"
+        "{question_index$QuestionNumber[rctv$current_question_number]}_ui_A"
       ))
     )
     
@@ -235,7 +231,7 @@ server <- function(input, output, session) {
       parse(text = glue::glue(
         "input$group_{rctv$current_group_number}_", 
         "{rctv$current_question_type}_answer_", 
-        "{rctv$current_question_number}_ui_B"
+        "{question_index$QuestionNumber[rctv$current_question_number]}_ui_B"
       ))
     )
     
@@ -379,6 +375,16 @@ server <- function(input, output, session) {
   })
   
   
+  output$tmp <- shiny::renderText(
+    glue::glue(
+      "Current Group: {rctv$current_group_number}", 
+      "Current Question Type: {rctv$current_question_type}", 
+      "Current Question Number: {rctv$current_question_number}", 
+      .sep = "\n"
+    )
+  )
+  
+  
   # 3.4 Render Question & Response UI  ----
   output$question_ui <- shiny::renderUI({
     
@@ -395,7 +401,7 @@ server <- function(input, output, session) {
       binary_ui %>% 
         purrr::pluck(
           glue::glue("Group_{rctv$current_group_number}"), 
-          glue::glue("question_{rctv$current_question_number}")
+          glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
         )
       
     } else {
@@ -403,7 +409,7 @@ server <- function(input, output, session) {
       range_ui %>% 
         purrr::pluck(
           glue::glue("Group_{rctv$current_group_number}"), 
-          glue::glue("question_{rctv$current_question_number}")
+          glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
         )
       
     }
