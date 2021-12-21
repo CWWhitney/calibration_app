@@ -50,6 +50,9 @@ edited to define the following parameters for the workshop:
 
 4.  The specific questions to be used for each group & question type
 
+5.  The [{pins}](https://pins.rstudio.com/) board on RStudio Connect
+    that has been dedicated for this workshop
+
 ## Workflow
 
 ![](www/calibration_app_workflow.png)
