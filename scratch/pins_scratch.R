@@ -33,7 +33,8 @@ df <- my_pins %>%
   purrr::map_dfr(
     function(x) pins::pin_read(board = board, name = x$name), 
     .id = "source"
-  )
+  ) %>% 
+  tibble::as_tibble()
 
 df
 

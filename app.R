@@ -109,7 +109,7 @@ ui <- shiny::navbarPage(
       shiny::column(
         width = 6, 
         
-        shiny::verbatimTextOutput("tmp"), 
+        # shiny::verbatimTextOutput("tmp"), 
         
         shiny::tabsetPanel(
           
@@ -299,16 +299,7 @@ server <- function(input, output, session) {
     # Show the waiting screen
     w$show()
     
-    # Write out the current response to the database
-    # write_to_db(
-    #   question_type = rctv$current_question_type, 
-    #   user = glue::glue("{input$user_last_name}, {input$user_first_name}"), 
-    #   question_number = rctv$current_question_number, 
-    #   answer_1 = rctv$current_response_1, 
-    #   answer_2 = rctv$current_response_2
-    # )
-    
-    
+    # Append a new row to the reactive "binary" or "range" data frame 
     if (rctv$current_question_type == "binary") {
 
       current_question <- question_index %>% 
@@ -415,14 +406,14 @@ server <- function(input, output, session) {
   })
   
   
-  output$tmp <- shiny::renderText(
-    glue::glue(
-      "Current Group: {rctv$current_group_number}", 
-      "Current Question Type: {rctv$current_question_type}", 
-      "Current Question Number: {rctv$current_question_number}", 
-      .sep = "\n"
-    )
-  )
+  # output$tmp <- shiny::renderText(
+  #   glue::glue(
+  #     "Current Group: {rctv$current_group_number}", 
+  #     "Current Question Type: {rctv$current_question_type}", 
+  #     "Current Question Number: {rctv$current_question_number}", 
+  #     .sep = "\n"
+  #   )
+  # )
   
   
   # 3.4 Render Question & Response UI  ----
