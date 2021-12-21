@@ -137,7 +137,7 @@ server <- function(input, output, session) {
   
   ## 3.1 Build Waiting Screen ----
   w <- waiter::Waiter$new(
-    id = c("answer_ui"), 
+    id = c("question_ui"), 
     html = shiny::tagList(
       waiter::spin_flower(), 
       "Loading Next Question..."
@@ -158,6 +158,7 @@ server <- function(input, output, session) {
       Confidence = as.character(), 
       Truth = as.character(), 
       Brier = as.numeric(), 
+      Source = as.character(), 
       stringsAsFactors = FALSE
     ), 
     
@@ -166,7 +167,9 @@ server <- function(input, output, session) {
       Lower90 = as.numeric(), 
       Upper90 = as.numeric(), 
       Truth = as.numeric(), 
-      RelativeError = as.numeric()
+      RelativeError = as.numeric(), 
+      Source = as.character(), 
+      stringsAsFactors = FALSE
     )
   )
   
@@ -304,15 +307,14 @@ server <- function(input, output, session) {
     
     if (rctv$current_question_type == "binary") {
 
-      current_truth <- question_index %>% 
+      current_question <- question_index %>% 
         dplyr::filter(Index == rctv$current_question_number) %>% 
         dplyr::select(Group, QuestionNumber) %>% 
         dplyr::mutate(Group = paste0("Group_", Group)) %>% 
         dplyr::inner_join(
           questions$binary, 
           by = c("Group", "QuestionNumber")
-        ) %>% 
-        dplyr::pull(Answer)
+        )
       
       rctv$binary_tbl <- rctv$binary_tbl |>
         rbind(
@@ -320,27 +322,27 @@ server <- function(input, output, session) {
             Question = rctv$current_question_number, 
             Response = rctv$current_response_1, 
             Confidence = paste0(rctv$current_response_2, "%"), 
-            Truth = current_truth, 
+            Truth = current_question$Answer, 
             Brier = brier(
               response = stringr::str_sub(rctv$current_response_1, 1L, 1L), 
               confidence = (rctv$current_response_2 / 100), 
-              correct_answer = current_truth
+              correct_answer = current_question$Answer
             ), 
+            Source = current_question$Source_link, 
             stringsAsFactors = FALSE
           )
         )
       
     } else {
       
-      current_truth <- question_index %>% 
+      current_question <- question_index %>% 
         dplyr::filter(Index == rctv$current_question_number) %>% 
         dplyr::select(Group, QuestionNumber) %>% 
         dplyr::mutate(Group = paste0("Group_", Group)) %>% 
         dplyr::inner_join(
           questions$range, 
           by = c("Group", "QuestionNumber")
-        ) %>% 
-        dplyr::pull(Answer)
+        )
       
       rctv$range_tbl <- rctv$range_tbl |>
         rbind(
@@ -348,12 +350,14 @@ server <- function(input, output, session) {
             Question = rctv$current_question_number, 
             Lower90 = rctv$current_response_1, 
             Upper90 = rctv$current_response_2, 
-            Truth = current_truth, 
+            Truth = current_question$Answer, 
             RelativeError = relative_error(
               lower_90 = rctv$current_response_1,
               upper_90 = rctv$current_response_2,
-              correct_answer = current_truth
-            )
+              correct_answer = current_question$Answer
+            ), 
+            Source = current_question$Source_link, 
+            stringsAsFactors = FALSE
           )
         )
       
@@ -442,7 +446,18 @@ server <- function(input, output, session) {
       columns = list(
         Brier = reactable::colDef(
           format = reactable::colFormat(digits = 2)
-        )
+        ), 
+        Truth = reactable::colDef(cell = function(value, index) {
+          text <- if (value == "T") "TRUE" else "FALSE"
+          url <- rctv$binary_tbl[index, "Source"]
+          # Render as a link
+          htmltools::tags$a(
+            href = url, 
+            target = "_blank", 
+            text
+          )
+        }), 
+        Source = reactable::colDef(show = FALSE)
       ), 
       theme = reactable::reactableTheme(
         backgroundColor = "#153015"
@@ -464,7 +479,15 @@ server <- function(input, output, session) {
         RelativeError = reactable::colDef(
           name = "Relative Error", 
           format = reactable::colFormat(digits = 2)
-        )
+        ), 
+        Source = reactable::colDef(cell = function(value) {
+          # Render as a link
+          htmltools::tags$a(
+            href = value, 
+            target = "_blank", 
+            "link"
+          )
+        })
       ), 
       columnGroups = list(
         reactable::colGroup(

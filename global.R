@@ -44,6 +44,7 @@ selected_questions <- list(
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
+# Load custom functions
 fs::dir_ls("R") %>% 
   purrr::map(~ source(.x)) %>% 
   purrr::quietly()

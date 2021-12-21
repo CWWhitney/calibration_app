@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Calibration Training App <img src='www/university_logo.jpg' align="right" height="200" />
+# Calibration Training App <img src="www/university_logo.jpg" align="right" height="200" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -26,7 +26,22 @@ The goal of the Calibration Training App is to help the [University of Bonn](htt
 
 3. Run `renv::restore()` to install the package dependencies needed to run this app successfully
 
-4. Open the [app.R](app.R) file and execute the code in that script to launch the app
+4. Edit the [global.R](global.R) script as necessary (see [below](#app-parameters))
+
+5. Open the [app.R](app.R) file and execute the code in that script to launch the app
+
+### App Parameters
+
+Before a calibration workshop, the [global.R](global.R) script should be edited to define the following parameters for the workshop:
+
+1. The language that questions should be shown in (current options include *English*, *German*, and *Vietnamese*)
+
+2. Google authentication credentials; such credentials are not necessary if the Google Sheet containing the questions is *public*, and require a simple call to `googlesheets4::gs4_deauth()`
+    + If the Google Sheet is not public, we recommend reading the [**{googlesheets4}** authentication documentation](https://googlesheets4.tidyverse.org/articles/auth.html) to determine how to configure the appropriate credentials
+
+3. The URL of the Google Sheet's shareable link
+
+4. The specific questions to be used for each group & question type
 
 ## Workflow
 

@@ -34,12 +34,15 @@ build_ui <- function(questions, type) {
         if (type == "binary") {
           
           shiny::tagList(
-            shinyWidgets::awesomeRadio(
-              inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_A"),
-              label = "Answer:",
-              choices = c("TRUE", "FALSE"),
-              selected = "TRUE",
-              status = "warning"
+            shiny::div(
+              style = "padding-left: 20px;", 
+              shinyWidgets::awesomeRadio(
+                inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_A"),
+                label = "Answer:",
+                choices = c("TRUE", "FALSE"),
+                selected = "TRUE",
+                status = "warning"
+              )
             ), 
             
             shiny::sliderInput(
