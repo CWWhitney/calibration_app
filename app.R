@@ -51,8 +51,12 @@ ui <- shiny::navbarPage(
   collapsible = TRUE, 
   
   # Ensure tickmark text on "Confidence" sliders is white  
-  shiny::tags$style(
-    ".irs-grid-text {color: #FFFFFF}"   
+  shiny::tags$head(
+    shiny::tags$link(
+      rel = "stylesheet", 
+      type = "text/css", 
+      href = "styling.css"
+    )  
   ), 
   
   ## 2.2 "Questions" Page ----
@@ -375,7 +379,8 @@ server <- function(input, output, session) {
     # Get the corresponding question type for the next question
     rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
     
-    
+    # If the new question begins a new group, write the most current results to
+    # {pins} database and show a pop-up
     if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
       
       shiny::modalDialog(
@@ -480,14 +485,16 @@ server <- function(input, output, session) {
           name = "Relative Error", 
           format = reactable::colFormat(digits = 2)
         ), 
-        Source = reactable::colDef(cell = function(value) {
+        Truth = reactable::colDef(cell = function(value, index) {
+          url <- rctv$range_tbl[index, "Source"]
           # Render as a link
           htmltools::tags$a(
-            href = value, 
+            href = url, 
             target = "_blank", 
-            "link"
+            value
           )
-        })
+        }), 
+        Source = reactable::colDef(show = FALSE)
       ), 
       columnGroups = list(
         reactable::colGroup(
