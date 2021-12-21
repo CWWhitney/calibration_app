@@ -260,7 +260,6 @@ server <- function(input, output, session) {
     shiny::modalDialog(
       title = "Are You Sure?", 
       glue::glue("{modal_text_1} {rctv$current_response_1}"), 
-      
       shiny::br(), 
       glue::glue("{modal_text_2} {rctv$current_response_2}{modal_text_3}"), 
       easyClose = FALSE, 
@@ -371,6 +370,22 @@ server <- function(input, output, session) {
     
     # Get the corresponding question type for the next question
     rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
+    
+    
+    if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
+      
+      shiny::modalDialog(
+        title = "Group Complete!", 
+        glue::glue(
+          "You have successfully completed Group {rctv$current_group_number - 1}.", 
+        ), 
+        shiny::br(), 
+        "Please wait for your instructor before continuing.", 
+        size = "l"
+      ) |> 
+        shiny::showModal()
+      
+    }
     
   })
   
