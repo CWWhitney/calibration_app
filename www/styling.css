@@ -1,0 +1,20 @@
+
+
+/* Make hyperlink text color white */
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+/* Then make it red when hovered over */
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+/* Make tickmark text on sliderInput white */
+.irs-grid-text {
+  color: white;
+}
