@@ -100,6 +100,13 @@
       "Repository": "CRAN",
       "Hash": "0f22be39ec1d141fd03683c06f3a6e67"
     },
+    "cpp11": {
+      "Package": "cpp11",
+      "Version": "0.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "fa53ce256cd280f468c080a58ea5ba8c"
+    },
     "crayon": {
       "Package": "crayon",
       "Version": "1.4.2",
@@ -120,6 +127,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "49b5c6e230bfec487b8917d5a0c77cca"
+    },
+    "dplyr": {
+      "Package": "dplyr",
+      "Version": "1.0.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "36f1ae62f026c8ba9f9b5c9a08c03297"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -176,6 +190,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "9d234e6a87a6f8181792de6dc4a00e39"
+    },
+    "generics": {
+      "Package": "generics",
+      "Version": "0.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3f6bcfb0ee5d671d9fd1893d2faa79cb"
     },
     "glue": {
       "Package": "glue",
@@ -449,6 +470,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "8a8f02d1934dfd6431c671361510dd0b"
+    },
+    "tidyr": {
+      "Package": "tidyr",
+      "Version": "1.1.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c8fbdbd9fcac223d6c6fe8e406f368e1"
     },
     "tidyselect": {
       "Package": "tidyselect",
