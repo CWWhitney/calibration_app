@@ -130,6 +130,13 @@ ui <- shiny::navbarPage(
       
     )
     
+  ), 
+  
+  shiny::tabPanel(
+    title = "Metrics", 
+    
+    shiny::h4("Content here...")
+    
   )
   
 )
