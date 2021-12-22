@@ -1,6 +1,18 @@
 
 
 /* Make hyperlink text color white */
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 a:visited {
   color: white;
   background-color: transparent;
