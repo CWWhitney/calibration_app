@@ -15,7 +15,7 @@ pins::pin_write(
 pins::pin_write(
   board = board, 
   x = iris[31:40, ], 
-  name = "iris_test_1", 
+  name = "iris_test_3", 
   type = "rds"
 )
 

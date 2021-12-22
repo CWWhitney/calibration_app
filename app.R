@@ -13,6 +13,8 @@ library(reactable)
 library(dplyr)
 library(purrr)
 library(tidyr)
+library(echarts4r)
+
 
 source("global.R")
 
@@ -135,7 +137,9 @@ ui <- shiny::navbarPage(
   shiny::tabPanel(
     title = "Metrics", 
     
-    shiny::h4("Content here...")
+    shiny::h4("Content here..."), 
+    
+    echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
     
   )
   
@@ -522,6 +526,19 @@ server <- function(input, output, session) {
     )
     
   })
+  
+  # Create the chart to hold the binary metrics
+  output$binary_metrics_chart <- echarts4r::renderEcharts4r(
+    
+    generate_binary_metrics_chart(
+      data = rctv$binary_tbl %>% 
+        dplyr::left_join(
+          question_index %>% dplyr::select(Index, Group), 
+          by = c("Question" = "Index")
+        )
+    )
+    
+  )
   
 }
 
