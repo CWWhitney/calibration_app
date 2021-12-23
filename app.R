@@ -134,12 +134,35 @@ ui <- shiny::navbarPage(
     
   ), 
   
+  ## 2.3 "Metrics" Page ----
   shiny::tabPanel(
     title = "Metrics", 
     
-    shiny::h4("Content here..."), 
+    shiny::fluidRow(
+      
+      shiny::column(
+        width = 6, 
+        
+        shiny::h2("Binary Metrics"), 
+        echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
+      ), 
+      
+      shiny::column(
+        width = 6, 
+        
+        shiny::h2("Range Metrics"), 
+        echarts4r::echarts4rOutput(outputId = "range_metrics_chart")
+      )
+      
+    )
     
-    echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
+  ), 
+  
+  ## 2.3 "Help" Page ----
+  shiny::tabPanel(
+    title = "Help", 
+    
+    shiny::h4("More Content here...")
     
   )
   
@@ -417,16 +440,6 @@ server <- function(input, output, session) {
   })
   
   
-  # output$tmp <- shiny::renderText(
-  #   glue::glue(
-  #     "Current Group: {rctv$current_group_number}", 
-  #     "Current Question Type: {rctv$current_question_type}", 
-  #     "Current Question Number: {rctv$current_question_number}", 
-  #     .sep = "\n"
-  #   )
-  # )
-  
-  
   # 3.4 Render Question & Response UI  ----
   output$question_ui <- shiny::renderUI({
     
@@ -528,7 +541,9 @@ server <- function(input, output, session) {
   })
   
   # Create the chart to hold the binary metrics
-  output$binary_metrics_chart <- echarts4r::renderEcharts4r(
+  output$binary_metrics_chart <- echarts4r::renderEcharts4r({
+    
+    shiny::req(nrow(rctv$binary_tbl) > 0)
     
     generate_binary_metrics_chart(
       data = rctv$binary_tbl %>% 
@@ -538,7 +553,22 @@ server <- function(input, output, session) {
         )
     )
     
-  )
+  })
+  
+  # Create the chart to hold the range metrics
+  output$range_metrics_chart <- echarts4r::renderEcharts4r({
+    
+    shiny::req(nrow(rctv$range_tbl) > 0)
+    
+    generate_range_metrics_chart(
+      data = rctv$range_tbl %>% 
+        dplyr::left_join(
+          question_index %>% dplyr::select(Index, Group), 
+          by = c("Question" = "Index")
+        )
+    )
+    
+  })
   
 }
 
