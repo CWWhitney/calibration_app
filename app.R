@@ -46,9 +46,9 @@ app_theme <- bslib::bs_theme(
 ui <- shiny::navbarPage(
   
   ## 2.1 Set Up Global UI Elements ----
-  title = "Calibrator", 
+  title = "Calibrator",
   
-  theme = app_theme, 
+  theme = app_theme,
   
   collapsible = TRUE, 
   

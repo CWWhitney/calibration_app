@@ -8,7 +8,7 @@ generate_binary_metrics_chart <- function(data) {
       Group = paste0("Group ", Group), 
       Truth = ifelse(Truth == "T", "TRUE", "FALSE"), 
       Confidence = stringr::str_replace(
-        string = data$Confidence, 
+        string = Confidence, 
         pattern = "%", 
         replacement = ""
       ) %>% as.numeric()
