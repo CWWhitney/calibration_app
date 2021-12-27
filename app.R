@@ -111,19 +111,22 @@ ui <- shiny::navbarPage(
       shiny::column(
         width = 6, 
         
-        # shiny::verbatimTextOutput("tmp"), 
+        # shiny::verbatimTextOutput("tmp"),
         
         shiny::tabsetPanel(
+          id = "results_tabset", 
           
           #### 2.4.1 "Binary" Results Table ----
           shiny::tabPanel(
             title = "Binary Results", 
+            value = "binary_results_panel", 
             reactable::reactableOutput(outputId = "results_binary_tbl")
           ), 
           
           #### 2.4.1 "Range" Results Table ----
           shiny::tabPanel(
             title = "Range Results", 
+            value = "range_results_panel", 
             reactable::reactableOutput(outputId = "results_range_tbl")
           )
         )
@@ -191,7 +194,9 @@ server <- function(input, output, session) {
     current_question_type = "binary", 
     
     binary_tbl = data.frame(
+      Group = as.integer(), 
       Question = as.integer(), 
+      Index = as.integer(), 
       Response = as.character(), 
       Confidence = as.character(), 
       Truth = as.character(), 
@@ -201,7 +206,9 @@ server <- function(input, output, session) {
     ), 
     
     range_tbl = data.frame(
+      Group = as.integer(), 
       Question = as.integer(), 
+      Index = as.integer(), 
       Lower90 = as.numeric(), 
       Upper90 = as.numeric(), 
       Truth = as.numeric(), 
@@ -348,7 +355,9 @@ server <- function(input, output, session) {
       rctv$binary_tbl <- rctv$binary_tbl |>
         rbind(
           data.frame(
-            Question = rctv$current_question_number, 
+            Group = rctv$current_group_number, 
+            Question = current_question$QuestionNumber, 
+            Index = rctv$current_question_number, 
             Response = rctv$current_response_1, 
             Confidence = paste0(rctv$current_response_2, "%"), 
             Truth = current_question$Answer, 
@@ -376,7 +385,9 @@ server <- function(input, output, session) {
       rctv$range_tbl <- rctv$range_tbl |>
         rbind(
           data.frame(
-            Question = rctv$current_question_number, 
+            Group = rctv$current_group_number, 
+            Question = current_question$QuestionNumber, 
+            Index = rctv$current_question_number, 
             Lower90 = rctv$current_response_1, 
             Upper90 = rctv$current_response_2, 
             Truth = current_question$Answer, 
@@ -403,6 +414,18 @@ server <- function(input, output, session) {
     
     # Get the corresponding question type for the next question
     rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
+    
+    # If the new question switches from "binary" to "range" (or vice versa), 
+    # change the "Tables" tab to show the current table
+    if (question_index$QuestionType[rctv$current_question_number] != question_index$QuestionType[rctv$current_question_number - 1]) {
+      
+      shiny::updateTabsetPanel(
+        session = session, 
+        inputId = "results_tabset", 
+        selected = paste0(rctv$current_question_type, "_results_panel")
+      )
+      
+    }
     
     # If the new question begins a new group, write the most current results to
     # {pins} database and show a pop-up
@@ -472,14 +495,24 @@ server <- function(input, output, session) {
   })
   
   
+  # output$tmp <- shiny::renderPrint({
+  #   
+  #   rctv$binary_tbl
+  #   
+  # })
+  
+  
   # Create the table to hold the "Binary" results & scores
   output$results_binary_tbl <- reactable::renderReactable({
     
     shiny::req(rctv$binary_tbl)
     
     reactable::reactable(
-      rctv$binary_tbl, 
+      rctv$binary_tbl %>% 
+        dplyr::filter(Group == rctv$current_group_number), 
       columns = list(
+        Group = reactable::colDef(show = FALSE), 
+        Index = reactable::colDef(show = FALSE), 
         Brier = reactable::colDef(
           format = reactable::colFormat(digits = 2)
         ), 
@@ -508,8 +541,11 @@ server <- function(input, output, session) {
     shiny::req(rctv$range_tbl)
     
     reactable::reactable(
-      rctv$range_tbl, 
+      rctv$range_tbl %>% 
+        dplyr::filter(Group == rctv$current_group_number), 
       columns = list(
+        Group = reactable::colDef(show = FALSE), 
+        Index = reactable::colDef(show = FALSE), 
         Lower90 = reactable::colDef(name = "Lower Bound"),
         Upper90 = reactable::colDef(name = "Upper Bound"), 
         RelativeError = reactable::colDef(
@@ -546,11 +582,7 @@ server <- function(input, output, session) {
     shiny::req(nrow(rctv$binary_tbl) > 0)
     
     generate_binary_metrics_chart(
-      data = rctv$binary_tbl %>% 
-        dplyr::left_join(
-          question_index %>% dplyr::select(Index, Group), 
-          by = c("Question" = "Index")
-        )
+      data = rctv$binary_tbl
     )
     
   })
@@ -561,11 +593,7 @@ server <- function(input, output, session) {
     shiny::req(nrow(rctv$range_tbl) > 0)
     
     generate_range_metrics_chart(
-      data = rctv$range_tbl %>% 
-        dplyr::left_join(
-          question_index %>% dplyr::select(Index, Group), 
-          by = c("Question" = "Index")
-        )
+      data = rctv$range_tbl
     )
     
   })
