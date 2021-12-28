@@ -283,6 +283,16 @@ server <- function(input, output, session) {
       ))
     )
     
+    # For "range" type questions, ensure that the entry for "Lower90" is less 
+    # than the value entered for "Upper90"
+    if (rctv$current_question_type == "range") {
+      
+      shiny::req(
+        rctv$current_response_1 < rctv$current_response_2
+      )
+      
+    }
+    
     # Create the first modal text segment
     modal_text_1 <- ifelse(
       rctv$current_question_type == "binary", 
