@@ -26,7 +26,9 @@ generate_binary_metrics_chart <- function(data) {
     ) |> 
     echarts4r::e_line(
       serie = Confidence, 
-      name = "Predicted"
+      name = "Predicted", 
+      symbol = "circle", 
+      symbolSize = 20
     ) |> 
     echarts4r::e_y_axis(
       formatter = echarts4r::e_axis_formatter(
@@ -35,7 +37,6 @@ generate_binary_metrics_chart <- function(data) {
       )
     ) |> 
     echarts4r::e_color(
-      color = c("red", "blue"), 
       background = "white"
     ) |> 
     echarts4r::e_tooltip(
@@ -44,7 +45,8 @@ generate_binary_metrics_chart <- function(data) {
         style = "percent", 
         digits = 1
       )
-    )
+    ) |> 
+    echarts4r::e_toolbox_feature(feature = "saveAsImage")
   
 }
 
@@ -70,7 +72,9 @@ generate_range_metrics_chart <- function(data) {
     ) |> 
     echarts4r::e_line(
       serie = Confidence, 
-      name = "Confidence"
+      name = "Confidence", 
+      symbol = "circle", 
+      symbolSize = 20
     ) |> 
     echarts4r::e_y_axis(
       formatter = echarts4r::e_axis_formatter(
@@ -79,7 +83,6 @@ generate_range_metrics_chart <- function(data) {
       )
     ) |> 
     echarts4r::e_color(
-      color = c("red", "blue"), 
       background = "white"
     ) |> 
     echarts4r::e_tooltip(
@@ -88,6 +91,7 @@ generate_range_metrics_chart <- function(data) {
         style = "percent", 
         digits = 1
       )
-    )
+    ) |> 
+    echarts4r::e_toolbox_feature(feature = "saveAsImage")
   
 }

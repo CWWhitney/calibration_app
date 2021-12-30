@@ -156,7 +156,15 @@ ui <- shiny::navbarPage(
         shiny::h2("Range Metrics"), 
         echarts4r::echarts4rOutput(outputId = "range_metrics_chart")
       )
-      
+    ), 
+    
+    shiny::hr(), 
+    
+    shiny::fluidRow(
+      shiny::h4(
+        class = "text-center", 
+        "The goal (for both charts on the page) is for the blue bar to meet the green line."
+      )
     )
     
   ), 
