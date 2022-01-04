@@ -1,24 +1,28 @@
-
+### CALIBRATION APP
+### UNIVERSITY OF BONN
+### DEVELOPED BY: KETCHBROOK ANALYTICS (MTHOMAS@KETCHBROOKANALYTICS.COM)
 
 
 # 1.0 SETUP ----
 
 ## 1.1 Load Packages ----
 library(shiny)
-library(shinyWidgets)
+library(shinyWidgets)   # formatting sliderInput() widgets
 library(bslib)  # Bootstrap formatting 
-library(glue)
-library(waiter)
-library(reactable)
-library(dplyr)
-library(purrr)
-library(tidyr)
-library(echarts4r)
+library(glue)   # convenient string pasting
+library(waiter)   # loading screens
+library(reactable)   # interactive tables
+library(dplyr)   # general data prep
+library(purrr)   # working with lists
+library(tidyr)   # more data prep
+library(echarts4r)   # interactive charts
 
 
+## 1.1 Setup Environment ----
+# Run "global.R" script to load shared objects across all sessions
 source("global.R")
 
-
+# Create a data frame that indexes all of the workshop questions
 question_index <- questions %>% 
   purrr::map_dfr(
     ~ dplyr::select(.x, Group, QuestionNumber), 
@@ -27,7 +31,6 @@ question_index <- questions %>%
   dplyr::mutate(Group = as.integer(stringr::str_sub(Group, -1, -1))) %>% 
   dplyr::arrange(Group, QuestionType, QuestionNumber) %>% 
   dplyr::mutate(Index = dplyr::row_number())
-
 
 
 ## 1.2 Build UI Theme ----
@@ -70,9 +73,9 @@ ui <- shiny::navbarPage(
     
     # Set the color for all 'inputSlider()' widgets to "Bonn Yellow"
     shinyWidgets::chooseSliderSkin(
-      skin = "Shiny", 
+      skin = "Shiny",
       color = "#FBBA00"
-    ), 
+    ),
     
     shiny::fluidRow(
       
@@ -137,7 +140,7 @@ ui <- shiny::navbarPage(
     
   ), 
   
-  ## 2.3 "Metrics" Page ----
+  ## 2.5 "Metrics" Page ----
   shiny::tabPanel(
     title = "Metrics", 
     
@@ -169,7 +172,7 @@ ui <- shiny::navbarPage(
     
   ), 
   
-  ## 2.3 "Help" Page ----
+  ## 2.6 "Help" Page ----
   shiny::tabPanel(
     title = "Help", 
     
@@ -511,14 +514,6 @@ server <- function(input, output, session) {
     }
     
   })
-  
-  
-  # output$tmp <- shiny::renderPrint({
-  #   
-  #   rctv$binary_tbl
-  #   
-  # })
-  
   
   # Create the table to hold the "Binary" results & scores
   output$results_binary_tbl <- reactable::renderReactable({
