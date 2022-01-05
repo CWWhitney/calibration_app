@@ -477,7 +477,7 @@ server <- function(input, output, session) {
       
       # Show a "Group Complete" pop-up modal; unless you have completed all the 
       # workshop questions, then show a "Workshop Complete" modal
-      if (rctv$current_question_number > max(question_index$Index)) {
+      if (rctv$current_question_number == max(question_index$Index) + 1) {
         
         end_modal <- shiny::modalDialog(
           title = "Calibration Workshop Complete!", 
