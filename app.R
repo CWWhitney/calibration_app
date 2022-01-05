@@ -204,6 +204,7 @@ server <- function(input, output, session) {
     current_question_number = 1, 
     current_question_type = "binary", 
     
+    # Create the reactive data frame holding user's "binary" question responses
     binary_tbl = data.frame(
       Group = as.integer(), 
       Question = as.integer(), 
@@ -216,6 +217,7 @@ server <- function(input, output, session) {
       stringsAsFactors = FALSE
     ), 
     
+    # Create the reactive data frame holding user's "range" question responses
     range_tbl = data.frame(
       Group = as.integer(), 
       Question = as.integer(), 
@@ -229,7 +231,8 @@ server <- function(input, output, session) {
     )
   )
   
-  # 3.3 User Info Modal ----
+  ## 3.3 User Info Modal ----
+  # On app launch, display pop-up modal for user to enter first & last name
   shiny::modalDialog(
     title = "Enter User Information", 
     shiny::tagList(
@@ -260,19 +263,23 @@ server <- function(input, output, session) {
   ) |> 
     shiny::showModal()
   
-  # 3.4 "Submit" User Info Button ----
+  ## 3.4 "Submit" User Info Button ----
+  # When the "Submit" button is clicked in the user info pop-up modal...
   shiny::observeEvent(input$submit_user_info_btn, {
     
-    # Require that the "First Name" and "Last Name" fields have been completed
-    shiny::req(input$user_first_name, input$user_last_name)
+    # require that the "First Name" and "Last Name" fields have been populated
+    shiny::req(
+      input$user_first_name, 
+      input$user_last_name
+    )
     
-    # Remove the open modal dialogue
+    # remove the open modal dialogue
     shiny::removeModal()
     
   })
 
   
-  # 3.3 "Next" Action Button ----
+  ## 3.5 "Next" Action Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
@@ -468,23 +475,42 @@ server <- function(input, output, session) {
         user_last = trimws(input$user_last_name)
       )
       
-      shiny::modalDialog(
-        title = "Group Complete!", 
-        glue::glue(
-          "You have successfully completed Group {rctv$current_group_number - 1}.", 
-        ), 
-        shiny::br(), 
-        "Please wait for your instructor before continuing.", 
-        size = "l"
-      ) |> 
-        shiny::showModal()
+      # Show a "Group Complete" pop-up modal; unless you have completed all the 
+      # workshop questions, then show a "Workshop Complete" modal
+      if (rctv$current_question_number > max(question_index$Index)) {
+        
+        end_modal <- shiny::modalDialog(
+          title = "Calibration Workshop Complete!", 
+          glue::glue(
+            "You have successfully completed the Calibration Workshop.", 
+          ), 
+          shiny::br(), 
+          "Please wait for your instructor before exiting.", 
+          size = "l"
+        )
+        
+      } else {
+        
+        end_modal <- shiny::modalDialog(
+          title = "Group Complete!", 
+          glue::glue(
+            "You have successfully completed Group {rctv$current_group_number - 1}.", 
+          ), 
+          shiny::br(), 
+          "Please wait for your instructor before continuing.", 
+          size = "l"
+        )
+        
+      }
+
+        shiny::showModal(end_modal)
       
     }
     
   })
   
   
-  # 3.4 Render Question & Response UI  ----
+  ## 3.6 Render Question & Response UI  ----
   output$question_ui <- shiny::renderUI({
     
     # Require the current question type, group number, and question number
@@ -495,6 +521,8 @@ server <- function(input, output, session) {
     )
     
     
+    # Display the appropriate UI response elements based on the current question
+    # type
     if (rctv$current_question_type == "binary") {
       
       binary_ui %>% 
@@ -515,11 +543,15 @@ server <- function(input, output, session) {
     
   })
   
+  ## 3.7 Binary Results Table ----
   # Create the table to hold the "Binary" results & scores
   output$results_binary_tbl <- reactable::renderReactable({
     
+    # Require the "binary" response table
     shiny::req(rctv$binary_tbl)
     
+    # Populate the interactive table with the "binary" data from the current 
+    # question group
     reactable::reactable(
       rctv$binary_tbl %>% 
         dplyr::filter(Group == rctv$current_group_number), 
@@ -548,11 +580,15 @@ server <- function(input, output, session) {
     
   })
   
+  ## 3.8 Range Results Table ----
   # Create the table to hold the "Range" results & scores
   output$results_range_tbl <- reactable::renderReactable({
     
+    # Require the "range" response table
     shiny::req(rctv$range_tbl)
     
+    # Populate the interactive table with the "range" data from the current 
+    # question group
     reactable::reactable(
       rctv$range_tbl %>% 
         dplyr::filter(Group == rctv$current_group_number), 
@@ -589,22 +625,28 @@ server <- function(input, output, session) {
     
   })
   
+  ## 3.9 Binary Metrics Chart ----
   # Create the chart to hold the binary metrics
   output$binary_metrics_chart <- echarts4r::renderEcharts4r({
     
+    # Require that there is data in the "binary" response table
     shiny::req(nrow(rctv$binary_tbl) > 0)
     
+    # Create the "binary" metrics interactive chart
     generate_binary_metrics_chart(
       data = rctv$binary_tbl
     )
     
   })
   
+  ## 3.10 Range Metrics Chart ----
   # Create the chart to hold the range metrics
   output$range_metrics_chart <- echarts4r::renderEcharts4r({
     
+    # Require that there is data in the "range" response table
     shiny::req(nrow(rctv$range_tbl) > 0)
     
+    # Create the "range" metrics interactive chart
     generate_range_metrics_chart(
       data = rctv$range_tbl
     )
