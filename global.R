@@ -1,5 +1,9 @@
 
 
+
+library(googlesheets4)
+library(pins)
+
 # User-Defined Parameters -------------------------------------------------
 
 # Define the language questions will be asked in

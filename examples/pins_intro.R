@@ -1,6 +1,10 @@
+
+
+
 library(pins)
 
-# Connect to local board
+# Connect to local board (this will *create* a local board if you don't already
+# have one)
 board <- pins::board_local()
 
 # Pin a dataset to the local board 
@@ -15,19 +19,19 @@ pins::pin_write(
 pins::pin_write(
   board = board, 
   x = iris[31:40, ], 
-  name = "iris_test_3", 
+  name = "iris_test_2", 
   type = "rds"
 )
 
-# Read the current 'iris_test' pins information into a single data frame
+# List the pins with names that match "iris_test" 
 my_pins <- pins::pin_search(
   board = board, 
-  search = "binary"
+  search = "iris_test"
 )
 
 my_pins
 
-# Read all of the pins into a single data frame
+# Read both of the pins into a single, concatenated data frame
 df <- my_pins %>% 
   split(.$name) %>% 
   purrr::map_dfr(
