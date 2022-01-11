@@ -432,34 +432,10 @@ server <- function(input, output, session) {
       
     }
     
-    # Require that you are *not* on the last group & last question of the quiz
-    shiny::req(rctv$current_question_number < max(question_index$Index))
-    
-    # Increase the 'current_question_number' value by 1
-    rctv$current_question_number <- rctv$current_question_number + 1
-    
-    # Get the corresponding group number for the next question
-    rctv$current_group_number <- question_index$Group[rctv$current_question_number]
-    
-    # Get the corresponding question type for the next question
-    rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
-    
-    # If the new question switches from "binary" to "range" (or vice versa), 
-    # change the "Tables" tab to show the current table
-    if (question_index$QuestionType[rctv$current_question_number] != question_index$QuestionType[rctv$current_question_number - 1]) {
+    # If the submission was the last question in the *entire* workshop...
+    if (rctv$current_question_number == max(question_index$Index)) {
       
-      shiny::updateTabsetPanel(
-        session = session, 
-        inputId = "results_tabset", 
-        selected = paste0(rctv$current_question_type, "_results_panel")
-      )
-      
-    }
-    
-    # If the new question begins a new group, write the most current results to
-    # {pins} database and show a pop-up
-    if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
-      
+      # Write out the current results to the user's pin
       write_to_pin(
         board = board, 
         type = "binary", 
@@ -476,23 +452,64 @@ server <- function(input, output, session) {
         user_last = trimws(input$user_last_name)
       )
       
-      # Show a "Group Complete" pop-up modal; unless you have completed all the 
-      # workshop questions, then show a "Workshop Complete" modal
-      if (rctv$current_question_number == max(question_index$Index) + 1) {
+      # Launch a pop-up modal letting the user know they have completed the 
+      # workshop
+      shiny::modalDialog(
+        title = "Calibration Workshop Complete!", 
+        glue::glue(
+          "You have successfully completed the Calibration Workshop.", 
+        ), 
+        shiny::br(), 
+        "Please wait for your instructor before exiting.", 
+        size = "l"
+      ) |> 
+        shiny::showModal()
+      
+    } else {
+      
+      # Increase the 'current_question_number' value by 1
+      rctv$current_question_number <- rctv$current_question_number + 1
+      
+      # Get the corresponding group number for the next question
+      rctv$current_group_number <- question_index$Group[rctv$current_question_number]
+      
+      # Get the corresponding question type for the next question
+      rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
+      
+      # If the new question switches from "binary" to "range" (or vice versa), 
+      # change the "Tables" tab to show the current table
+      if (question_index$QuestionType[rctv$current_question_number] != question_index$QuestionType[rctv$current_question_number - 1]) {
         
-        end_modal <- shiny::modalDialog(
-          title = "Calibration Workshop Complete!", 
-          glue::glue(
-            "You have successfully completed the Calibration Workshop.", 
-          ), 
-          shiny::br(), 
-          "Please wait for your instructor before exiting.", 
-          size = "l"
+        shiny::updateTabsetPanel(
+          session = session, 
+          inputId = "results_tabset", 
+          selected = paste0(rctv$current_question_type, "_results_panel")
         )
         
-      } else {
+      }
+      
+      # If the new question begins a new group, write the most current results to
+      # {pins} database and show a pop-up
+      if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
         
-        end_modal <- shiny::modalDialog(
+        write_to_pin(
+          board = board, 
+          type = "binary", 
+          data = rctv$binary_tbl, 
+          user_first = trimws(input$user_first_name), 
+          user_last = trimws(input$user_last_name)
+        )
+        
+        write_to_pin(
+          board = board, 
+          type = "range", 
+          data = rctv$range_tbl, 
+          user_first = trimws(input$user_first_name), 
+          user_last = trimws(input$user_last_name)
+        )
+        
+        # Show a "Group Complete" pop-up modal
+        shiny::modalDialog(
           title = "Group Complete!", 
           glue::glue(
             "You have successfully completed Group {rctv$current_group_number - 1}.", 
@@ -500,11 +517,10 @@ server <- function(input, output, session) {
           shiny::br(), 
           "Please wait for your instructor before continuing.", 
           size = "l"
-        )
-        
+        ) |> 
+          shiny::showModal()
+      
       }
-
-        shiny::showModal(end_modal)
       
     }
     
