@@ -263,7 +263,7 @@ server <- function(input, output, session) {
   ) |> 
     shiny::showModal()
   
-  ## 3.4 "Submit" User Info Button ----
+  ## 3.4 "Submit User Info" Button ----
   # When the "Submit" button is clicked in the user info pop-up modal...
   shiny::observeEvent(input$submit_user_info_btn, {
     
@@ -279,7 +279,7 @@ server <- function(input, output, session) {
   })
 
   
-  ## 3.5 "Next" Action Button ----
+  ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
     
@@ -359,6 +359,7 @@ server <- function(input, output, session) {
     
   })
   
+  ## 3.6 "Submit Answer" Button ----
   # When the "Submit" button is clicked...
   shiny::observeEvent(input$submit_answer_btn, {
     
@@ -510,7 +511,7 @@ server <- function(input, output, session) {
   })
   
   
-  ## 3.6 Render Question & Response UI  ----
+  ## 3.7 Render Question & Response UI  ----
   output$question_ui <- shiny::renderUI({
     
     # Require the current question type, group number, and question number
@@ -543,18 +544,20 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.7 Binary Results Table ----
+  ## 3.8 Binary Results Table ----
   # Create the table to hold the "Binary" results & scores
   output$results_binary_tbl <- reactable::renderReactable({
     
     # Require the "binary" response table
     shiny::req(rctv$binary_tbl)
     
+    data <- rctv$binary_tbl %>% 
+      dplyr::filter(Group == rctv$current_group_number)
+    
     # Populate the interactive table with the "binary" data from the current 
     # question group
     reactable::reactable(
-      rctv$binary_tbl %>% 
-        dplyr::filter(Group == rctv$current_group_number), 
+      data, 
       columns = list(
         Group = reactable::colDef(show = FALSE), 
         Index = reactable::colDef(show = FALSE), 
@@ -563,7 +566,7 @@ server <- function(input, output, session) {
         ), 
         Truth = reactable::colDef(cell = function(value, index) {
           text <- if (value == "T") "TRUE" else "FALSE"
-          url <- rctv$binary_tbl[index, "Source"]
+          url <- data[index, "Source"]
           # Render as a link
           htmltools::tags$a(
             href = url, 
@@ -580,18 +583,20 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.8 Range Results Table ----
+  ## 3.9 Range Results Table ----
   # Create the table to hold the "Range" results & scores
   output$results_range_tbl <- reactable::renderReactable({
     
     # Require the "range" response table
     shiny::req(rctv$range_tbl)
     
+    data <- rctv$range_tbl %>% 
+      dplyr::filter(Group == rctv$current_group_number)
+    
     # Populate the interactive table with the "range" data from the current 
     # question group
     reactable::reactable(
-      rctv$range_tbl %>% 
-        dplyr::filter(Group == rctv$current_group_number), 
+      data, 
       columns = list(
         Group = reactable::colDef(show = FALSE), 
         Index = reactable::colDef(show = FALSE), 
@@ -602,7 +607,7 @@ server <- function(input, output, session) {
           format = reactable::colFormat(digits = 2)
         ), 
         Truth = reactable::colDef(cell = function(value, index) {
-          url <- rctv$range_tbl[index, "Source"]
+          url <- data[index, "Source"]
           # Render as a link
           htmltools::tags$a(
             href = url, 
@@ -625,7 +630,7 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.9 Binary Metrics Chart ----
+  ## 3.10 Binary Metrics Chart ----
   # Create the chart to hold the binary metrics
   output$binary_metrics_chart <- echarts4r::renderEcharts4r({
     
@@ -639,7 +644,7 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.10 Range Metrics Chart ----
+  ## 3.11 Range Metrics Chart ----
   # Create the chart to hold the range metrics
   output$range_metrics_chart <- echarts4r::renderEcharts4r({
     
