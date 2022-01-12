@@ -277,7 +277,7 @@ server <- function(input, output, session) {
     shiny::removeModal()
     
   })
-
+  
   
   ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
@@ -303,59 +303,72 @@ server <- function(input, output, session) {
     
     # For "range" type questions, ensure that the entry for "Lower90" is less 
     # than the value entered for "Upper90"
-    if (rctv$current_question_type == "range") {
+    if ((rctv$current_question_type == "range") & (rctv$current_response_1 >= rctv$current_response_2)) {
       
-      shiny::req(
-        rctv$current_response_1 < rctv$current_response_2
+      # Build a modal asking the user to fix the issue
+      modal <- shiny::modalDialog(
+        title = "Please Fix the Following Error", 
+        paste0(
+          "The value entered for \"Lower Bound\" must be less than the value", 
+          " entered for \"Upper Bound\"."
+        ), 
+        footer = shiny::modalButton(
+          label = "Go Back", 
+          icon = shiny::icon("pen")
+        )
+      )
+      
+    } else {
+      
+      # Create the first modal text segment
+      modal_text_1 <- ifelse(
+        rctv$current_question_type == "binary", 
+        "You answered:", 
+        "You answered (Lower 90%):"
+      )
+      
+      # Create the second modal text segment
+      modal_text_2 <- ifelse(
+        rctv$current_question_type == "binary", 
+        "With confidence:", 
+        "You answered (Upper 90%):"
+      )
+      
+      # Create the modal text suffix
+      modal_text_3 <- ifelse(
+        rctv$current_question_type == "binary", 
+        "%", 
+        ""
+      )
+      
+      # Build a modal asking user to confirm their answer
+      modal <- shiny::modalDialog(
+        title = "Are You Sure?", 
+        glue::glue("{modal_text_1} {rctv$current_response_1}"), 
+        shiny::br(), 
+        glue::glue("{modal_text_2} {rctv$current_response_2}{modal_text_3}"), 
+        easyClose = FALSE, 
+        footer = shiny::tagList(
+          shiny::div(
+            # Button to dismiss the modal
+            shiny::modalButton(
+              label = "Go Back", 
+              icon = shiny::icon("pen")
+            ), 
+            # Button to move to the next question
+            shiny::actionButton(
+              inputId = "submit_answer_btn", 
+              label = "Submit", 
+              icon = shiny::icon("check")
+            )
+          )
+        )
       )
       
     }
     
-    # Create the first modal text segment
-    modal_text_1 <- ifelse(
-      rctv$current_question_type == "binary", 
-      "You answered:", 
-      "You answered (Lower 90%):"
-    )
-    
-    # Create the second modal text segment
-    modal_text_2 <- ifelse(
-      rctv$current_question_type == "binary", 
-      "With confidence:", 
-      "You answered (Upper 90%):"
-    )
-    
-    # Create the modal text suffix
-    modal_text_3 <- ifelse(
-      rctv$current_question_type == "binary", 
-      "%", 
-      ""
-    )
-    
-    # Launch a modal dialogue asking user to confirm their answer
-    shiny::modalDialog(
-      title = "Are You Sure?", 
-      glue::glue("{modal_text_1} {rctv$current_response_1}"), 
-      shiny::br(), 
-      glue::glue("{modal_text_2} {rctv$current_response_2}{modal_text_3}"), 
-      easyClose = FALSE, 
-      footer = shiny::tagList(
-        shiny::div(
-          # Button to dismiss the modal
-          shiny::modalButton(
-            label = "Go Back", 
-            icon = shiny::icon("pen")
-          ), 
-          # Button to move to the next question
-          shiny::actionButton(
-            inputId = "submit_answer_btn", 
-            label = "Submit", 
-            icon = shiny::icon("check")
-          )
-        )
-      )
-    ) |> 
-      shiny::showModal()
+    # Launch the modal pop-up
+    shiny::showModal(modal)
     
   })
   
@@ -371,7 +384,7 @@ server <- function(input, output, session) {
     
     # Append a new row to the reactive "binary" or "range" data frame 
     if (rctv$current_question_type == "binary") {
-
+      
       current_question <- question_index %>% 
         dplyr::filter(Index == rctv$current_question_number) %>% 
         dplyr::select(Group, QuestionNumber) %>% 
@@ -529,7 +542,7 @@ server <- function(input, output, session) {
           size = "l"
         ) |> 
           shiny::showModal()
-      
+        
       }
       
     }
