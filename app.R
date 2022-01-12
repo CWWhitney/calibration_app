@@ -452,6 +452,16 @@ server <- function(input, output, session) {
         user_last = trimws(input$user_last_name)
       )
       
+      # Hide the {waiter} loading screen
+      w$hide()
+      
+      # Remove the "question_ui" output element (to keep it from overlapping 
+      # the pop-up modal we create next)
+      shiny::removeUI(
+        selector = "div:has(> #question_ui)", 
+        immediate = TRUE
+      )
+      
       # Launch a pop-up modal letting the user know they have completed the 
       # workshop
       shiny::modalDialog(
