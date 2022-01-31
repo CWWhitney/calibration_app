@@ -208,6 +208,7 @@ server <- function(input, output, session) {
     binary_tbl = data.frame(
       Group = as.integer(), 
       Question = as.integer(), 
+      QuestionText = as.character(), 
       Index = as.integer(), 
       Response = as.character(), 
       Confidence = as.character(), 
@@ -221,6 +222,7 @@ server <- function(input, output, session) {
     range_tbl = data.frame(
       Group = as.integer(), 
       Question = as.integer(), 
+      QuestionText = as.character(), 
       Index = as.integer(), 
       Lower90 = as.numeric(), 
       Upper90 = as.numeric(), 
@@ -399,6 +401,7 @@ server <- function(input, output, session) {
           data.frame(
             Group = rctv$current_group_number, 
             Question = current_question$QuestionNumber, 
+            QuestionText = current_question$Question, 
             Index = rctv$current_question_number, 
             Response = rctv$current_response_1, 
             Confidence = paste0(rctv$current_response_2, "%"), 
@@ -429,6 +432,7 @@ server <- function(input, output, session) {
           data.frame(
             Group = rctv$current_group_number, 
             Question = current_question$QuestionNumber, 
+            QuestionText = current_question$Question, 
             Index = rctv$current_question_number, 
             Lower90 = rctv$current_response_1, 
             Upper90 = rctv$current_response_2, 
@@ -598,6 +602,14 @@ server <- function(input, output, session) {
     reactable::reactable(
       data, 
       columns = list(
+        Question = reactable::colDef(cell = function(value, index) {
+          hover <- data[index, "QuestionText"]
+          # Render as text that can be hovered over to show full question
+          htmltools::tags$span(
+            title = hover,
+            value
+          )
+        }),
         Group = reactable::colDef(show = FALSE), 
         Index = reactable::colDef(show = FALSE), 
         Brier = reactable::colDef(
@@ -613,6 +625,7 @@ server <- function(input, output, session) {
             text
           )
         }), 
+        QuestionText = reactable::colDef(show = FALSE), 
         Source = reactable::colDef(show = FALSE)
       ), 
       theme = reactable::reactableTheme(
@@ -637,6 +650,14 @@ server <- function(input, output, session) {
     reactable::reactable(
       data, 
       columns = list(
+        Question = reactable::colDef(cell = function(value, index) {
+          hover <- data[index, "QuestionText"]
+          # Render as text that can be hovered over to show full question
+          htmltools::tags$span(
+            title = hover,
+            value
+          )
+        }),
         Group = reactable::colDef(show = FALSE), 
         Index = reactable::colDef(show = FALSE), 
         Lower90 = reactable::colDef(name = "Lower Bound"),
@@ -647,13 +668,16 @@ server <- function(input, output, session) {
         ), 
         Truth = reactable::colDef(cell = function(value, index) {
           url <- data[index, "Source"]
+          # hover <- data[index, "Comments"]
           # Render as a link
           htmltools::tags$a(
+            # title = hover, 
             href = url, 
             target = "_blank", 
             value
           )
         }), 
+        QuestionText = reactable::colDef(show = FALSE), 
         Source = reactable::colDef(show = FALSE)
       ), 
       columnGroups = list(
