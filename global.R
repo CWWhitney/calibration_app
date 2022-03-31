@@ -18,6 +18,7 @@ googlesheets4::gs4_deauth()
 google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
 
 # Select the questions you want for each group (i.e., each "round")
+#### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
     binary = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19), 
@@ -46,7 +47,8 @@ selected_questions <- list(
 )
 
 # Connect to the {pins} board for this workshop
-board <- pins::board_local()
+# this is on Rstudio Connect 
+board <- pins::board_rsconnect()
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
@@ -57,13 +59,14 @@ fs::dir_ls("R") %>%
   purrr::quietly()
 
 # Import the binary & range questions from the Google Sheets
-# questions <- get_data(
-#   selected_questions_list = selected_questions, 
-#   language = language, 
-#   gs_url = google_sheets_url
-# )
-
-questions <- readRDS("data/gs_data.RDS")
+questions <- get_data(
+  selected_questions_list = selected_questions,
+  language = language,
+  gs_url = google_sheets_url
+)
+# this can be used to not ping the google sheets api
+# a spoecial set of files
+# questions <- readRDS("data/gs_data.RDS")
 
 # Build the UI elements for each binary question
 binary_ui <- build_ui(

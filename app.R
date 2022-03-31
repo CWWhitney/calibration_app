@@ -175,8 +175,24 @@ ui <- shiny::navbarPage(
   ## 2.6 "Help" Page ----
   shiny::tabPanel(
     title = "Help", 
-    
-    shiny::h4("More Content here...")
+    # for text
+    # look for shiny::h1 to h5 or more for header sizes
+    # shiny::p() for regular text (times new roman)
+    shiny::h4("More Content here..."), 
+    shiny::p("text here..."),
+    # shiny::br() is a break or a new line
+    # shiny::hr() is a break and a line
+    # across the page 'horizontal rule'
+    shiny::HTML(
+      glue::glue(
+        "<iframe width='560' height='315'", 
+        "src='https://www.youtube.com/embed/7P2YI9-smfU'", 
+        "title='YouTube video player' frameborder='0' allow='accelerometer;", 
+        "autoplay; clipboard-write; encrypted-media; gyroscope;", 
+        "picture-in-picture' allowfullscreen></iframe>", 
+        .sep = " "
+      )
+    )
     
   )
   
