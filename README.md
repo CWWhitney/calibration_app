@@ -1,8 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# Calibration Training App <img src="www/university_logo.jpg" align="right" height="200" />
-
 <!-- badges: start -->
 <!-- badges: end -->
 
@@ -14,7 +11,7 @@ assessments …
 
 1.  Clone this repository to your local machine
 
-2.  Open the **calibration\_app.Rproj** file from the directory on your
+2.  Open the **calibration_app.Rproj** file from the directory on your
     local machine where you cloned this repository. This should install
     the {renv} package if you do not already have it installed, but if
     you don’t see that happen in the console, run
@@ -63,25 +60,23 @@ See below for session info for full reproducibility:
 
 ``` r
 sessionInfo()
-#> R version 4.1.1 (2021-08-10)
-#> Platform: x86_64-w64-mingw32/x64 (64-bit)
-#> Running under: Windows 10 x64 (build 19042)
+#> R version 4.1.3 (2022-03-10)
+#> Platform: x86_64-apple-darwin17.0 (64-bit)
+#> Running under: macOS Big Sur/Monterey 10.16
 #> 
 #> Matrix products: default
+#> BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+#> LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 #> 
 #> locale:
-#> [1] LC_COLLATE=English_United States.1252 
-#> [2] LC_CTYPE=English_United States.1252   
-#> [3] LC_MONETARY=English_United States.1252
-#> [4] LC_NUMERIC=C                          
-#> [5] LC_TIME=English_United States.1252    
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 #> 
 #> attached base packages:
 #> [1] stats     graphics  grDevices datasets  utils     methods   base     
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] compiler_4.1.1  magrittr_2.0.1  fastmap_1.1.0   htmltools_0.5.2
-#>  [5] tools_4.1.1     yaml_2.2.1      stringi_1.7.5   rmarkdown_2.11 
+#>  [1] compiler_4.1.3  magrittr_2.0.1  fastmap_1.1.0   htmltools_0.5.2
+#>  [5] tools_4.1.3     yaml_2.2.1      stringi_1.7.5   rmarkdown_2.11 
 #>  [9] knitr_1.36      stringr_1.4.0   xfun_0.27       digest_0.6.28  
 #> [13] rlang_0.4.12    renv_0.14.0     evaluate_0.14
 ```
