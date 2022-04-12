@@ -16,6 +16,7 @@ library(dplyr)   # general data prep
 library(purrr)   # working with lists
 library(tidyr)   # more data prep
 library(echarts4r)   # interactive charts
+library(pins)
 
 
 ## 1.1 Setup Environment ----
