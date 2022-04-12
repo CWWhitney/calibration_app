@@ -48,7 +48,7 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-board <- pins::board_rsconnect(server = "agtools.app")
+board <- pins::board_rsconnect(auth = "rsconnect", server = "agtools.app")
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
