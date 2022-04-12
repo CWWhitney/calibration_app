@@ -3,6 +3,8 @@
 
 library(googlesheets4)
 library(pins)
+library(fs)
+library(purrr)
 
 # User-Defined Parameters -------------------------------------------------
 

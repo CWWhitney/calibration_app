@@ -17,6 +17,8 @@ library(purrr)   # working with lists
 library(tidyr)   # more data prep
 library(echarts4r)   # interactive charts
 library(pins)
+library(googlesheets4)
+library(fs)
 
 
 ## 1.1 Setup Environment ----
