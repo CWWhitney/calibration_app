@@ -6,6 +6,7 @@ library(pins)
 # try other auth options (auth = "envvar") to get this running in rsconnect
 board <- pins::board_rsconnect(auth = "rsconnect") 
 
+# Testing ####
 # Connect to local board (this will *create* a local board if you don't already
 # have one)
 # board <- pins::board_local() 
@@ -26,12 +27,14 @@ board <- pins::board_rsconnect(auth = "rsconnect")
 #   type = "rds"
 # )
 
-# List the pins with names that match "iris_test" 
+# List ####
+# List the pins with names that match the search term 
+# i.e. "range_" 
 my_pins <- pins::pin_search(
   board = board, 
   search = "range_" #for example get all the data where people did the range questions
   #change this search argument according to the part of the 
-  #workshop to be assessed _range 
+  #workshop to be assessed 
 )
 
 my_pins

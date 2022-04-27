@@ -23,8 +23,8 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19), 
-    range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
+    range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19), 
+    binary = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
   ), 
   
   Group_2 = list(
@@ -67,7 +67,7 @@ questions <- get_data(
   gs_url = google_sheets_url
 )
 # this can be used to not ping the google sheets api
-# a spoecial set of files
+# a special set of files
 # questions <- readRDS("data/gs_data.RDS")
 
 # Build the UI elements for each binary question
