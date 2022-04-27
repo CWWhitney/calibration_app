@@ -75,7 +75,7 @@ build_ui <- function(questions, type) {
               shiny::numericInput(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_B"),
                 label = "Upper Bound",
-                value = 100
+                value = 0
               )
             )
           )
