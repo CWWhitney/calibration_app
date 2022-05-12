@@ -23,17 +23,17 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19), 
+    range = NULL, 
     binary = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
   ), 
   
   Group_2 = list(
-    binary = c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20), 
+    binary = NULL, 
     range = c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
   ), 
   
   Group_3 = list(
-    binary = c(21, 23, 25, 27, 29, 31, 33, 35, 37, 39), 
+    binary = NULL, 
     range = c(21, 23, 25, 27, 29, 31, 33, 35, 37, 39)
   ), 
   
