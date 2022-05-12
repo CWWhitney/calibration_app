@@ -1,0 +1,13 @@
+name: calibration_app2
+title: calibration_app
+username: corywhitneyadmin
+account: corywhitneyadmin
+server: agtools.app
+hostUrl: https://agtools.app/__api__
+appId: 90
+bundleId: 308
+url: https://agtools.app/content/43cf1cbe-ec1e-4f8e-bb3b-c3023721e1ba/
+when: 1652381310.90558
+lastSyncTime: 1652381310.90559
+asMultiple: FALSE
+asStatic: FALSE
