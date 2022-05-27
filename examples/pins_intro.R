@@ -4,7 +4,7 @@ library(pins)
 
 # Connect to a board (ours is on rsconnect)
 # try other auth options (auth = "envvar") to get this running in rsconnect
-board <- pins::board_rsconnect(auth = "rsconnect") 
+board <- pins::board_rsconnect(auth = "rsconnect") # auth = "auto", "manual", "envvar", "rsconnect"
 
 # Testing ####
 # Connect to local board (this will *create* a local board if you don't already

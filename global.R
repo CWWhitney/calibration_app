@@ -9,7 +9,7 @@ library(purrr)
 # User-Defined Parameters -------------------------------------------------
 
 # Define the language questions will be asked in
-language <- "Spanish"
+language <- "English"
 
 # Define Google API authentication type
 # If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
@@ -23,12 +23,12 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(1, 2),
+    binary = c(1:5),
     range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19) 
   ), 
   
   Group_2 = list(
-    binary = NULL, 
+    binary = c(5:7), 
     range = c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
   ), 
   
@@ -50,7 +50,7 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-board <- pins::board_rsconnect() # "auto", "manual", "envvar", "rsconnect"
+board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
