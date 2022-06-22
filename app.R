@@ -216,12 +216,8 @@ server <- function(input, output, session) {
     color = "#153015",
   )
   
-  ## 3.2 Initialize ReactiveValues ----
-  # Create a `reactiveValues` object that holds our reactive objects
+  # Setup initial reactiveValues
   rctv <- shiny::reactiveValues(
-    current_group_number = 1, 
-    current_question_number = 1, 
-    current_question_type = "binary", 
     
     # Create the reactive data frame holding user's "binary" question responses
     binary_tbl = data.frame(
@@ -252,7 +248,7 @@ server <- function(input, output, session) {
     )
   )
   
-  ## 3.3 User Info Modal ----
+  ## 3.2 User Info Modal ----
   # On app launch, display pop-up modal for user to enter first & last name
   shiny::modalDialog(
     title = "Enter User Information", 
@@ -284,7 +280,7 @@ server <- function(input, output, session) {
   ) |> 
     shiny::showModal()
   
-  ## 3.4 "Submit User Info" Button ----
+  ## 3.3 "Submit User Info" Button ----
   # When the "Submit" button is clicked in the user info pop-up modal...
   shiny::observeEvent(input$submit_user_info_btn, {
     
@@ -297,8 +293,67 @@ server <- function(input, output, session) {
     # remove the open modal dialogue
     shiny::removeModal()
     
+    # list any existing {pins} history for this user
+    user_history <- pins::pin_search(
+      board = board, 
+      search = glue::glue("{input$user_last_name}_{input$user_first_name}")
+    )
+    
+    # if the user has completed a group (that wrote successfully to a pin)...
+    if (nrow(user_history) > 0) {
+      
+      # ... get the highest group number that was completed
+      last_group_completed <- user_history %>% 
+        split(.$name) %>% 
+        purrr::map_dfr(
+          function(x) pins::pin_read(board = board, name = x$name) |> dplyr::select(Group), 
+          .id = "source"
+        ) %>% 
+        dplyr::pull(Group) |> 
+        max()
+      
+      # set the current group number to the *next* group
+      rctv$current_group_number <- last_group_completed + 1
+      
+      # retrieve the corresponding current question type
+      rctv$current_question_type <- question_index$QuestionType[question_index$Group == rctv$current_group_number][1]
+      
+      # lookup the first question (index) for the *next* group
+      rctv$current_question_number <- question_index$Index[question_index$Group == rctv$current_group_number & question_index$QuestionNumber == 1 & question_index$QuestionType == rctv$current_question_type]
+      
+      # update the reactive 'binary_tbl' and 'range_tbl' with the user's history
+      binary_history <- pins::pin_read(
+        board = board, 
+        name = glue::glue("binary_{input$user_last_name}_{input$user_first_name}")
+      )
+      
+      range_history <- pins::pin_read(
+        board = board, 
+        name = glue::glue("range_{input$user_last_name}_{input$user_first_name}")
+      )
+      
+      rctv$binary_tbl <- rctv$binary_tbl |> 
+        dplyr::bind_rows(
+          binary_history |> dplyr::select(-User)
+        )
+      
+      rctv$range_tbl <- rctv$range_tbl |> 
+        dplyr::bind_rows(
+          range_history |> dplyr::select(-User)
+        )
+      
+    } else {
+      
+      # ... otherwise, if no user history (pin) was found, start at the beginning
+      rctv$current_group_number = 1
+      
+      rctv$current_question_number = 1
+      
+      rctv$current_question_type <- question_index$QuestionType[1]
+      
+    }
+    
   })
-  
   
   ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
