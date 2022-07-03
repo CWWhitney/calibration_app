@@ -28,7 +28,8 @@ get_data <- function(selected_questions_list, language, gs_url) {
     "Number", 
     paste0("Question_", language), 
     "Answer", 
-    "Source_link"
+    "Source_link", 
+    "Comments"
   )
   
   # Read in the "Binary" questions from the Google Sheet, keeping only the 
@@ -44,7 +45,7 @@ get_data <- function(selected_questions_list, language, gs_url) {
     ) %>% 
     dplyr::rename_with(~ stringr::str_remove(.x, paste0("_", language))) %>% 
     dplyr::rename(NumberGS = Number) %>% 
-    tidyr::unnest(cols = c(Source_link)) %>% 
+    tidyr::unnest(cols = c(Source_link, Comments)) %>% 
     dplyr::group_by(Group) %>% 
     dplyr::mutate(QuestionNumber = dplyr::row_number()) %>% 
     dplyr::ungroup() %>% 
@@ -63,7 +64,7 @@ get_data <- function(selected_questions_list, language, gs_url) {
     ) %>% 
     dplyr::rename_with(~ stringr::str_remove(.x, paste0("_", language))) %>% 
     dplyr::rename(NumberGS = Number) %>% 
-    tidyr::unnest(cols = c(Source_link)) %>% 
+    tidyr::unnest(cols = c(Source_link, Comments)) %>% 
     dplyr::group_by(Group) %>% 
     dplyr::mutate(QuestionNumber = dplyr::row_number()) %>% 
     dplyr::ungroup() %>% 
