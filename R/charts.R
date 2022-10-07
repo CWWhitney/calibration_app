@@ -6,27 +6,27 @@ generate_binary_metrics_chart <- function(data) {
   data %>% 
     dplyr::mutate(
       Group = paste0("Group ", Group), 
-      Truth = ifelse(Truth == "T", "TRUE", "FALSE"), 
-      Confidence = stringr::str_replace(
-        string = Confidence, 
+      Loesung = ifelse(Loesung == "T", "Richtig", "Falsch"), 
+      Konfidenz = stringr::str_replace(
+        string = Konfidenz, 
         pattern = "%", 
         replacement = ""
       ) %>% as.numeric()
     ) %>% 
     dplyr::group_by(Group) %>% 
     dplyr::summarise(
-      Confidence = sum(Confidence / 100) / dplyr::n(), 
-      Correct = sum(Response == Truth) / dplyr::n(), 
+      Konfidenz = sum(Konfidenz / 100) / dplyr::n(), 
+      Correct = sum(Antwort == Loesung) / dplyr::n(), 
       .groups = "drop"
     ) |>
     echarts4r::e_charts(x = Group) |> 
     echarts4r::e_bar(
       serie = Correct, 
-      name = "Correct"
+      name = "Korrekt"
     ) |> 
     echarts4r::e_line(
-      serie = Confidence, 
-      name = "Predicted", 
+      serie = Konfidenz, 
+      name = "Vorhergesagt", 
       symbol = "circle", 
       symbolSize = 20
     ) |> 
@@ -57,22 +57,22 @@ generate_range_metrics_chart <- function(data) {
   data %>% 
     dplyr::mutate(
       Group = paste0("Group ", Group), 
-      Bounded = (Truth >= Lower90 & Truth <= Upper90) 
+      Bounded = (korr.Antwort >= Untere90 & korr.Antwort <= Obere90) 
     ) %>% 
     dplyr::group_by(Group) %>% 
     dplyr::summarise(
-      Confidence = 0.9,   # goal of 90%  
+      Konfidenz = 0.9,   # goal of 90%  
       Correct = sum(Bounded) / dplyr::n(), 
       .groups = "drop"
     ) |>
     echarts4r::e_charts(x = Group) |> 
     echarts4r::e_bar(
       serie = Correct, 
-      name = "Correct"
+      name = "Korrekt"
     ) |> 
     echarts4r::e_line(
-      serie = Confidence, 
-      name = "Confidence", 
+      serie = Konfidenz, 
+      name = "Konfidenz", 
       symbol = "circle", 
       symbolSize = 20
     ) |> 

@@ -9,7 +9,7 @@ library(purrr)
 # User-Defined Parameters -------------------------------------------------
 
 # Define the language questions will be asked in
-language <- "English"
+language <- "German"
 
 # Define Google API authentication type
 # If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
@@ -24,7 +24,7 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 selected_questions <- list(
   Group_1 = list(
     binary = c(1:5),
-    range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19) 
+    range = c(1:3) 
   ), 
   
   Group_2 = list(
@@ -50,8 +50,8 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
-
+#board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+board<-pins::board_rsconnect()
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
@@ -71,13 +71,13 @@ questions <- get_data(
 # questions <- readRDS("data/gs_data.RDS")
 
 # Build the UI elements for each binary question
-binary_ui <- build_ui(
+binary_ui <- build_ui_german(
   questions = questions$binary, 
   type = "binary"
 )
 
 # Build the UI elements for each range question
-range_ui <- build_ui(
+range_ui <- build_ui_german(
   questions = questions$range, 
   type = "range"
 )
