@@ -593,18 +593,32 @@ server <- function(input, output, session) {
       # {pins} database and show a pop-up
       if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
         
+        
+        rctv$binary_tbl_backend <- rctv$binary_tbl %>% 
+            rename_at( 2, ~"Question") %>%
+            rename_at( 5, ~"Response") %>%
+            rename_at( 6, ~"Confidence") %>%
+            rename_at( 7, ~"Truth")
+          
+        
         write_to_pin(
           board = board, 
           type = "binary", 
-          data = rctv$binary_tbl, 
+          data = rctv$binary_tbl_backend, 
           user_first = trimws(input$user_first_name), 
           user_last = trimws(input$user_last_name)
         )
         
+        rctv$range_tbl_backend <- rctv$range_tbl %>% 
+          rename_at( 2, ~"Question") %>%
+          rename_at( 5, ~"Lower90") %>%
+          rename_at( 6, ~"Upper90") %>%
+          rename_at( 7, ~"Truth")
+        
         write_to_pin(
           board = board, 
           type = "range", 
-          data = rctv$range_tbl, 
+          data = rctv$range_tbl_backend, 
           user_first = trimws(input$user_first_name), 
           user_last = trimws(input$user_last_name)
         )
