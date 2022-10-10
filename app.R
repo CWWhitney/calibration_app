@@ -52,13 +52,13 @@ app_theme <- bslib::bs_theme(
 ui <- shiny::navbarPage(
   
   ## 2.1 Set Up Global UI Elements ----
-  title = "Calibrator",
+  title = "Kalibrator",
   
   theme = app_theme,
   
   collapsible = TRUE, 
   
-  # Ensure tickmark text on "Confidence" sliders is white  
+  # Ensure tickmark text on "Konfidenz" sliders is white  
   shiny::tags$head(
     shiny::tags$link(
       rel = "stylesheet", 
@@ -69,7 +69,7 @@ ui <- shiny::navbarPage(
   
   ## 2.2 "Questions" Page ----
   shiny::tabPanel(
-    title = "Questions", 
+    title = "Fragen", 
     
     # Enable use of {waiter} package 
     waiter::use_waiter(), 
@@ -100,7 +100,7 @@ ui <- shiny::navbarPage(
             shiny::actionButton(
               class = "btn btn-lg", 
               inputId = "next_btn", 
-              label = "Next", 
+              label = "Weiter", 
               icon = shiny::icon(name = "arrow-right")
             )
           ), 
@@ -124,14 +124,14 @@ ui <- shiny::navbarPage(
           
           #### 2.4.1 "Binary" Results Table ----
           shiny::tabPanel(
-            title = "Binary Results", 
+            title = "Ergebnisse Binär", 
             value = "binary_results_panel", 
             reactable::reactableOutput(outputId = "results_binary_tbl")
           ), 
           
           #### 2.4.1 "Range" Results Table ----
           shiny::tabPanel(
-            title = "Range Results", 
+            title = "Ergebnisse Wertebereich", 
             value = "range_results_panel", 
             reactable::reactableOutput(outputId = "results_range_tbl")
           )
@@ -145,21 +145,21 @@ ui <- shiny::navbarPage(
   
   ## 2.5 "Metrics" Page ----
   shiny::tabPanel(
-    title = "Metrics", 
+    title = "persönliche Leistung", 
     
     shiny::fluidRow(
       
       shiny::column(
         width = 6, 
         
-        shiny::h2("Binary Metrics"), 
+        shiny::h2("Leistung bei binären Fragen"), 
         echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
       ), 
       
       shiny::column(
         width = 6, 
         
-        shiny::h2("Range Metrics"), 
+        shiny::h2("Leistung bei Wertebereichen"), 
         echarts4r::echarts4rOutput(outputId = "range_metrics_chart")
       )
     ), 
@@ -169,7 +169,7 @@ ui <- shiny::navbarPage(
     shiny::fluidRow(
       shiny::h4(
         class = "text-center", 
-        "The goal (for both charts on the page) is for the blue bar to meet the green line."
+        "Das Ziel (für beide Diagramme auf dieser Seite) ist, dass der blaue Balken die grüne Linie trifft."
       )
     )
     
@@ -177,7 +177,7 @@ ui <- shiny::navbarPage(
   
   ## 2.6 "Help" Page ----
   shiny::tabPanel(
-    title = "Help", 
+    title = "Hilfe", 
     # for text
     # look for shiny::h1 to h5 or more for header sizes
     # shiny::p() for regular text (times new roman)
@@ -222,12 +222,12 @@ server <- function(input, output, session) {
     # Create the reactive data frame holding user's "binary" question responses
     binary_tbl = data.frame(
       Group = as.integer(), 
-      Question = as.integer(), 
+      Frage = as.integer(), 
       QuestionText = as.character(), 
       Index = as.integer(), 
-      Response = as.character(), 
-      Confidence = as.character(), 
-      Truth = as.character(), 
+      Antwort = as.character(), 
+      Konfidenz = as.character(), 
+      Loesung = as.character(), 
       Brier = as.numeric(), 
       Source = as.character(), 
       stringsAsFactors = FALSE
@@ -236,12 +236,12 @@ server <- function(input, output, session) {
     # Create the reactive data frame holding user's "range" question responses
     range_tbl = data.frame(
       Group = as.integer(), 
-      Question = as.integer(), 
+      Frage = as.integer(), 
       QuestionText = as.character(), 
       Index = as.integer(), 
-      Lower90 = as.numeric(), 
-      Upper90 = as.numeric(), 
-      Truth = as.numeric(), 
+      Untere90 = as.numeric(), 
+      Obere90 = as.numeric(), 
+      korr.Antwort = as.numeric(), 
       RelativeError = as.numeric(), 
       Source = as.character(), 
       stringsAsFactors = FALSE
@@ -251,18 +251,18 @@ server <- function(input, output, session) {
   ## 3.2 User Info Modal ----
   # On app launch, display pop-up modal for user to enter first & last name
   shiny::modalDialog(
-    title = "Enter User Information", 
+    title = "Benutzerinformation", 
     shiny::tagList(
       shiny::div(
         shiny::textInput(
           inputId = "user_first_name", 
-          label = "First Name", 
-          placeholder = "First Name"
+          label = "Vorname", 
+          placeholder = "Vorname"
         ), 
         shiny::textInput(
           inputId = "user_last_name", 
-          label = "Last Name", 
-          placeholder = "Last Name"
+          label = "Nachname", 
+          placeholder = "Nachname"
         )
       )
     ), 
@@ -272,7 +272,7 @@ server <- function(input, output, session) {
         # Button to submit user's information
         shiny::actionButton(
           inputId = "submit_user_info_btn", 
-          label = "Submit", 
+          label = "Absenden", 
           icon = shiny::icon("check")
         )
       )
@@ -368,7 +368,7 @@ server <- function(input, output, session) {
       ))
     )
     
-    # Capture the current Confidence / Upper90 
+    # Capture the current Konfidenz / Upper90 
     rctv$current_response_2 <- eval(
       parse(text = glue::glue(
         "input$group_{rctv$current_group_number}_", 
@@ -383,13 +383,13 @@ server <- function(input, output, session) {
       
       # Build a modal asking the user to fix the issue
       modal <- shiny::modalDialog(
-        title = "Please Fix the Following Error", 
+        title = "Bitte den folgenden Fehler beheben", 
         paste0(
-          "The value entered for \"Lower Bound\" must be less than the value", 
-          " entered for \"Upper Bound\"."
+          "Der eingegebene Wert für \"Untere Grenze\" muss kleiner sein als der Wert", 
+          " für  \"Obere Grenze\"."
         ), 
         footer = shiny::modalButton(
-          label = "Go Back", 
+          label = "Zurück", 
           icon = shiny::icon("pen")
         )
       )
@@ -399,15 +399,15 @@ server <- function(input, output, session) {
       # Create the first modal text segment
       modal_text_1 <- ifelse(
         rctv$current_question_type == "binary", 
-        "You answered:", 
-        "You answered (Lower 90%):"
+        "Ihre Antwort:", 
+        "Ihre Atwort (untere 90%):"
       )
       
       # Create the second modal text segment
       modal_text_2 <- ifelse(
         rctv$current_question_type == "binary", 
-        "With confidence:", 
-        "You answered (Upper 90%):"
+        "Mit Konfidenz:", 
+        "Ihre Antwort (obere 90%):"
       )
       
       # Create the modal text suffix
@@ -419,7 +419,7 @@ server <- function(input, output, session) {
       
       # Build a modal asking user to confirm their answer
       modal <- shiny::modalDialog(
-        title = "Are You Sure?", 
+        title = "Sind Sie sicher?", 
         glue::glue("{modal_text_1} {rctv$current_response_1}"), 
         shiny::br(), 
         glue::glue("{modal_text_2} {rctv$current_response_2}{modal_text_3}"), 
@@ -428,13 +428,13 @@ server <- function(input, output, session) {
           shiny::div(
             # Button to dismiss the modal
             shiny::modalButton(
-              label = "Go Back", 
+              label = "Zurück", 
               icon = shiny::icon("pen")
             ), 
             # Button to move to the next question
             shiny::actionButton(
               inputId = "submit_answer_btn", 
-              label = "Submit", 
+              label = "Absenden", 
               icon = shiny::icon("check")
             )
           )
@@ -474,12 +474,12 @@ server <- function(input, output, session) {
         rbind(
           data.frame(
             Group = rctv$current_group_number, 
-            Question = current_question$QuestionNumber, 
+            Frage = current_question$QuestionNumber, 
             QuestionText = current_question$Question, 
             Index = rctv$current_question_number, 
-            Response = rctv$current_response_1, 
-            Confidence = paste0(rctv$current_response_2, "%"), 
-            Truth = current_question$Answer, 
+            Antwort = rctv$current_response_1, 
+            Konfidenz = paste0(rctv$current_response_2, "%"), 
+            Loesung = current_question$Answer, 
             Brier = brier(
               response = stringr::str_sub(rctv$current_response_1, 1L, 1L), 
               confidence = (rctv$current_response_2 / 100), 
@@ -505,12 +505,12 @@ server <- function(input, output, session) {
         rbind(
           data.frame(
             Group = rctv$current_group_number, 
-            Question = current_question$QuestionNumber, 
+            Frage = current_question$QuestionNumber, 
             QuestionText = current_question$Question, 
             Index = rctv$current_question_number, 
-            Lower90 = rctv$current_response_1, 
-            Upper90 = rctv$current_response_2, 
-            Truth = current_question$Answer, 
+            Untere90 = rctv$current_response_1, 
+            Obere90 = rctv$current_response_2, 
+            korr.Antwort = current_question$Answer, 
             RelativeError = relative_error(
               lower_90 = rctv$current_response_1,
               upper_90 = rctv$current_response_2,
@@ -556,12 +556,12 @@ server <- function(input, output, session) {
       # Launch a pop-up modal letting the user know they have completed the 
       # workshop
       shiny::modalDialog(
-        title = "Calibration Workshop Complete!", 
+        title = "Fertig!", 
         glue::glue(
-          "You have successfully completed the Calibration Workshop.", 
+          "Sie haben das Kalibrierungstraining erfolgreich abgeschlossen.", 
         ), 
         shiny::br(), 
-        "Please wait for your instructor before exiting.", 
+        "Bitte warten Sie auf die Workshopleitung bevor sie gehen.", 
         size = "l"
       ) |> 
         shiny::showModal()
@@ -611,14 +611,15 @@ server <- function(input, output, session) {
         
         # Show a "Group Complete" pop-up modal
         shiny::modalDialog(
-          title = "Group Complete!", 
+          title = "Fragenset fertig!", 
           glue::glue(
-            "You have successfully completed Group {rctv$current_group_number - 1}.", 
+            "Sie haben Fragenset {rctv$current_group_number - 1} erfolgreicht abgeschlossen.", 
           ), 
+          footer = modalButton("Fortfahren"),
           shiny::br(), 
-          "Please wait for your instructor before continuing.", 
+          "Bitte warten Sie auf die Anweisungen der Workshopleitung bevor sie fortfahren.", 
           size = "l"
-        ) |> 
+        )|> 
           shiny::showModal()
         
       }
@@ -676,7 +677,7 @@ server <- function(input, output, session) {
     reactable::reactable(
       data, 
       columns = list(
-        Question = reactable::colDef(cell = function(value, index) {
+        Frage = reactable::colDef(cell = function(value, index) {
           hover <- data[index, "QuestionText"]
           # Render as text that can be hovered over to show full question
           htmltools::tags$span(
@@ -689,8 +690,8 @@ server <- function(input, output, session) {
         Brier = reactable::colDef(
           format = reactable::colFormat(digits = 2)
         ), 
-        Truth = reactable::colDef(cell = function(value, index) {
-          text <- if (value == "T") "TRUE" else "FALSE"
+        Loesung = reactable::colDef(cell = function(value, index) {
+          text <- if (value == "T") "Richtig" else "Falsch"
           url <- data[index, "Source"]
           # Render as a link
           htmltools::tags$a(
@@ -724,7 +725,7 @@ server <- function(input, output, session) {
     reactable::reactable(
       data, 
       columns = list(
-        Question = reactable::colDef(cell = function(value, index) {
+        Frage = reactable::colDef(cell = function(value, index) {
           hover <- data[index, "QuestionText"]
           # Render as text that can be hovered over to show full question
           htmltools::tags$span(
@@ -734,13 +735,13 @@ server <- function(input, output, session) {
         }),
         Group = reactable::colDef(show = FALSE), 
         Index = reactable::colDef(show = FALSE), 
-        Lower90 = reactable::colDef(name = "Lower Bound"),
-        Upper90 = reactable::colDef(name = "Upper Bound"), 
+        Untere90 = reactable::colDef(name = "Untere Grenze"),
+        Obere90 = reactable::colDef(name = "Obere Grenze"), 
         RelativeError = reactable::colDef(
-          name = "Relative Error", 
+          name = "Relativer Fehler", 
           format = reactable::colFormat(digits = 2)
         ), 
-        Truth = reactable::colDef(cell = function(value, index) {
+        korr.Antwort = reactable::colDef(cell = function(value, index) {
           url <- data[index, "Source"]
           # hover <- data[index, "Comments"]
           # Render as a link
@@ -756,8 +757,8 @@ server <- function(input, output, session) {
       ), 
       columnGroups = list(
         reactable::colGroup(
-          name = "90% Confidence Interval", 
-          columns = c("Lower90", "Upper90")
+          name = "90% Konfidenzintervall", 
+          columns = c("Untere90", "Obere90")
         )
       ), 
       theme = reactable::reactableTheme(
