@@ -400,14 +400,14 @@ server <- function(input, output, session) {
       modal_text_1 <- ifelse(
         rctv$current_question_type == "binary", 
         "Ihre Antwort:", 
-        "Ihre Atwort (untere 90%):"
+        "Ihre Atwort (untere Grenze):"
       )
       
       # Create the second modal text segment
       modal_text_2 <- ifelse(
         rctv$current_question_type == "binary", 
         "Mit Konfidenz:", 
-        "Ihre Antwort (obere 90%):"
+        "Ihre Antwort (obere Grenze):"
       )
       
       # Create the modal text suffix
