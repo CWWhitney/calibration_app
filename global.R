@@ -23,30 +23,31 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(1:5),
-    range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19) 
+    binary = c(138:147),
+    range = c(153:162) 
   ), 
   
   Group_2 = list(
-    binary = c(5:7), 
-    range = c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+    binary = c(148:151, 153), 
+    range = c(175:182, 184, 207)
   ), 
   
   Group_3 = list(
     binary = NULL, 
-    range = c(21, 23, 25, 27, 29, 31, 33, 35, 37, 39)
+    range = c(164, 165, 167:174)
   ), 
   
   Group_4 = list(
-    binary = NULL, 
-    range = c(40:59)
+    binary = c(154:163), 
+    range = c(208:227)
   ), 
   
   Group_5 = list(
-    binary = NULL, 
-    range = c(60:79)
+    binary = c(164:173), 
+    range = c(242:261)
   )
 )
+
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
