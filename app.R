@@ -7,6 +7,7 @@
 
 ## 1.1 Load Packages ----
 library(shiny)
+library(shinyjs)
 library(shinyWidgets)   # formatting sliderInput() widgets
 library(bslib)  # Bootstrap formatting 
 library(glue)   # convenient string pasting
@@ -358,6 +359,7 @@ server <- function(input, output, session) {
   ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
+    shinyjs::disable("next_btn")
     
     # Capture the current response / Lower90
     rctv$current_response_1 <- eval(
@@ -445,7 +447,7 @@ server <- function(input, output, session) {
     
     # Launch the modal pop-up
     shiny::showModal(modal)
-    
+    shinyjs::enable("next_btn");
   })
   
   ## 3.6 "Submit Answer" Button ----
