@@ -7,7 +7,7 @@
 
 ## 1.1 Load Packages ----
 library(shiny)
-# library(shinyjs)
+library(shinyjs)
 library(shinyWidgets)   # formatting sliderInput() widgets
 library(bslib)  # Bootstrap formatting 
 library(glue)   # convenient string pasting
