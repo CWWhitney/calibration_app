@@ -359,7 +359,6 @@ server <- function(input, output, session) {
   ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
-    useShinyjs(),
     shinyjs::disable("next_btn")
     
     # Capture the current response / Lower90
