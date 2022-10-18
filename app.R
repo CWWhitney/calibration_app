@@ -82,7 +82,7 @@ ui <- shiny::navbarPage(
     ),
     
     shiny::fluidRow(
-      #useShinyjs(),
+      useShinyjs(),
       ### 2.3 Questions UI Elements ----
       shiny::column(
         width = 6, 
@@ -359,7 +359,7 @@ server <- function(input, output, session) {
   ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
-    #shinyjs::disable("next_btn")
+    shinyjs::disable("next_btn")
     
     # Capture the current response / Lower90
     rctv$current_response_1 <- eval(
@@ -447,7 +447,7 @@ server <- function(input, output, session) {
     
     # Launch the modal pop-up
     shiny::showModal(modal)
-    #shinyjs::enable("next_btn")
+    shinyjs::enable("next_btn")
   })
   
   ## 3.6 "Submit Answer" Button ----
