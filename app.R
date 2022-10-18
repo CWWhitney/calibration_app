@@ -442,12 +442,12 @@ server <- function(input, output, session) {
           )
         )
       )
-      
+      shinyjs::enable("next_btn")
     }
     
     # Launch the modal pop-up
     shiny::showModal(modal)
-    shinyjs::enable("next_btn")
+    
   })
   
   ## 3.6 "Submit Answer" Button ----
