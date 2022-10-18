@@ -82,7 +82,7 @@ ui <- shiny::navbarPage(
     ),
     
     shiny::fluidRow(
-      
+      useShinyjs(),
       ### 2.3 Questions UI Elements ----
       shiny::column(
         width = 6, 
