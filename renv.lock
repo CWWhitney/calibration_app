@@ -578,10 +578,10 @@
     },
     "shinyjs": {
       "Package": "shinyjs",
-      "Version": "1.1",
+      "Version": "2.1.0",
       "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "b40a5207b6624f6e2b8cdb50689cdb69"
+      "Repository": "CRAN",
+      "Hash": "802e4786b353a4bb27116957558548d5"
     },
     "shinyWidgets": {
       "Package": "shinyWidgets",
