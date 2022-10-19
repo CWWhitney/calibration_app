@@ -24,25 +24,34 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 selected_questions <- list(
   Group_1 = list(
     binary = c(138:147),
-    range = c(153:162) 
+    range = NULL 
   ), 
-  
   Group_2 = list(
-    binary = c(148:151, 153), 
-    range = c(175:182, 184, 207)
-  ), 
+    binary = NULL, 
+    range = c(153:162)
+  ),
   
   Group_3 = list(
+    binary = c(148:151, 153), 
+    range = NULL
+  ),
+  
+  Group_4 = list(
+    binary = NULL, 
+    range = c(175:182, 206, 207)
+  ), 
+  
+  Group_5 = list(
     binary = NULL, 
     range = c(164, 165, 167:174)
   ), 
   
-  Group_4 = list(
+  Group_6 = list(
     binary = c(154:163), 
     range = c(208:227)
   ), 
   
-  Group_5 = list(
+  Group_7 = list(
     binary = c(164:173), 
     range = c(242:261)
   )
