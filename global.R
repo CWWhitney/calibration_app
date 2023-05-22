@@ -27,30 +27,30 @@ selected_questions <- list(
   ), 
   
   Group_2 = list( 
-    range = c(175:182, 184, 207)
+    range = c(175:181, 184, 207, 100)
   ), 
   
   Group_3 = list( 
-    range = c(164, 165, 167:174)
+    range = c(164, 166, 169:174, 63, 64)
   ), 
   
   Group_4 = list( 
-    range = c(208:227)
+    range = c(208:217)
   ), 
   
   Group_5 = list(
-    range = c(242:261)
+    range = c(242:251)
   ),
   Group_6 = list(
-    range = c(252:271)
+    range = c(252:261)
   )
 )
 
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
-#board <- pins::board_temp() 
+#board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
+board <- pins::board_temp() 
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
