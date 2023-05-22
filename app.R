@@ -169,8 +169,8 @@ ui <- shiny::navbarPage(
     # for text
     # look for shiny::h1 to h5 or more for header sizes
     # shiny::p() for regular text (times new roman)
-    shiny::h4("More Content here..."), 
-    shiny::p("text here..."),
+    shiny::h4("Welcome to the help page"), 
+    shiny::p("If you are havng a problem you can leave us an issue https://github.com/CWWhitney/calibration_app/issues"),
     # shiny::br() is a break or a new line
     # shiny::hr() is a break and a line
     # across the page 'horizontal rule'
