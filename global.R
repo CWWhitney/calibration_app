@@ -49,8 +49,8 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-#board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
-board <- pins::board_temp() 
+ board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
+# board <- pins::board_temp() 
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
