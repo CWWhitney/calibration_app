@@ -122,12 +122,6 @@ ui <- shiny::navbarPage(
         shiny::tabsetPanel(
           id = "results_tabset", 
           
-          #### 2.4.1 "Binary" Results Table ----
-          shiny::tabPanel(
-            title = "Binary Results", 
-            value = "binary_results_panel", 
-            reactable::reactableOutput(outputId = "results_binary_tbl")
-          ), 
           
           #### 2.4.1 "Range" Results Table ----
           shiny::tabPanel(
@@ -148,13 +142,7 @@ ui <- shiny::navbarPage(
     title = "Metrics", 
     
     shiny::fluidRow(
-      
-      shiny::column(
-        width = 6, 
-        
-        shiny::h2("Binary Metrics"), 
-        echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
-      ), 
+    
       
       shiny::column(
         width = 6, 
@@ -169,7 +157,7 @@ ui <- shiny::navbarPage(
     shiny::fluidRow(
       shiny::h4(
         class = "text-center", 
-        "The goal (for both charts on the page) is for the blue bar to meet the green line."
+        "The goal is for the blue bar to meet the green line."
       )
     )
     
@@ -219,20 +207,7 @@ server <- function(input, output, session) {
   # Setup initial reactiveValues
   rctv <- shiny::reactiveValues(
     
-    # Create the reactive data frame holding user's "binary" question responses
-    binary_tbl = data.frame(
-      Group = as.integer(), 
-      Question = as.integer(), 
-      QuestionText = as.character(), 
-      Index = as.integer(), 
-      Response = as.character(), 
-      Confidence = as.character(), 
-      Truth = as.character(), 
-      Brier = as.numeric(), 
-      Source = as.character(), 
-      stringsAsFactors = FALSE
-    ), 
-    
+
     # Create the reactive data frame holding user's "range" question responses
     range_tbl = data.frame(
       Group = as.integer(), 
@@ -322,20 +297,12 @@ server <- function(input, output, session) {
       rctv$current_question_number <- question_index$Index[question_index$Group == rctv$current_group_number & question_index$QuestionNumber == 1 & question_index$QuestionType == rctv$current_question_type]
       
       # update the reactive 'binary_tbl' and 'range_tbl' with the user's history
-      binary_history <- pins::pin_read(
-        board = board, 
-        name = glue::glue("binary_{input$user_last_name}_{input$user_first_name}")
-      )
       
       range_history <- pins::pin_read(
         board = board, 
         name = glue::glue("range_{input$user_last_name}_{input$user_first_name}")
       )
-      
-      rctv$binary_tbl <- rctv$binary_tbl |> 
-        dplyr::bind_rows(
-          binary_history |> dplyr::select(-User)
-        )
+
       
       rctv$range_tbl <- rctv$range_tbl |> 
         dplyr::bind_rows(
@@ -397,25 +364,14 @@ server <- function(input, output, session) {
     } else {
       
       # Create the first modal text segment
-      modal_text_1 <- ifelse(
-        rctv$current_question_type == "binary", 
-        "You answered:", 
-        "You answered (Lower 90%):"
-      )
+      modal_text_1 <-  "You answered (Lower 90%):"
+      
       
       # Create the second modal text segment
-      modal_text_2 <- ifelse(
-        rctv$current_question_type == "binary", 
-        "With confidence:", 
-        "You answered (Upper 90%):"
-      )
+      modal_text_2 <-"You answered (Upper 90%):"
       
-      # Create the modal text suffix
-      modal_text_3 <- ifelse(
-        rctv$current_question_type == "binary", 
-        "%", 
-        ""
-      )
+      modal_text_3<-""
+
       
       # Build a modal asking user to confirm their answer
       modal <- shiny::modalDialog(
@@ -459,38 +415,7 @@ server <- function(input, output, session) {
     w$show()
     
     # Append a new row to the reactive "binary" or "range" data frame 
-    if (rctv$current_question_type == "binary") {
-      
-      current_question <- question_index %>% 
-        dplyr::filter(Index == rctv$current_question_number) %>% 
-        dplyr::select(Group, QuestionNumber) %>% 
-        dplyr::mutate(Group = paste0("Group_", Group)) %>% 
-        dplyr::inner_join(
-          questions$binary, 
-          by = c("Group", "QuestionNumber")
-        )
-      
-      rctv$binary_tbl <- rctv$binary_tbl |>
-        rbind(
-          data.frame(
-            Group = rctv$current_group_number, 
-            Question = current_question$QuestionNumber, 
-            QuestionText = current_question$Question, 
-            Index = rctv$current_question_number, 
-            Response = rctv$current_response_1, 
-            Confidence = paste0(rctv$current_response_2, "%"), 
-            Truth = current_question$Answer, 
-            Brier = brier(
-              response = stringr::str_sub(rctv$current_response_1, 1L, 1L), 
-              confidence = (rctv$current_response_2 / 100), 
-              correct_answer = current_question$Answer
-            ), 
-            Source = current_question$Source_link, 
-            stringsAsFactors = FALSE
-          )
-        )
-      
-    } else {
+   
       
       current_question <- question_index %>% 
         dplyr::filter(Index == rctv$current_question_number) %>% 
@@ -521,19 +446,13 @@ server <- function(input, output, session) {
           )
         )
       
-    }
+    
     
     # If the submission was the last question in the *entire* workshop...
     if (rctv$current_question_number == max(question_index$Index)) {
       
       # Write out the current results to the user's pin
-      write_to_pin(
-        board = board, 
-        type = "binary", 
-        data = rctv$binary_tbl, 
-        user_first = trimws(input$user_first_name), 
-        user_last = trimws(input$user_last_name)
-      )
+
       
       write_to_pin(
         board = board, 
@@ -593,13 +512,7 @@ server <- function(input, output, session) {
       # {pins} database and show a pop-up
       if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
         
-        write_to_pin(
-          board = board, 
-          type = "binary", 
-          data = rctv$binary_tbl, 
-          user_first = trimws(input$user_first_name), 
-          user_last = trimws(input$user_last_name)
-        )
+
         
         write_to_pin(
           board = board, 
@@ -641,15 +554,7 @@ server <- function(input, output, session) {
     
     # Display the appropriate UI response elements based on the current question
     # type
-    if (rctv$current_question_type == "binary") {
-      
-      binary_ui %>% 
-        purrr::pluck(
-          glue::glue("Group_{rctv$current_group_number}"), 
-          glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
-        )
-      
-    } else {
+    
       
       range_ui %>% 
         purrr::pluck(
@@ -657,57 +562,10 @@ server <- function(input, output, session) {
           glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
         )
       
-    }
+    
     
   })
   
-  ## 3.8 Binary Results Table ----
-  # Create the table to hold the "Binary" results & scores
-  output$results_binary_tbl <- reactable::renderReactable({
-    
-    # Require the "binary" response table
-    shiny::req(rctv$binary_tbl)
-    
-    data <- rctv$binary_tbl %>% 
-      dplyr::filter(Group == rctv$current_group_number)
-    
-    # Populate the interactive table with the "binary" data from the current 
-    # question group
-    reactable::reactable(
-      data, 
-      columns = list(
-        Question = reactable::colDef(cell = function(value, index) {
-          hover <- data[index, "QuestionText"]
-          # Render as text that can be hovered over to show full question
-          htmltools::tags$span(
-            title = hover,
-            value
-          )
-        }),
-        Group = reactable::colDef(show = FALSE), 
-        Index = reactable::colDef(show = FALSE), 
-        Brier = reactable::colDef(
-          format = reactable::colFormat(digits = 2)
-        ), 
-        Truth = reactable::colDef(cell = function(value, index) {
-          text <- if (value == "T") "TRUE" else "FALSE"
-          url <- data[index, "Source"]
-          # Render as a link
-          htmltools::tags$a(
-            href = url, 
-            target = "_blank", 
-            text
-          )
-        }), 
-        QuestionText = reactable::colDef(show = FALSE), 
-        Source = reactable::colDef(show = FALSE)
-      ), 
-      theme = reactable::reactableTheme(
-        backgroundColor = "#153015"
-      )
-    )
-    
-  })
   
   ## 3.9 Range Results Table ----
   # Create the table to hold the "Range" results & scores
@@ -767,19 +625,6 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.10 Binary Metrics Chart ----
-  # Create the chart to hold the binary metrics
-  output$binary_metrics_chart <- echarts4r::renderEcharts4r({
-    
-    # Require that there is data in the "binary" response table
-    shiny::req(nrow(rctv$binary_tbl) > 0)
-    
-    # Create the "binary" metrics interactive chart
-    generate_binary_metrics_chart(
-      data = rctv$binary_tbl
-    )
-    
-  })
   
   ## 3.11 Range Metrics Chart ----
   # Create the chart to hold the range metrics
