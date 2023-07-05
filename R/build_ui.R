@@ -31,8 +31,7 @@ build_ui <- function(questions, type) {
         
         shiny::br(), 
         
-        if (type == "binary") {
-          
+
           shiny::tagList(
             shiny::div(
               style = "padding-left: 20px;", 
@@ -56,32 +55,6 @@ build_ui <- function(questions, type) {
             )
           )
           
-        } else {
-          
-          shiny::tagList(
-            shiny::h5("90% Confidence Interval:"),
-            
-            shiny::div(
-              style = "display: inline-block;",
-              shiny::numericInput(
-                inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_A"),
-                label = "Lower Bound",
-                value = 0
-              )
-            ), 
-            
-            shiny::div(
-              style = "display: inline-block;",
-              shiny::numericInput(
-                inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_B"),
-                label = "Upper Bound",
-                value = 0
-              )
-            )
-          )
-          
-        }
-        
       )
       
     }

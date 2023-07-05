@@ -127,14 +127,9 @@ ui <- shiny::navbarPage(
             title = "Binary Results", 
             value = "binary_results_panel", 
             reactable::reactableOutput(outputId = "results_binary_tbl")
-          ), 
+          ) 
           
-          #### 2.4.1 "Range" Results Table ----
-          shiny::tabPanel(
-            title = "Range Results", 
-            value = "range_results_panel", 
-            reactable::reactableOutput(outputId = "results_range_tbl")
-          )
+          
         )
         
       )
@@ -154,13 +149,6 @@ ui <- shiny::navbarPage(
         
         shiny::h2("Binary Metrics"), 
         echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
-      ), 
-      
-      shiny::column(
-        width = 6, 
-        
-        shiny::h2("Range Metrics"), 
-        echarts4r::echarts4rOutput(outputId = "range_metrics_chart")
       )
     ), 
     
@@ -229,20 +217,6 @@ server <- function(input, output, session) {
       Confidence = as.character(), 
       Truth = as.character(), 
       Brier = as.numeric(), 
-      Source = as.character(), 
-      stringsAsFactors = FALSE
-    ), 
-    
-    # Create the reactive data frame holding user's "range" question responses
-    range_tbl = data.frame(
-      Group = as.integer(), 
-      Question = as.integer(), 
-      QuestionText = as.character(), 
-      Index = as.integer(), 
-      Lower90 = as.numeric(), 
-      Upper90 = as.numeric(), 
-      Truth = as.numeric(), 
-      RelativeError = as.numeric(), 
       Source = as.character(), 
       stringsAsFactors = FALSE
     )
@@ -327,20 +301,13 @@ server <- function(input, output, session) {
         name = glue::glue("binary_{input$user_last_name}_{input$user_first_name}")
       )
       
-      range_history <- pins::pin_read(
-        board = board, 
-        name = glue::glue("range_{input$user_last_name}_{input$user_first_name}")
-      )
       
       rctv$binary_tbl <- rctv$binary_tbl |> 
         dplyr::bind_rows(
           binary_history |> dplyr::select(-User)
         )
       
-      rctv$range_tbl <- rctv$range_tbl |> 
-        dplyr::bind_rows(
-          range_history |> dplyr::select(-User)
-        )
+
       
     } else {
       
@@ -377,45 +344,28 @@ server <- function(input, output, session) {
       ))
     )
     
-    # For "range" type questions, ensure that the entry for "Lower90" is less 
-    # than the value entered for "Upper90"
-    if ((rctv$current_question_type == "range") & (rctv$current_response_1 >= rctv$current_response_2)) {
-      
-      # Build a modal asking the user to fix the issue
-      modal <- shiny::modalDialog(
-        title = "Please Fix the Following Error", 
-        paste0(
-          "The value entered for \"Lower Bound\" must be less than the value", 
-          " entered for \"Upper Bound\"."
-        ), 
-        footer = shiny::modalButton(
-          label = "Go Back", 
-          icon = shiny::icon("pen")
-        )
-      )
-      
-    } else {
+    
       
       # Create the first modal text segment
-      modal_text_1 <- ifelse(
-        rctv$current_question_type == "binary", 
-        "You answered:", 
-        "You answered (Lower 90%):"
-      )
+      modal_text_1 <- #ifelse(
+        #rctv$current_question_type == "binary", 
+        "You answered:"#, 
+        #"You answered (Lower 90%):"
+      #)
       
       # Create the second modal text segment
-      modal_text_2 <- ifelse(
-        rctv$current_question_type == "binary", 
-        "With confidence:", 
-        "You answered (Upper 90%):"
-      )
+      modal_text_2 <- #ifelse(
+        #rctv$current_question_type == "binary", 
+        "With confidence:"#, 
+        #"You answered (Upper 90%):"
+      #)
       
       # Create the modal text suffix
-      modal_text_3 <- ifelse(
-        rctv$current_question_type == "binary", 
-        "%", 
-        ""
-      )
+      modal_text_3 <- #ifelse(
+        #rctv$current_question_type == "binary", 
+        "%"#, 
+        #""
+      #)
       
       # Build a modal asking user to confirm their answer
       modal <- shiny::modalDialog(
@@ -441,7 +391,7 @@ server <- function(input, output, session) {
         )
       )
       
-    }
+    #}
     
     # Launch the modal pop-up
     shiny::showModal(modal)
@@ -459,8 +409,7 @@ server <- function(input, output, session) {
     w$show()
     
     # Append a new row to the reactive "binary" or "range" data frame 
-    if (rctv$current_question_type == "binary") {
-      
+
       current_question <- question_index %>% 
         dplyr::filter(Index == rctv$current_question_number) %>% 
         dplyr::select(Group, QuestionNumber) %>% 
@@ -490,38 +439,6 @@ server <- function(input, output, session) {
           )
         )
       
-    } else {
-      
-      current_question <- question_index %>% 
-        dplyr::filter(Index == rctv$current_question_number) %>% 
-        dplyr::select(Group, QuestionNumber) %>% 
-        dplyr::mutate(Group = paste0("Group_", Group)) %>% 
-        dplyr::inner_join(
-          questions$range, 
-          by = c("Group", "QuestionNumber")
-        )
-      
-      rctv$range_tbl <- rctv$range_tbl |>
-        rbind(
-          data.frame(
-            Group = rctv$current_group_number, 
-            Question = current_question$QuestionNumber, 
-            QuestionText = current_question$Question, 
-            Index = rctv$current_question_number, 
-            Lower90 = rctv$current_response_1, 
-            Upper90 = rctv$current_response_2, 
-            Truth = current_question$Answer, 
-            RelativeError = relative_error(
-              lower_90 = rctv$current_response_1,
-              upper_90 = rctv$current_response_2,
-              correct_answer = current_question$Answer
-            ), 
-            Source = current_question$Source_link, 
-            stringsAsFactors = FALSE
-          )
-        )
-      
-    }
     
     # If the submission was the last question in the *entire* workshop...
     if (rctv$current_question_number == max(question_index$Index)) {
@@ -535,13 +452,7 @@ server <- function(input, output, session) {
         user_last = trimws(input$user_last_name)
       )
       
-      write_to_pin(
-        board = board, 
-        type = "range", 
-        data = rctv$range_tbl, 
-        user_first = trimws(input$user_first_name), 
-        user_last = trimws(input$user_last_name)
-      )
+
       
       # Hide the {waiter} loading screen
       w$hide()
@@ -601,13 +512,7 @@ server <- function(input, output, session) {
           user_last = trimws(input$user_last_name)
         )
         
-        write_to_pin(
-          board = board, 
-          type = "range", 
-          data = rctv$range_tbl, 
-          user_first = trimws(input$user_first_name), 
-          user_last = trimws(input$user_last_name)
-        )
+
         
         # Show a "Group Complete" pop-up modal
         shiny::modalDialog(
@@ -641,23 +546,14 @@ server <- function(input, output, session) {
     
     # Display the appropriate UI response elements based on the current question
     # type
-    if (rctv$current_question_type == "binary") {
+    #if (rctv$current_question_type == "binary") {
       
       binary_ui %>% 
         purrr::pluck(
           glue::glue("Group_{rctv$current_group_number}"), 
           glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
         )
-      
-    } else {
-      
-      range_ui %>% 
-        purrr::pluck(
-          glue::glue("Group_{rctv$current_group_number}"), 
-          glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
-        )
-      
-    }
+   
     
   })
   
@@ -709,64 +605,7 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.9 Range Results Table ----
-  # Create the table to hold the "Range" results & scores
-  output$results_range_tbl <- reactable::renderReactable({
-    
-    # Require the "range" response table
-    shiny::req(rctv$range_tbl)
-    
-    data <- rctv$range_tbl %>% 
-      dplyr::filter(Group == rctv$current_group_number)
-    
-    # Populate the interactive table with the "range" data from the current 
-    # question group
-    reactable::reactable(
-      data, 
-      columns = list(
-        Question = reactable::colDef(cell = function(value, index) {
-          hover <- data[index, "QuestionText"]
-          # Render as text that can be hovered over to show full question
-          htmltools::tags$span(
-            title = hover,
-            value
-          )
-        }),
-        Group = reactable::colDef(show = FALSE), 
-        Index = reactable::colDef(show = FALSE), 
-        Lower90 = reactable::colDef(name = "Lower Bound"),
-        Upper90 = reactable::colDef(name = "Upper Bound"), 
-        RelativeError = reactable::colDef(
-          name = "Relative Error", 
-          format = reactable::colFormat(digits = 2)
-        ), 
-        Truth = reactable::colDef(cell = function(value, index) {
-          url <- data[index, "Source"]
-          # hover <- data[index, "Comments"]
-          # Render as a link
-          htmltools::tags$a(
-            # title = hover, 
-            href = url, 
-            target = "_blank", 
-            value
-          )
-        }), 
-        QuestionText = reactable::colDef(show = FALSE), 
-        Source = reactable::colDef(show = FALSE)
-      ), 
-      columnGroups = list(
-        reactable::colGroup(
-          name = "90% Confidence Interval", 
-          columns = c("Lower90", "Upper90")
-        )
-      ), 
-      theme = reactable::reactableTheme(
-        backgroundColor = "#153015"
-      )
-    )
-    
-  })
-  
+
   ## 3.10 Binary Metrics Chart ----
   # Create the chart to hold the binary metrics
   output$binary_metrics_chart <- echarts4r::renderEcharts4r({
@@ -781,19 +620,7 @@ server <- function(input, output, session) {
     
   })
   
-  ## 3.11 Range Metrics Chart ----
-  # Create the chart to hold the range metrics
-  output$range_metrics_chart <- echarts4r::renderEcharts4r({
-    
-    # Require that there is data in the "range" response table
-    shiny::req(nrow(rctv$range_tbl) > 0)
-    
-    # Create the "range" metrics interactive chart
-    generate_range_metrics_chart(
-      data = rctv$range_tbl
-    )
-    
-  })
+
   
 }
 

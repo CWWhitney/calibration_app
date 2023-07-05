@@ -23,34 +23,30 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(1:5),
-    range = c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19) 
+    binary = c(1:10)
   ), 
   
   Group_2 = list(
-    binary = c(5:7), 
-    range = c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+    binary = c(11:20)
   ), 
   
   Group_3 = list(
-    binary = NULL, 
-    range = c(21, 23, 25, 27, 29, 31, 33, 35, 37, 39)
+    binary = c(21:30)
   ), 
   
   Group_4 = list(
-    binary = NULL, 
-    range = c(40:59)
+    binary = c(31:40)
   ), 
   
   Group_5 = list(
-    binary = NULL, 
-    range = c(60:79)
+    binary = c(41:50)
   )
 )
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
+board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+#board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
@@ -76,9 +72,5 @@ binary_ui <- build_ui(
   type = "binary"
 )
 
-# Build the UI elements for each range question
-range_ui <- build_ui(
-  questions = questions$range, 
-  type = "range"
-)
+
 
