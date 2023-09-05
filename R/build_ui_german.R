@@ -22,7 +22,7 @@ build_ui_german <- function(questions, type) {
       current_group_ui[[paste0("question_", i)]] <- shiny::tagList(
         
         shiny::h3(
-          paste0("Frage: ", i)
+          paste0(selected_language[44], i)
         ), 
         
         shiny::hr(), 
@@ -38,16 +38,16 @@ build_ui_german <- function(questions, type) {
               style = "padding-left: 20px;", 
               shinyWidgets::awesomeRadio(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_A"),
-                label = "Antwort:",
-                choices = c("Richtig", "Falsch"),
-                selected = "Richtig",
+                label = selected_language[45],
+                choices = c(selected_language[31], selected_language[32]),
+                selected = selected_language[31],
                 status = "warning"
               )
             ), 
             
             shiny::sliderInput(
               inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_B"), 
-              label = "Konfidenz:", 
+              label = selected_language[46], 
               min = 50, 
               max = 100, 
               value = 60, 
@@ -59,13 +59,13 @@ build_ui_german <- function(questions, type) {
         } else {
           
           shiny::tagList(
-            shiny::h5("90% Konfidenzintervall:"),
+            shiny::h5(selected_language[35]),
             
             shiny::div(
               style = "display: inline-block;",
               shiny::numericInput(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_A"),
-                label = "Untere Grenze",
+                label = selected_language[33],
                 value = 0
               )
             ), 
@@ -74,7 +74,7 @@ build_ui_german <- function(questions, type) {
               style = "display: inline-block;",
               shiny::numericInput(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_B"),
-                label = "Obere Grenze",
+                label = selected_language[34],
                 value = 0
               )
             )
