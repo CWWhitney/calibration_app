@@ -22,7 +22,7 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #User interface language
 User_interface_language_url<-"https://docs.google.com/spreadsheets/d/1zN3oSg_uPaKbAw-EdhJ6AzmINQLvf9FXN2IPwg81WbY/edit?usp=sharing"
 interface_languages<-read_sheet(User_interface_language_url)
-selected_language<-interface_languages$German
+selected_language<-pull(interface_languages[,language],language)
 # Select the questions you want for each group (i.e., each "round")
 #### Change and use these to set up each workshop
 selected_questions <- list(
@@ -63,8 +63,8 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
- board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
-#board<-pins::board_rsconnect()
+# board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+board<-pins::board_rsconnect()
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
