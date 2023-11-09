@@ -31,32 +31,7 @@ build_ui <- function(questions, type) {
         
         shiny::br(), 
         
-        if (type == "binary") {
-          
-          shiny::tagList(
-            shiny::div(
-              style = "padding-left: 20px;", 
-              shinyWidgets::awesomeRadio(
-                inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_A"),
-                label = selected_language[45],
-                choices = c(selected_language[31], selected_language[32]),
-                selected = selected_language[31],
-                status = "warning"
-              )
-            ), 
-            
-            shiny::sliderInput(
-              inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_B"), 
-              label = selected_language[46], 
-              min = 50, 
-              max = 100, 
-              value = 60, 
-              step = 5, 
-              post = "%"
-            )
-          )
-          
-        } else {
+        
           
           shiny::tagList(
             shiny::h5(selected_language[35]),
@@ -80,8 +55,6 @@ build_ui <- function(questions, type) {
             )
           )
           
-        }
-        
       )
       
     }
