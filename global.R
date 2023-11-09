@@ -28,38 +28,29 @@ selected_language<-pull(interface_languages[,language],language)
 selected_questions <- list(
   Group_1 = list(
     binary = c(138:147),
-    range = NULL 
+    range = c(153:162) 
   ), 
   Group_2 = list(
-    binary = NULL, 
-    range = c(153:162)
-  ),
-  
-  Group_3 = list(
     binary = c(148:151, 153), 
-    range = NULL
-  ),
-  
-  Group_4 = list(
-    binary = NULL, 
-    range = c(175:182, 206, 207)
+    range = c(175:182, 184, 207)
   ), 
   
-  Group_5 = list(
+  Group_3 = list(
     binary = NULL, 
     range = c(164, 165, 167:174)
   ), 
   
-  Group_6 = list(
+  Group_4 = list(
     binary = c(154:163), 
     range = c(208:227)
   ), 
   
-  Group_7 = list(
+  Group_5 = list(
     binary = c(164:173), 
     range = c(242:261)
   )
 )
+
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
