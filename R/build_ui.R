@@ -1,7 +1,7 @@
 
 
 
-build_ui_german <- function(questions, type) {
+build_ui <- function(questions, type) {
   
   # Split the 'questions' data frame into a list of data frames, by "Group"
   questions_list <- questions %>% 
