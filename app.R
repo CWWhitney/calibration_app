@@ -507,13 +507,13 @@ server <- function(input, output, session) {
       if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
         
         
-        #write_to_pin(
-        #  board = board, 
-        #  type = "binary", 
-        #  data = rctv$binary_tbl_backend, 
-        #  user_first = trimws(input$user_first_name), 
-        #  user_last = trimws(input$user_last_name)
-        #)
+        write_to_pin(
+          board = board, 
+          type = "binary", 
+          data = rctv$binary_tbl, 
+          user_first = trimws(input$user_first_name), 
+          user_last = trimws(input$user_last_name)
+        )
         
         # Show a "Group Complete" pop-up modal
         shiny::modalDialog(
