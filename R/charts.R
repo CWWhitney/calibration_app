@@ -15,7 +15,7 @@ generate_range_metrics_chart <- function(data) {
     echarts4r::e_charts(x = Group) |> 
     echarts4r::e_bar(
       serie = Correct, 
-      name = "Korrekt"
+      name = selected_language[38]
     ) |> 
     echarts4r::e_line(
       serie = Confidence, 
