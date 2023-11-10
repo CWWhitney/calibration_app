@@ -517,7 +517,7 @@ server <- function(input, output, session) {
         write_to_pin(
           board = board, 
           type = "range", 
-          data = rctv$range_tbl_backend, 
+          data = rctv$range_tbl, 
           user_first = trimws(input$user_first_name), 
           user_last = trimws(input$user_last_name)
         )
