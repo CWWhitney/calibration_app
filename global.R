@@ -29,20 +29,24 @@ selected_questions <- list(
   Group_1 = list(
     range = c(153:162) 
   ), 
-  Group_2 = list(
-    range = c(175:182, 184, 207)
+  
+  Group_2 = list( 
+    range = c(175:181, 184, 207, 100)
   ), 
   
-  Group_3 = list(
-    range = c(164, 165, 167:174)
+  Group_3 = list( 
+    range = c(164, 166, 169:174, 63, 64)
   ), 
   
-  Group_4 = list(
-    range = c(208:227)
+  Group_4 = list( 
+    range = c(208:217)
   ), 
   
   Group_5 = list(
-    range = c(242:261)
+    range = c(242:251)
+  ),
+  Group_6 = list(
+    range = c(252:261)
   )
 )
 
