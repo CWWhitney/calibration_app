@@ -27,18 +27,18 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(138:147)
+    binary = c(1:10)
   ), 
   Group_2 = list(
-    binary = c(148:151, 153)
+    binary = c(21:30)
   ), 
   
   Group_3 = list(
-    binary = c(5,4)
+    binary = c(31:40)
   ), 
   
   Group_4 = list(
-    binary = c(154:163)
+    binary = c(41:50)
   ), 
   
   Group_5 = list(
