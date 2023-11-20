@@ -25,21 +25,20 @@ selected_questions <- list(
   Group_1 = list(
     binary = c(1:10)
   ), 
-  
   Group_2 = list(
-    binary = c(11:20)
-  ), 
-  
-  Group_3 = list(
     binary = c(21:30)
   ), 
   
-  Group_4 = list(
+  Group_3 = list(
     binary = c(31:40)
   ), 
   
-  Group_5 = list(
+  Group_4 = list(
     binary = c(41:50)
+  ), 
+  
+  Group_5 = list(
+    binary = c(164:173)
   )
 )
 
