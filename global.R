@@ -23,19 +23,19 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(153:162) 
+    range = c(1,2,3,11,12, 28,29, 35, 36, 38) 
   ), 
   
   Group_2 = list( 
-    range = c(175:181, 184, 207, 100)
+    range = c(39, 40, 42, 43, 44,45,46,47,48,49)
   ), 
   
   Group_3 = list( 
-    range = c(164, 166, 169:174, 63, 64)
+    range = c(50, 51, 52, 53, 54, 55, 56, 57, 58, 59)
   ), 
   
   Group_4 = list( 
-    range = c(208:217)
+    range = c(60, 61, 62, 63, 64, 65, 66, 67, 68, 71)
   ), 
   
   Group_5 = list(
