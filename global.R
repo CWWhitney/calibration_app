@@ -36,14 +36,14 @@ selected_questions <- list(
   
   Group_4 = list( 
     range = c(60, 62, 63, 64, 65, 66, 67, 68, 71, 72)
-  ), 
+  )#, 
   
-  Group_5 = list(
-    range = c(242:251)
-  ),
-  Group_6 = list(
-    range = c(252:261)
-  )
+  #Group_5 = list(
+  #  range = c(242:251)
+  #),
+  #Group_6 = list(
+  #  range = c(252:261)
+  #)
 )
 
 
