@@ -230,13 +230,13 @@ server <- function(input, output, session) {
       shiny::div(
         shiny::textInput(
           inputId = "user_first_name", 
-          label = "First Name", 
-          placeholder = "First Name"
+          label = "Last Name", 
+          placeholder = "Last Name"
         ), 
         shiny::textInput(
           inputId = "user_last_name", 
-          label = "Last Name", 
-          placeholder = "Last Name"
+          label = "First Name", 
+          placeholder = "First Name"
         )
       )
     ), 
