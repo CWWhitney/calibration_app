@@ -23,10 +23,10 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(1:10)
+    binary = c(3, 7, 20, 23, 24, 102, 103, 104, 105, 106)
   ), 
   Group_2 = list(
-    binary = c(21:30)
+    binary = c(25:30)
   ), 
   
   Group_3 = list(
