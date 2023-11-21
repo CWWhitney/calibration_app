@@ -9,7 +9,7 @@ library(purrr)
 # User-Defined Parameters -------------------------------------------------
 
 # Define the language questions will be asked in
-language <- "German"
+language <- "Vietnamese"
 
 # Define Google API authentication type
 # If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
@@ -27,10 +27,10 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(1:10)
+    binary = c(3, 7, 20, 23, 24, 102, 103, 104, 105, 106)
   ), 
   Group_2 = list(
-    binary = c(21:30)
+    binary = c(25:30)
   ), 
   
   Group_3 = list(
