@@ -23,7 +23,7 @@ google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuE
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(1,2,3,11,12, 28,29, 35, 36, 38) 
+    range = c(1,2,3,11,12, 27,28, 34, 35, 38) 
   ), 
   
   Group_2 = list( 
@@ -35,7 +35,7 @@ selected_questions <- list(
   ), 
   
   Group_4 = list( 
-    range = c(60, 61, 62, 63, 64, 65, 66, 67, 68, 71)
+    range = c(60, 62, 63, 64, 65, 66, 67, 68, 71, 72)
   ), 
   
   Group_5 = list(
@@ -50,7 +50,7 @@ selected_questions <- list(
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
  board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
-# board <- pins::board_temp() 
+ #board <- pins::board_temp() 
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------

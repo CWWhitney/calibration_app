@@ -226,7 +226,8 @@ server <- function(input, output, session) {
   ## 3.2 User Info Modal ----
   # On app launch, display pop-up modal for user to enter first & last name
   shiny::modalDialog(
-    title = "Enter User Information", 
+    title = "Enter User Information",
+    "Please type just one name per field and avoid special letters e.g. ä ü é or symbols like -.",
     shiny::tagList(
       shiny::div(
         shiny::textInput(
