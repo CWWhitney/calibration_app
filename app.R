@@ -231,13 +231,13 @@ server <- function(input, output, session) {
       shiny::div(
         shiny::textInput(
           inputId = "user_first_name", 
-          label = selected_language[12], 
-          placeholder = selected_language[12]
+          label = selected_language[13], 
+          placeholder = selected_language[13]
         ), 
         shiny::textInput(
           inputId = "user_last_name", 
-          label = selected_language[13], 
-          placeholder = selected_language[13]
+          label = selected_language[12], 
+          placeholder = selected_language[12]
         )
       )
     ), 
