@@ -28,10 +28,10 @@ selected_language<-pull(interface_languages[,language],language)
 selected_questions <- list(
   Group_1 = list(
     binary = c(3, 7, 20, 23, 24, 102, 103, 104, 105, 106)
+  ), 
+  Group_2 = list(
+    binary = c(107, 108, 109, 110, 111, 112, 113, 114, 119, 120)
   )#, 
- # Group_2 = list(
-#    binary = c(25:30)
- # ), 
   
   #Group_3 = list(
    # binary = c(31:40)
