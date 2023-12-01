@@ -40,14 +40,20 @@ selected_questions <- list(
   
   Group_4 = list( 
     range = c(60, 62, 63, 64, 65, 66, 67, 68, 71, 72)
-  )#, 
+  ), 
   
-  #Group_5 = list(
-  #  range = c(242:251)
-  #),
-  #Group_6 = list(
-  #  range = c(252:261)
-  #)
+  Group_5 = list(
+    range = c(73, 74, 75, 76, 77, 79, 80, 81, 82, 84)
+  ),
+  Group_6 = list(
+    range = c(86, 87, 88, 89, 90, 91, 92, 93, 94, 95)
+  ),
+  Group_7 = list(
+    range = c(94, 95, 96, 97, 98, 99, 100, 101, 102, 104)
+  ),
+  Group_8 = list(
+    range = c(105, 106, 107, 108, 110, 111, 112, 113, 114, 115)
+  )
 )
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
