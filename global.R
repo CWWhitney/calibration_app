@@ -9,7 +9,7 @@ library(purrr)
 # User-Defined Parameters -------------------------------------------------
 
 # Define the language questions will be asked in
-language <- "English"
+language <- "Engkis"
 
 # Define Google API authentication type
 # If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
@@ -27,33 +27,33 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(1, 3, 7, 11, 12, 13, 17, 20, 25, 27) 
+    range = c(299,306,3,12,16,25,302,27,35,46) 
   ), 
   
   Group_2 = list( 
-    range = c(28, 29, 31, 34, 36, 37, 39, 40, 41, 43)
+    range = c(92,298,305,149,152,158,65,91,164,227)
   ), 
   
   Group_3 = list( 
-    range = c(44, 45, 46, 47, 48, 49, 50, 51, 52, 53)
+    range = c(303,294:297,135,116,300,163,304)
   ), 
   
   Group_4 = list( 
-    range = c(56, 57, 61, 62, 63, 65, 69, 71, 72, 76)
-  ), 
+    range = c(29,117,112,123,47,1,13,74,284,241)
+  )#, 
   
-  Group_5 = list(
-    range = c(86, 91, 92, 93, 99, 100, 103, 106, 110, 111)
-  ),
-  Group_6 = list(
-    range = c(112, 114, 115, 116, 117, 118, 119, 120, 121, 122)
-  ),
-  Group_7 = list(
-    range = c(123, 124, 125, 126, 127, 128, 129, 130, 131, 132)
-  ),
-  Group_8 = list(
-    range = c(133, 135, 152, 158, 159, 166, 219, 227,291, 292, 294, 295, 300, 301, 302)
-  )
+  #Group_5 = list(
+  #  range = c(73, 74, 75, 76, 77, 79, 80, 81, 82, 84)
+  #),
+  #Group_6 = list(
+  #  range = c(86, 87, 88, 89, 90, 91, 92, 93, 94, 95)
+  #),
+  #Group_7 = list(
+  #  range = c(94, 95, 96, 97, 98, 99, 100, 101, 102, 104)
+  #),
+  #Group_8 = list(
+  #  range = c(105, 106, 107, 108, 110, 111, 112, 113, 114, 115)
+  #)
 )
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
