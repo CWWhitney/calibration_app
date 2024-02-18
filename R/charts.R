@@ -15,11 +15,11 @@ generate_range_metrics_chart <- function(data) {
     echarts4r::e_charts(x = Group) |> 
     echarts4r::e_bar(
       serie = Correct, 
-      name = "Correct"
+      name = selected_language[38]
     ) |> 
     echarts4r::e_line(
       serie = Confidence, 
-      name = "Confidence", 
+      name = selected_language[40], 
       symbol = "circle", 
       symbolSize = 20
     ) |> 

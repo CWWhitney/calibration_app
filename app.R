@@ -7,6 +7,7 @@
 
 ## 1.1 Load Packages ----
 library(shiny)
+library(shinyjs)
 library(shinyWidgets)   # formatting sliderInput() widgets
 library(bslib)  # Bootstrap formatting 
 library(glue)   # convenient string pasting
@@ -52,7 +53,7 @@ app_theme <- bslib::bs_theme(
 ui <- shiny::navbarPage(
   
   ## 2.1 Set Up Global UI Elements ----
-  title = "Calibrator",
+  title = selected_language[1],
   
   theme = app_theme,
   
@@ -69,7 +70,7 @@ ui <- shiny::navbarPage(
   
   ## 2.2 "Questions" Page ----
   shiny::tabPanel(
-    title = "Questions", 
+    title = selected_language[2], 
     
     # Enable use of {waiter} package 
     waiter::use_waiter(), 
@@ -81,7 +82,7 @@ ui <- shiny::navbarPage(
     ),
     
     shiny::fluidRow(
-      
+      #useShinyjs(),
       ### 2.3 Questions UI Elements ----
       shiny::column(
         width = 6, 
@@ -100,7 +101,7 @@ ui <- shiny::navbarPage(
             shiny::actionButton(
               class = "btn btn-lg", 
               inputId = "next_btn", 
-              label = "Next", 
+              label = selected_language[3], 
               icon = shiny::icon(name = "arrow-right")
             )
           ), 
@@ -112,7 +113,6 @@ ui <- shiny::navbarPage(
         )
         
       ), 
-      
       ### 2.4 Response UI Elements ----
       shiny::column(
         width = 6, 
@@ -125,7 +125,7 @@ ui <- shiny::navbarPage(
           
           #### 2.4.1 "Range" Results Table ----
           shiny::tabPanel(
-            title = "Range Results", 
+            title = selected_language[5], 
             value = "range_results_panel", 
             reactable::reactableOutput(outputId = "results_range_tbl")
           )
@@ -139,15 +139,15 @@ ui <- shiny::navbarPage(
   
   ## 2.5 "Metrics" Page ----
   shiny::tabPanel(
-    title = "Metrics", 
+    title = selected_language[6], 
     
     shiny::fluidRow(
-    
+
       
       shiny::column(
         width = 6, 
         
-        shiny::h2("Range Metrics"), 
+        shiny::h2(selected_language[8]), 
         echarts4r::echarts4rOutput(outputId = "range_metrics_chart")
       )
     ), 
@@ -157,7 +157,8 @@ ui <- shiny::navbarPage(
     shiny::fluidRow(
       shiny::h4(
         class = "text-center", 
-        "The goal is for the blue bar to meet the green line."
+        selected_language[9]
+
       )
     )
     
@@ -165,7 +166,7 @@ ui <- shiny::navbarPage(
   
   ## 2.6 "Help" Page ----
   shiny::tabPanel(
-    title = "Help", 
+    title = selected_language[10], 
     # for text
     # look for shiny::h1 to h5 or more for header sizes
     # shiny::p() for regular text (times new roman)
@@ -226,19 +227,20 @@ server <- function(input, output, session) {
   ## 3.2 User Info Modal ----
   # On app launch, display pop-up modal for user to enter first & last name
   shiny::modalDialog(
-    title = "Enter User Information",
-    "Please type just one name per field and avoid special letters e.g. ä ü é or symbols like -.",
+    title = selected_language[11], 
+    selected_language[49],
+
     shiny::tagList(
       shiny::div(
         shiny::textInput(
           inputId = "user_first_name", 
-          label = "First Name", 
-          placeholder = "First Name"
+          label = selected_language[12], 
+          placeholder = selected_language[12]
         ), 
         shiny::textInput(
           inputId = "user_last_name", 
-          label = "Last Name", 
-          placeholder = "Last Name"
+          label = selected_language[13], 
+          placeholder = selected_language[13]
         )
       )
     ), 
@@ -248,7 +250,7 @@ server <- function(input, output, session) {
         # Button to submit user's information
         shiny::actionButton(
           inputId = "submit_user_info_btn", 
-          label = "Submit", 
+          label = selected_language[14], 
           icon = shiny::icon("check")
         )
       )
@@ -298,6 +300,7 @@ server <- function(input, output, session) {
       rctv$current_question_number <- question_index$Index[question_index$Group == rctv$current_group_number & question_index$QuestionNumber == 1 & question_index$QuestionType == rctv$current_question_type]
       
       # update the reactive 'binary_tbl' and 'range_tbl' with the user's history
+
       
       range_history <- pins::pin_read(
         board = board, 
@@ -326,7 +329,7 @@ server <- function(input, output, session) {
   ## 3.5 "Next" Button ----
   # When the "Next" button is clicked...
   shiny::observeEvent(input$next_btn, {
-    
+
     # Capture the current response / Lower90
     rctv$current_response_1 <- eval(
       parse(text = glue::glue(
@@ -351,32 +354,33 @@ server <- function(input, output, session) {
       
       # Build a modal asking the user to fix the issue
       modal <- shiny::modalDialog(
-        title = "Please Fix the Following Error", 
+        title = selected_language[15], 
         paste0(
-          "The value entered for \"Lower Bound\" must be less than the value", 
-          " entered for \"Upper Bound\"."
+          selected_language[16], selected_language[17]
         ), 
         footer = shiny::modalButton(
-          label = "Go Back", 
+          label = selected_language[18], 
           icon = shiny::icon("pen")
         )
       )
       
+      
     } else {
       
       # Create the first modal text segment
-      modal_text_1 <-  "You answered (Lower 90%):"
-      
+      modal_text_1 <-selected_language[20]
       
       # Create the second modal text segment
-      modal_text_2 <-"You answered (Upper 90%):"
+      modal_text_2 <-  selected_language[22]
       
-      modal_text_3<-""
+      # Create the modal text suffix
+      modal_text_3 <- ""
+      
 
       
       # Build a modal asking user to confirm their answer
       modal <- shiny::modalDialog(
-        title = "Are You Sure?", 
+        title = selected_language[23], 
         glue::glue("{modal_text_1} {rctv$current_response_1}"), 
         shiny::br(), 
         glue::glue("{modal_text_2} {rctv$current_response_2}{modal_text_3}"), 
@@ -385,13 +389,13 @@ server <- function(input, output, session) {
           shiny::div(
             # Button to dismiss the modal
             shiny::modalButton(
-              label = "Go Back", 
+              label = selected_language[18], 
               icon = shiny::icon("pen")
             ), 
             # Button to move to the next question
             shiny::actionButton(
               inputId = "submit_answer_btn", 
-              label = "Submit", 
+              label = selected_language[14], 
               icon = shiny::icon("check")
             )
           )
@@ -402,7 +406,7 @@ server <- function(input, output, session) {
     
     # Launch the modal pop-up
     shiny::showModal(modal)
-    
+    #shinyjs::enable("next_btn")
   })
   
   ## 3.6 "Submit Answer" Button ----
@@ -416,7 +420,7 @@ server <- function(input, output, session) {
     w$show()
     
     # Append a new row to the reactive "binary" or "range" data frame 
-   
+
       
       current_question <- question_index %>% 
         dplyr::filter(Index == rctv$current_question_number) %>% 
@@ -447,7 +451,7 @@ server <- function(input, output, session) {
           )
         )
       
-    
+
     
     # If the submission was the last question in the *entire* workshop...
     if (rctv$current_question_number == max(question_index$Index)) {
@@ -476,12 +480,12 @@ server <- function(input, output, session) {
       # Launch a pop-up modal letting the user know they have completed the 
       # workshop
       shiny::modalDialog(
-        title = "Calibration Workshop Complete!", 
+        title = selected_language[24], 
         glue::glue(
-          "You have successfully completed the Calibration Workshop.", 
+          selected_language[25], 
         ), 
         shiny::br(), 
-        "Please wait for your instructor before exiting.", 
+        selected_language[26], 
         size = "l"
       ) |> 
         shiny::showModal()
@@ -525,14 +529,15 @@ server <- function(input, output, session) {
         
         # Show a "Group Complete" pop-up modal
         shiny::modalDialog(
-          title = "Group Complete!", 
+          title = selected_language[27], 
           glue::glue(
-            "You have successfully completed Group {rctv$current_group_number - 1}.", 
+            selected_language[28], 
           ), 
+          footer = modalButton(selected_language[29]),
           shiny::br(), 
-          "Please wait for your instructor before continuing.", 
+          selected_language[30], 
           size = "l"
-        ) |> 
+        )|> 
           shiny::showModal()
         
       }
@@ -540,7 +545,6 @@ server <- function(input, output, session) {
     }
     
   })
-  
   
   ## 3.7 Render Question & Response UI  ----
   output$question_ui <- shiny::renderUI({
@@ -564,8 +568,9 @@ server <- function(input, output, session) {
         )
       
     
-    
   })
+  
+
   
   
   ## 3.9 Range Results Table ----
@@ -590,13 +595,13 @@ server <- function(input, output, session) {
             title = hover,
             value
           )
-        }),
+        }, name = selected_language[42]),
         Group = reactable::colDef(show = FALSE), 
         Index = reactable::colDef(show = FALSE), 
-        Lower90 = reactable::colDef(name = "Lower Bound"),
-        Upper90 = reactable::colDef(name = "Upper Bound"), 
+        Lower90 = reactable::colDef(name = selected_language[33]),
+        Upper90 = reactable::colDef(name = selected_language[34]), 
         RelativeError = reactable::colDef(
-          name = "Relative Error", 
+          name = selected_language[47], 
           format = reactable::colFormat(digits = 2)
         ), 
         Truth = reactable::colDef(cell = function(value, index) {
@@ -609,14 +614,15 @@ server <- function(input, output, session) {
             target = "_blank", 
             value
           )
-        }), 
+        }, name = selected_language[48]), 
         QuestionText = reactable::colDef(show = FALSE), 
         Source = reactable::colDef(show = FALSE)
       ), 
       columnGroups = list(
         reactable::colGroup(
-          name = "90% Confidence Interval", 
+          name = selected_language[35], 
           columns = c("Lower90", "Upper90")
+          #columns = c(selected_language[36], selected_language[37])
         )
       ), 
       theme = reactable::reactableTheme(
@@ -626,7 +632,7 @@ server <- function(input, output, session) {
     
   })
   
-  
+
   ## 3.11 Range Metrics Chart ----
   # Create the chart to hold the range metrics
   output$range_metrics_chart <- echarts4r::renderEcharts4r({

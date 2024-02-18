@@ -19,44 +19,47 @@ googlesheets4::gs4_deauth()
 # Define the URL of the Google Sheet
 google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
 
+#User interface language
+User_interface_language_url<-"https://docs.google.com/spreadsheets/d/1zN3oSg_uPaKbAw-EdhJ6AzmINQLvf9FXN2IPwg81WbY/edit?usp=sharing"
+interface_languages<-read_sheet(User_interface_language_url)
+selected_language<-pull(interface_languages[,language],language)
 # Select the questions you want for each group (i.e., each "round")
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(1,2,3,11,12, 27,28, 34, 35, 38) 
+    range = c(1, 3, 7, 11, 12, 13, 17, 20, 25, 27) 
   ), 
   
   Group_2 = list( 
-    range = c(39, 195, 42, 43, 44,45,46,47,48,49)
+    range = c(28, 29, 31, 34, 36, 37, 39, 40, 41, 43)
   ), 
   
   Group_3 = list( 
-    range = c(50, 51, 52, 53, 54, 55, 56, 57, 58, 59)
+    range = c(44, 45, 46, 47, 48, 49, 50, 51, 52, 53)
   ), 
   
   Group_4 = list( 
-    range = c(60, 62, 63, 64, 65, 66, 67, 68, 71, 72)
+    range = c(56, 57, 61, 62, 63, 65, 69, 71, 72, 76)
   ), 
   
   Group_5 = list(
-    range = c(73, 74, 75, 76, 77, 79, 80, 81, 82, 84)
+    range = c(86, 91, 92, 93, 99, 100, 103, 106, 110, 111)
   ),
   Group_6 = list(
-    range = c(86, 87, 88, 89, 90, 91, 92, 93, 94, 95)
+    range = c(112, 114, 115, 116, 117, 118, 119, 120, 121, 122)
   ),
   Group_7 = list(
-    range = c(94, 95, 96, 97, 98, 99, 100, 101, 102, 104)
+    range = c(123, 124, 125, 126, 127, 128, 129, 130, 131, 132)
   ),
   Group_8 = list(
-    range = c(105, 106, 107, 108, 110, 111, 112, 113, 114, 115)
+    range = c(133, 135, 152, 158, 159, 166, 219, 227,291, 292, 294, 295, 300, 301, 302)
+
   )
 )
-
-
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
- board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
- #board <- pins::board_temp() 
+#board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+board<-pins::board_rsconnect()
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------

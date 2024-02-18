@@ -22,7 +22,7 @@ build_ui <- function(questions, type) {
       current_group_ui[[paste0("question_", i)]] <- shiny::tagList(
         
         shiny::h3(
-          paste0("Question: ", i)
+          paste0(selected_language[44], i)
         ), 
         
         shiny::hr(), 
@@ -34,13 +34,13 @@ build_ui <- function(questions, type) {
         
           
           shiny::tagList(
-            shiny::h5("90% Confidence Interval:"),
+            shiny::h5(selected_language[35]),
             
             shiny::div(
               style = "display: inline-block;",
               shiny::numericInput(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_A"),
-                label = "Lower Bound",
+                label = selected_language[33],
                 value = 0
               )
             ), 
@@ -49,7 +49,7 @@ build_ui <- function(questions, type) {
               style = "display: inline-block;",
               shiny::numericInput(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_range_answer_{i}_ui_B"),
-                label = "Upper Bound",
+                label = selected_language[34],
                 value = 0
               )
             )
