@@ -54,7 +54,7 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-# board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+#board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 board<-pins::board_rsconnect()
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
@@ -75,13 +75,13 @@ questions <- get_data(
 # questions <- readRDS("data/gs_data.RDS")
 
 # Build the UI elements for each binary question
-binary_ui <- build_ui_german(
+binary_ui <- build_ui(
   questions = questions$binary, 
   type = "binary"
 )
 
 # Build the UI elements for each range question
-range_ui <- build_ui_german(
+range_ui <- build_ui(
   questions = questions$range, 
   type = "range"
 )
