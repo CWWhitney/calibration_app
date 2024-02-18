@@ -19,33 +19,39 @@ googlesheets4::gs4_deauth()
 # Define the URL of the Google Sheet
 google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
 
+#User interface language
+User_interface_language_url<-"https://docs.google.com/spreadsheets/d/1zN3oSg_uPaKbAw-EdhJ6AzmINQLvf9FXN2IPwg81WbY/edit?usp=sharing"
+interface_languages<-read_sheet(User_interface_language_url)
+selected_language<-pull(interface_languages[,language],language)
 # Select the questions you want for each group (i.e., each "round")
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(3, 7, 20, 23, 24, 102, 103, 104, 105, 106)
+    binary = c(1, 2, 3, 4, 6, 7, 10, 11, 12, 14)
   ), 
   Group_2 = list(
-    binary = c(107, 108, 109, 110, 111, 112, 113, 114, 119, 120)
-  )#, 
+    binary = c(17, 18, 20, 23, 25, 27, 30, 38, 39, 40)
+  ), 
   
-  #Group_3 = list(
-  # binary = c(31:40)
-  #), 
+  Group_3 = list(
+    binary = c(41, 45, 47, 51, 52, 53, 54, 59, 66, 83)
+  ), 
   
-  #Group_4 = list(
-  #  binary = c(41:50)
-  #), 
+  Group_4 = list(
+    binary = c(84, 86, 87, 100, 103, 106, 108, 110, 111, 115)
+  ), 
   
-  #  Group_5 = list(
-  #    binary = c(164:173)
-  #  )
+  Group_5 = list(
+    binary = c(116,117,118,119, 125, 126, 131, 132, 135, 139, 140, 161, 189)
+  )
+
 )
+
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-#board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
-board <- pins::board_rsconnect() # auth = "auto", "manual", "envvar", "rsconnect"
+board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+#board<-pins::board_rsconnect()
 
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------

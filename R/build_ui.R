@@ -22,7 +22,7 @@ build_ui <- function(questions, type) {
       current_group_ui[[paste0("question_", i)]] <- shiny::tagList(
         
         shiny::h3(
-          paste0("Question: ", i)
+          paste0(selected_language[44], i)
         ), 
         
         shiny::hr(), 
@@ -37,16 +37,16 @@ build_ui <- function(questions, type) {
               style = "padding-left: 20px;", 
               shinyWidgets::awesomeRadio(
                 inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_A"),
-                label = "Answer:",
-                choices = c("TRUE", "FALSE"),
-                selected = "TRUE",
+                label = selected_language[45],
+                choices = c(selected_language[31], selected_language[32]),
+                selected = selected_language[31],
                 status = "warning"
               )
             ), 
             
             shiny::sliderInput(
               inputId = glue::glue("group_{stringr::str_sub(g, -1L, -1L)}_binary_answer_{i}_ui_B"), 
-              label = "Confidence:", 
+              label = selected_language[46], 
               min = 50, 
               max = 100, 
               value = 60, 
@@ -54,7 +54,7 @@ build_ui <- function(questions, type) {
               post = "%"
             )
           )
-          
+
       )
       
     }

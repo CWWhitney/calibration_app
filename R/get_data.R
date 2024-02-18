@@ -14,7 +14,6 @@ get_data <- function(selected_questions_list, language, gs_url) {
     ) %>% 
     tidyr::unnest(cols = c(QuestionNumber))
   
-  # Convert range questions from list to data frame for downstream join
 
   # Define the columns we want to bring in from the Google Sheet
   sheets_cols <- c(
@@ -43,9 +42,7 @@ get_data <- function(selected_questions_list, language, gs_url) {
     dplyr::mutate(QuestionNumber = dplyr::row_number()) %>% 
     dplyr::ungroup() %>% 
     dplyr::arrange(Group, QuestionNumber)
-  
-
-  
+    
   # Return the two data frames as a list
   list(
     binary = binary_questions
