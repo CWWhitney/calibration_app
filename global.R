@@ -53,12 +53,14 @@ selected_questions <- list(
   ),
   Group_8 = list(
     range = c(133, 135, 152, 158, 159, 166, 219, 227,291, 292, 294, 295, 300, 301, 302)
+
   )
 )
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
 #board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 board<-pins::board_rsconnect()
+
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
@@ -76,6 +78,7 @@ questions <- get_data(
 # this can be used to not ping the google sheets api
 # a special set of files
 # questions <- readRDS("data/gs_data.RDS")
+
 
 
 # Build the UI elements for each range question

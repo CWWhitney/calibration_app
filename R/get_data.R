@@ -5,7 +5,7 @@ get_data <- function(selected_questions_list, language, gs_url) {
   
   language <- tolower(language)
   
- 
+
   
   # Convert range questions from list to data frame for downstream join
   range_question_numbers <- selected_questions %>% 
@@ -25,7 +25,7 @@ get_data <- function(selected_questions_list, language, gs_url) {
     "Comments"
   )
   
-  
+
   
   # Read in the "Range" questions from the Google Sheet, keeping only the 
   # desired columns & question numbers

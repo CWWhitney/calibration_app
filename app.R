@@ -142,7 +142,7 @@ ui <- shiny::navbarPage(
     title = selected_language[6], 
     
     shiny::fluidRow(
-      
+
       
       shiny::column(
         width = 6, 
@@ -158,6 +158,7 @@ ui <- shiny::navbarPage(
       shiny::h4(
         class = "text-center", 
         selected_language[9]
+
       )
     )
     
@@ -228,6 +229,7 @@ server <- function(input, output, session) {
   shiny::modalDialog(
     title = selected_language[11], 
     selected_language[49],
+
     shiny::tagList(
       shiny::div(
         shiny::textInput(
@@ -299,12 +301,13 @@ server <- function(input, output, session) {
       
       # update the reactive 'binary_tbl' and 'range_tbl' with the user's history
 
+      
       range_history <- pins::pin_read(
         board = board, 
         name = glue::glue("range_{input$user_last_name}_{input$user_first_name}")
       )
-      
 
+      
       rctv$range_tbl <- rctv$range_tbl |> 
         dplyr::bind_rows(
           range_history |> dplyr::select(-User)
@@ -373,6 +376,7 @@ server <- function(input, output, session) {
       # Create the modal text suffix
       modal_text_3 <- ""
       
+
       
       # Build a modal asking user to confirm their answer
       modal <- shiny::modalDialog(
@@ -513,7 +517,7 @@ server <- function(input, output, session) {
       # {pins} database and show a pop-up
       if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
         
-        
+
         
         write_to_pin(
           board = board, 
@@ -567,6 +571,7 @@ server <- function(input, output, session) {
   })
   
 
+  
   
   ## 3.9 Range Results Table ----
   # Create the table to hold the "Range" results & scores
@@ -627,6 +632,7 @@ server <- function(input, output, session) {
     
   })
   
+
   ## 3.11 Range Metrics Chart ----
   # Create the chart to hold the range metrics
   output$range_metrics_chart <- echarts4r::renderEcharts4r({
