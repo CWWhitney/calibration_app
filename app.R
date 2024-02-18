@@ -128,7 +128,7 @@ ui <- shiny::navbarPage(
             title = selected_language[4], 
             value = "binary_results_panel", 
             reactable::reactableOutput(outputId = "results_binary_tbl")
-          )
+)
           
         )
         
@@ -149,9 +149,10 @@ ui <- shiny::navbarPage(
         
         shiny::h2(selected_language[7]), 
         echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
+
         )
       ), 
-      
+
     
     shiny::hr(), 
     
@@ -226,8 +227,10 @@ server <- function(input, output, session) {
   ## 3.2 User Info Modal ----
   # On app launch, display pop-up modal for user to enter first & last name
   shiny::modalDialog(
+
     title = selected_language[11],
     selected_language[49],
+
     shiny::tagList(
       shiny::div(
         shiny::textInput(
@@ -239,6 +242,7 @@ server <- function(input, output, session) {
           inputId = "user_last_name", 
           label = selected_language[12], 
           placeholder = selected_language[12]
+
         )
       )
     ), 
@@ -347,13 +351,14 @@ server <- function(input, output, session) {
       ))
     )
     
-   
+
       
       # Create the first modal text segment
       modal_text_1 <- #ifelse(
         #rctv$current_question_type == "binary", 
         selected_language[19]
         #selected_language[20]
+
       #)
       
       # Create the second modal text segment
@@ -361,6 +366,7 @@ server <- function(input, output, session) {
         #rctv$current_question_type == "binary", 
         selected_language[21]
        #selected_language[22]
+
       #)
       
       # Create the modal text suffix
@@ -369,6 +375,7 @@ server <- function(input, output, session) {
         "%"#, 
        # ""
      # )
+
       
       # Build a modal asking user to confirm their answer
       modal <- shiny::modalDialog(
@@ -395,6 +402,7 @@ server <- function(input, output, session) {
       )
       
    # }
+
     
     # Launch the modal pop-up
     shiny::showModal(modal)
@@ -457,6 +465,7 @@ server <- function(input, output, session) {
         user_last = trimws(input$user_last_name)
       )
       
+
       
       # Hide the {waiter} loading screen
       w$hide()
@@ -517,6 +526,7 @@ server <- function(input, output, session) {
           user_last = trimws(input$user_last_name)
         )
         
+
         # Show a "Group Complete" pop-up modal
         shiny::modalDialog(
           title = selected_language[27], 
@@ -557,7 +567,7 @@ server <- function(input, output, session) {
           glue::glue("Group_{rctv$current_group_number}"), 
           glue::glue("question_{question_index$QuestionNumber[rctv$current_question_number]}")
         )
-      
+
     
   })
   
@@ -612,7 +622,7 @@ server <- function(input, output, session) {
     )
   })
   
-  
+
   ## 3.10 Binary Metrics Chart ----
   # Create the chart to hold the binary metrics
   output$binary_metrics_chart <- echarts4r::renderEcharts4r({
@@ -627,7 +637,7 @@ server <- function(input, output, session) {
     
   })
   
-  
+
   
 }
 

@@ -31,7 +31,7 @@ build_ui <- function(questions, type) {
         
         shiny::br(), 
         
-          
+
           shiny::tagList(
             shiny::div(
               style = "padding-left: 20px;", 
@@ -54,7 +54,7 @@ build_ui <- function(questions, type) {
               post = "%"
             )
           )
-        
+
       )
       
     }

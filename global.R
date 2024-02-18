@@ -9,7 +9,7 @@ library(purrr)
 # User-Defined Parameters -------------------------------------------------
 
 # Define the language questions will be asked in
-language <- "German"
+language <- "English"
 
 # Define Google API authentication type
 # If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
@@ -44,6 +44,7 @@ selected_questions <- list(
   Group_5 = list(
     binary = c(116,117,118,119, 125, 126, 131, 132, 135, 139, 140, 161, 189)
   )
+
 )
 
 
@@ -51,6 +52,7 @@ selected_questions <- list(
 # this is on Rstudio Connect 
 board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 #board<-pins::board_rsconnect()
+
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 

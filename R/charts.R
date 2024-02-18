@@ -50,5 +50,3 @@ generate_binary_metrics_chart <- function(data) {
   
 }
 
-
-
