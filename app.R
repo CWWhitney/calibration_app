@@ -433,7 +433,8 @@ server <- function(input, output, session) {
             Confidence = paste0(rctv$current_response_2, "%"), 
             Truth = current_question$Answer, 
             Brier = brier(
-              response = stringr::str_sub(rctv$current_response_1, 1L, 1L), 
+              #response = stringr::str_sub(rctv$current_response_1, 1L, 1L),
+              response = ifelse(rctv$current_response_1 == selected_language[31], "T", "F"),
               confidence = (rctv$current_response_2 / 100), 
               correct_answer = current_question$Answer
             ), 
