@@ -35,7 +35,7 @@ selected_questions <- list(
   
   #Group_3 = list(
   #  binary = c(94, 99, 120, 135, 145, 150, 162, 175, 176, 199)
-  )#, 
+ # ), 
   
   #Group_4 = list(
   #  binary = c(84, 86, 87, 100, 103, 106, 108, 110, 111, 115)
@@ -44,7 +44,6 @@ selected_questions <- list(
   #Group_5 = list(
    # binary = c(116,117,118,119, 125, 126, 131, 132, 135, 139, 140, 161, 189)
   #)
-
 )
 
 
