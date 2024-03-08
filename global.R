@@ -27,32 +27,33 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(105, 106, 107, 108, 110, 111, 112, 113, 114, 115) 
+    range = c(105, 106, 107, 108, 110) 
   ), 
   
   Group_2 = list( 
-    range = c(94, 95, 96, 97, 98, 99, 100, 101, 102, 104)
+    range = c(94, 95, 96, 97, 98)
   ), 
   
   Group_3 = list( 
-    range = c(86, 87, 88, 89, 90, 91, 92, 93, 94, 95)
+    range = c(99, 100, 101, 102, 104)
   ), 
   
   Group_4 = list( 
-    range = c(73, 74, 75, 76, 77, 79, 80, 81, 82, 84)
+    range = c(111, 112, 113, 114, 115)
   ), 
   
   Group_5 = list(
-    range = c(60, 62, 63, 64, 65, 66, 67, 68, 71, 72)
+    range = c(86, 87, 88, 89, 90)
   ),
+
   Group_6 = list(
-    range = c(50, 51, 52, 53, 54, 55, 56, 57, 58, 59)
+    range = c(91, 92, 93, 94, 95)
   ),
   Group_7 = list(
-    range = c(39, 195, 42, 43, 44,45,46,47,48,49)
+    range = c(73, 74, 75, 76, 77)
   ),
   Group_8 = list(
-    range = c(1,2,3,11,12, 27,28, 34, 35, 38)
+    range = c(79, 80, 81, 82, 84)
   )
 )
 # Connect to the {pins} board for this workshop
