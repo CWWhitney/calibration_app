@@ -31,7 +31,7 @@ selected_questions <- list(
   ), 
   
   Group_2 = list( 
-    range = c(39, 46, 50, 64, 67, 85, 93, 97, 100, 285)
+    range = c(33,39, 46, 50, 64, 67, 85, 93, 97, 100, 285)
   ), 
   
   Group_3 = list( 
@@ -60,7 +60,7 @@ selected_questions <- list(
 # this is on Rstudio Connect 
 #board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 board<-pins::board_rsconnect()
-
+options(scipen=1000000000)
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
