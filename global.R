@@ -31,7 +31,7 @@ selected_questions <- list(
   ), 
   
   Group_2 = list( 
-    range = c(33,39, 46, 50, 64, 67, 85, 93, 97, 100, 285)
+    range = c(39, 46, 50, 64, 67, 85, 93, 97, 100, 285)
   ), 
   
   Group_3 = list( 
