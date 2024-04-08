@@ -27,34 +27,34 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range = c(1, 3, 7, 11, 12, 13, 17, 20, 25, 27) 
+    range = c(1, 2, 4, 7, 8, 11, 14, 17, 19, 30) 
   ), 
   
   Group_2 = list( 
-    range = c(28, 29, 31, 34, 36, 37, 39, 40, 41, 43)
+    range = c(39, 46, 50, 64, 67, 85, 93, 97, 100, 285)
   ), 
   
   Group_3 = list( 
-    range = c(44, 45, 46, 47, 48, 49, 50, 51, 52, 53)
+    range = c( 170, 173, 174, 183, 208, 213, 214, 219, 221, 225)
   ), 
   
   Group_4 = list( 
-    range = c(56, 57, 61, 62, 63, 65, 69, 71, 72, 76)
+    range = c(104, 136, 138, 140, 144, 152, 154, 156, 160, 162)
   ), 
   
   Group_5 = list(
-    range = c(86, 91, 92, 93, 99, 100, 103, 106, 110, 111)
-  ),
-  Group_6 = list(
-    range = c(112, 114, 115, 116, 117, 118, 119, 120, 121, 122)
-  ),
-  Group_7 = list(
-    range = c(123, 124, 125, 126, 127, 128, 129, 130, 131, 132)
-  ),
-  Group_8 = list(
-    range = c(133, 135, 152, 158, 159, 166, 219, 227,291, 292, 294, 295, 300, 301, 302)
-
-  )
+    range = c(242, 246, 250, 253, 259, 261, 262, 271, 274, 283)
+  )#,
+  #Group_6 = list(
+  #  range = c(112, 114, 115, 116, 117, 118, 119, 120, 121, 122)
+  #),
+  #Group_7 = list(
+  #  range = c(123, 124, 125, 126, 127, 128, 129, 130, 131, 132)
+  #),
+  #Group_8 = list(
+  #  range = c(133, 135, 152, 158, 159, 166, 219, 227,291, 292, 294, 295, 300, 301, 302)
+  
+  #)
 )
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
