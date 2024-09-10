@@ -27,19 +27,19 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range =  c(332,349,338,325,344,319,330,347,322,293)
+    range =  c(338,100,325,344,12,330,347,322,293,219)
   ), 
   
   Group_2 = list( 
-    range =  c(329,341,323,348,334,346,321,333,327,339)
+    range =  c(329,341,119,69,334,346,46,333,327,339)
   ), 
   
   Group_3 = list( 
-    range = c(324,342,336,328,345,326,340,337,343,331)
+    range = c(169,342,336,34,345,326,340,337,158,164)
   ), 
   
   Group_4 = list( 
-    range = c (64,160,159,213,253,293,158,152,119,117)
+    range = c(64,160,159,261,253,293,158,169,166,117)
   )#,
   #Group_5 = list(
   #  range = c(268,223,227,215,213,175,150,90,10,256)
