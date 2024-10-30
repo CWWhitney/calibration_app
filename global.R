@@ -27,7 +27,7 @@ selected_language<-pull(interface_languages[,language],language)
 #### Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    range =  c(88,338,100,325,344,12,330,347,322,293,219)
+    range =  c(338,100,325,344,12,330,347,322,293,219)
   ), 
   
   Group_2 = list( 
