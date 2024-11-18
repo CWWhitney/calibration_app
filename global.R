@@ -52,7 +52,10 @@ selected_questions <- list(
 # this is on Rstudio Connect 
 #board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 #board<-pins::board_rsconnect()
-board<-pins::board_connect()
+board<-pins::board_connect(
+  auth="rsconnect",
+  key = api_calibration
+)
 options(scipen=1000000000)
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
