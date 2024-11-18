@@ -53,7 +53,7 @@ api<-Sys.getenv("api_calibration")
 #board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 #board<-pins::board_rsconnect()
 board<-pins::board_connect(
-  auth="rsconnect",
+  #auth="rsconnect",
   server = "agtools.app",
   account = "Christine",
   key = api
