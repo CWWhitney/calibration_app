@@ -51,7 +51,10 @@ selected_questions <- list(
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
 #board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
-board<-pins::board_rsconnect()
+board<-pins::board_rsconnect(
+  server = "agtools.app",
+  key= "LGYfK7XsNVTHCt77f3DGKtXqE7phdE6z"
+)
 options(scipen=1000000000)
 
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
