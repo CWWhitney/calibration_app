@@ -1,0 +1,12 @@
+name: calibration_app
+title: calibration_app
+username: Christine
+account: Christine
+server: agtools.app
+hostUrl: https://agtools.app/__api__
+appId: 32
+bundleId: 50
+url: https://agtools.app/content/05781fb1-cc52-4bbf-ad52-08a8f677c000/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
