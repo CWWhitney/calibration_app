@@ -47,16 +47,16 @@ selected_questions <- list(
   
 )
 
-api<-Sys.getenv("api_calibration")
+#api<-Sys.getenv("api_calibration")
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
 #board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
 #board<-pins::board_rsconnect()
 board<-pins::board_connect(
-  auth="rsconnect",
-  server = "https://agtools.app",
-  account = "Christine",
-  key = api
+  #auth="rsconnect",
+  #server = "https://agtools.app",
+  #account = "Christine",
+  #key = api
 )
 options(scipen=1000000000)
 
