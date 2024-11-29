@@ -187,9 +187,9 @@ mod_user_info_modal_server <- function(
          
        })
        
-       
-       
        list(
+         user_first_name = reactive({input$user_first_name}),
+         user_last_name = reactive({input$user_last_name}),
          current_group_number = reactive({rctv$current_group_number}),
          current_question_number = reactive({rctv$current_question_number}),
          current_question_type = reactive({rctv$current_question_type})

@@ -46,14 +46,14 @@ mod_metrics_page_ui <- function(id, tab_title, left_column_header, right_column_
         width = 6, 
         
         shiny::h2(left_column_header), 
-        echarts4r::echarts4rOutput(outputId = "binary_metrics_chart")
+        echarts4r::echarts4rOutput(outputId = ns("binary_metrics_chart"))
       ), 
       
       shiny::column(
         width = 6, 
         
         shiny::h2(right_column_header), 
-        echarts4r::echarts4rOutput(outputId = "range_metrics_chart")
+        echarts4r::echarts4rOutput(outputId = ns("range_metrics_chart"))
       )
     ), 
     
@@ -79,13 +79,40 @@ mod_metrics_page_ui <- function(id, tab_title, left_column_header, right_column_
 #' @export
 #'
 #' @inherit mod_metrics_page_ui title description details examples
-mod_metrics_page_server <- function(id) {
+mod_metrics_page_server <- function(id, rctv) {
   moduleServer(
     id,
     function(input, output, session) {
       ns <- session$ns
       
+
+      ## 3.10 Binary Metrics Chart ----
+      # Create the chart to hold the binary metrics
+      output$binary_metrics_chart <- echarts4r::renderEcharts4r({
+
+        # Require that there is data in the "binary" response table
+        shiny::req(nrow(rctv$binary_tbl) > 0)
+        
+        # Create the "binary" metrics interactive chart
+        generate_binary_metrics_chart(
+          data = rctv$binary_tbl
+        )
+        
+      })
       
+      ## 3.11 Range Metrics Chart ----
+      # Create the chart to hold the range metrics
+      output$range_metrics_chart <- echarts4r::renderEcharts4r({
+        
+        # Require that there is data in the "range" response table
+        shiny::req(nrow(rctv$range_tbl) > 0)
+        
+        # Create the "range" metrics interactive chart
+        generate_range_metrics_chart(
+          data = rctv$range_tbl
+        )
+        
+      })
     }
   )
 }

@@ -14,15 +14,15 @@ language <- "German"
 # Define Google API authentication type
 # If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
 # to indicate that no authentication is necessary
-googlesheets4::gs4_deauth()
-
-# Define the URL of the Google Sheet
-google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
-
-#User interface language
-User_interface_language_url<-"https://docs.google.com/spreadsheets/d/1zN3oSg_uPaKbAw-EdhJ6AzmINQLvf9FXN2IPwg81WbY/edit?usp=sharing"
-interface_languages<-read_sheet(User_interface_language_url)
-selected_language<-pull(interface_languages[,language],language)
+# googlesheets4::gs4_deauth()
+# 
+# # Define the URL of the Google Sheet
+# google_sheets_url <- "https://docs.google.com/spreadsheets/d/1yTboPXmDMF43YmjsuEH7bbPwcEj4fPfBD68rNWrOPSI/edit?usp=sharing"
+# 
+# #User interface language
+# User_interface_language_url<-"https://docs.google.com/spreadsheets/d/1zN3oSg_uPaKbAw-EdhJ6AzmINQLvf9FXN2IPwg81WbY/edit?usp=sharing"
+# interface_languages<-read_sheet(User_interface_language_url)
+# selected_language<-pull(interface_languages, language)
 # Select the questions you want for each group (i.e., each "round")
 #### Change and use these to set up each workshop
 selected_questions <- list(
@@ -54,8 +54,8 @@ selected_questions <- list(
 
 # Connect to the {pins} board for this workshop
 # this is on Rstudio Connect 
-#board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
-board<-pins::board_rsconnect()
+# board <- pins::board_temp() # auth = "auto", "manual", "envvar", "rsconnect"
+# board<-pins::board_rsconnect()
 options(scipen=1000000000)
 # DO NOT EDIT CODE BELOW THIS LINE ----------------------------------------
 
@@ -65,14 +65,15 @@ fs::dir_ls("R") %>%
   purrr::quietly()
 
 # Import the binary & range questions from the Google Sheets
-questions <- get_data(
-  selected_questions_list = selected_questions,
-  language = language,
-  gs_url = google_sheets_url
-)
+# questions <- get_data(
+#   selected_questions_list = selected_questions,
+#   language = language,
+#   gs_url = google_sheets_url
+# )
 # this can be used to not ping the google sheets api
 # a special set of files
 # questions <- readRDS("data/gs_data.RDS")
+questions <- readRDS("data/gs_data_as_selected.RDS")
 
 # Build the UI elements for each binary question
 binary_ui <- build_ui(
@@ -85,4 +86,5 @@ range_ui <- build_ui(
   questions = questions$range, 
   type = "range"
 )
+
 

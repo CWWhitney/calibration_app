@@ -117,12 +117,23 @@ mod_questions_page_server <- function(
     current_question_type,
     current_group_number,
     current_question_number,
-    question_index
-    ) {
+    question_index,
+    rctv
+) {
   moduleServer(
     id,
     function(input, output, session) {
       ns <- session$ns
+      
+      ## 3.1 Build Waiting Screen ----
+      w <- waiter::Waiter$new(
+        id = c("question_ui"), 
+        html = shiny::tagList(
+          waiter::spin_flower(), 
+          "Loading Next Question..."
+        ), 
+        color = "#153015",
+      )
       
       output$question_ui <- shiny::renderUI({
         
@@ -133,89 +144,79 @@ mod_questions_page_server <- function(
           current_question_number()
         )
         
-        # Display the appropriate UI response elements based on the current question
-        # type
-        if (current_question_type() == "binary") {
-          
-          binary_ui %>% 
-            purrr::pluck(
-              glue::glue("Group_{current_group_number()}"), 
-              glue::glue("question_{question_index$QuestionNumber[current_question_number()]}")
+        question <- 
+          questions %>% 
+          purrr::pluck(
+            current_question_type()
+          ) %>% 
+          filter(
+            Group == stringr::str_c("Group_", current_group_number()) &
+              QuestionNumber == current_question_number()
+          ) %>% 
+          pull(
+            Question
+          )
+        
+        # Display the appropriate UI response elements based on the current question type
+        mod_question_ui(
+          ns(
+            stringr::str_glue(
+              "group_{current_group_number()}_{current_question_type()}_answer_{current_question_number()}"
             )
-          
-        } else {
-          
-          range_ui %>% 
-            purrr::pluck(
-              glue::glue("Group_{current_group_number()}"), 
-              glue::glue("question_{question_index$QuestionNumber[current_question_number()]}")
-            )
-          
-        }
+          ),
+          question = question,
+          question_row_number = current_question_number(),
+          type = current_question_type()
+        )
+        
         
       })
+      
+      question_responses <- reactiveValues(
+        A = NULL, 
+        B = NULL
+      )
+      
       
       ## 3.5 "Next" Button ----
       # When the "Next" button is clicked...
       shiny::observeEvent(input$next_btn, {
         #shinyjs::disable("next_btn")
         
+        question_reactives <- 
+          mod_question_server(
+            stringr::str_glue(
+              "group_{current_group_number()}_{current_question_type()}_answer_{current_question_number()}"
+            )
+          )
         
-        
-        # # Capture the current response / Lower90
-        # rctv$current_response_1 <- eval(
-        #   parse(text = glue::glue(
-        #     "input$group_{rctv$current_group_number}_", 
-        #     "{rctv$current_question_type}_answer_", 
-        #     "{question_index$QuestionNumber[rctv$current_question_number]}_ui_A"
-        #   ))
-        # )
-        # 
-        # # Capture the current Confidence / Upper90 
-        # rctv$current_response_2 <- eval(
-        #   parse(text = glue::glue(
-        #     "input$group_{rctv$current_group_number}_", 
-        #     "{rctv$current_question_type}_answer_", 
-        #     "{question_index$QuestionNumber[rctv$current_question_number]}_ui_B"
-        #   ))
-        # )
+        question_responses$A <- question_reactives$A()
+        question_responses$B <- question_reactives$B()
         
         # Capture the current response / Lower90
-        current_response_1 <- eval(
-          parse(text = glue::glue(
-            "input$group_{current_group_number()}_", 
-            "{current_question_type()}_answer_", 
-            "{question_index$QuestionNumber[current_question_number()]}_ui_A"
-          ))
-        )
+        current_response_1 <- question_responses$A 
         
         # Capture the current Confidence / Upper90 
-        current_response_2 <- eval(
-          parse(text = glue::glue(
-            "input$group_{current_group_number()}_", 
-            "{current_question_type()}_answer_", 
-            "{question_index$QuestionNumber[current_question_number()]}_ui_B"
-          ))
-        )
+        current_response_2 <-  question_responses$B
         
-        # For "range" type questions, ensure that the entry for "Lower90" is less 
+        # For "range" type questions, ensure that the entry for "Lower90" is less
         # than the value entered for "Upper90"
-        # if ((rctv$current_question_type == "range") & (rctv$current_response_1 >= rctv$current_response_2)) {
-        #   
-        #   # Build a modal asking the user to fix the issue
-        #   modal <- shiny::modalDialog(
-        #     title = selected_language[15], 
-        #     paste0(
-        #       selected_language[16], selected_language[17]
-        #     ), 
-        #     footer = shiny::modalButton(
-        #       label = selected_language[18], 
-        #       icon = shiny::icon("pen")
-        #     )
-        #   )
-        #   
-        # } else {
-        
+        if ((current_question_type() == "range") & (current_response_1 >= current_response_2)) {
+          
+          # Build a modal asking the user to fix the issue
+          modal <- shiny::modalDialog(
+            title = selected_language[15],
+            paste0(
+              selected_language[16], selected_language[17]
+            ),
+            footer = shiny::modalButton(
+              label = selected_language[18],
+              icon = shiny::icon("pen")
+            )
+          )
+          
+        } else {
+          
           # Create the first modal text segment
           modal_text_1 <- ifelse(
             current_question_type() == "binary", 
@@ -261,7 +262,7 @@ mod_questions_page_server <- function(
             )
           )
           
-        # }
+        }
         
         # Launch the modal pop-up
         shiny::showModal(modal)
@@ -275,20 +276,26 @@ mod_questions_page_server <- function(
         
         # ... remove the open modal dialogue
         shiny::removeModal()
-        browser()
+        
+        # Capture the current response / Lower90
+        current_response_1 <- question_responses$A 
+        
+        # Capture the current Confidence / Upper90 
+        current_response_2 <-  question_responses$B
+        
         # Show the waiting screen
         w$show()
         
         # Append a new row to the reactive "binary" or "range" data frame 
         if (current_question_type() == "binary") {
           
-          current_question <- question_index %>% 
-            dplyr::filter(Index == current_question_number()) %>% 
-            dplyr::select(Group, QuestionNumber) %>% 
-            dplyr::mutate(Group = paste0("Group_", Group)) %>% 
-            dplyr::inner_join(
-              questions$binary, 
-              by = c("Group", "QuestionNumber")
+          current_question <- questions %>% 
+            purrr::pluck(
+              current_question_type()
+            ) %>% 
+            filter(
+              Group == stringr::str_c("Group_", current_group_number()) &
+                QuestionNumber == current_question_number()
             )
           
           
@@ -348,11 +355,8 @@ mod_questions_page_server <- function(
           
         }
         
-        
-        
-        browser("here")
         # If the submission was the last question in the *entire* workshop...
-        if (rctv$current_question_number == max(question_index$Index)) {
+        if (current_question_number() == max(question_index$Index)) {
           
           # Write out the current results to the user's pin
           write_to_pin(
@@ -397,13 +401,14 @@ mod_questions_page_server <- function(
         } else {
           
           # Increase the 'current_question_number' value by 1
-          rctv$current_question_number <- rctv$current_question_number + 1
+          rctv$current_question_number <- current_question_number() + 1
           
           # Get the corresponding group number for the next question
           rctv$current_group_number <- question_index$Group[rctv$current_question_number]
           
           # Get the corresponding question type for the next question
           rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
+          
           
           # If the new question switches from "binary" to "range" (or vice versa), 
           # change the "Tables" tab to show the current table
@@ -467,6 +472,125 @@ mod_questions_page_server <- function(
           }
           
         }
+        
+      })
+      
+      
+      ## 3.8 Binary Results Table ----
+      # Create the table to hold the "Binary" results & scores
+      output$results_binary_tbl <- reactable::renderReactable({
+        
+        # Require the "binary" response table
+        shiny::req(rctv$binary_tbl)
+        
+        data <- rctv$binary_tbl %>% 
+          dplyr::filter(Group == rctv$current_group_number)
+        
+        #colnames(rctv$binary_tbl)[colnames(rctv$binary_tbl) == "Question"] = "selected_language[42]"
+        
+        # Populate the interactive table with the "binary" data from the current 
+        # question group
+        reactable::reactable(
+          data, 
+          columns = list(
+            Question = reactable::colDef(cell = function(value, index) {
+              hover <- data[index, "QuestionText"]
+              # Render as text that can be hovered over to show full question
+              htmltools::tags$span(
+                title = hover,
+                value
+              )
+            }, name = selected_language[42]),
+            Group = reactable::colDef(show = FALSE), 
+            Index = reactable::colDef(show = FALSE), 
+            Response = reactable::colDef(show = TRUE, name = selected_language[41]),
+            Confidence = reactable::colDef(show = TRUE, name = selected_language[40]),
+            Brier = reactable::colDef(
+              format = reactable::colFormat(digits = 2)
+            ), 
+            Truth = reactable::colDef(
+              cell = function(value, index) {
+                text <- if (value == "T") selected_language[31] else selected_language[32]
+                url <- data[index, "Source"]
+                # Render as a link
+                htmltools::tags$a(
+                  href = url, 
+                  target = "_blank", 
+                  text
+                )
+              }, name = selected_language[43]), 
+            QuestionText = reactable::colDef(show = FALSE), 
+            Source = reactable::colDef(show = FALSE)
+          ), 
+          theme = reactable::reactableTheme(
+            backgroundColor = "#153015"
+          )
+        )
+      })
+      
+      
+      ## 3.9 Range Results Table ----
+      # Create the table to hold the "Range" results & scores
+      output$results_range_tbl <- reactable::renderReactable({
+        
+        # Require the "range" response table
+        shiny::req(rctv$range_tbl)
+        
+        data <- rctv$range_tbl %>% 
+          dplyr::filter(Group == rctv$current_group_number)
+        
+        # Populate the interactive table with the "range" data from the current 
+        # question group
+        reactable::reactable(
+          data, 
+          columns = list(
+            Question = reactable::colDef(cell = function(value, index) {
+              hover <- data[index, "QuestionText"]
+              # Render as text that can be hovered over to show full question
+              htmltools::tags$span(
+                title = hover,
+                value
+              )
+            }, name = selected_language[42]),
+            Group = reactable::colDef(show = FALSE),
+            Index = reactable::colDef(show = FALSE),
+            Lower90 = reactable::colDef(name = selected_language[33]),
+            Upper90 = reactable::colDef(name = selected_language[34]),
+            RelativeError = reactable::colDef(
+              name = selected_language[47],
+              format = reactable::colFormat(digits = 2)
+            ),
+            Truth = reactable::colDef(
+              cell = function(value, index) {
+                url <- data[index, "Source"] 
+                
+                if(is.na(url)){
+                  htmltools::p(value)
+                } else {
+                  # hover <- data[index, "Comments"]
+                  # Render as a link
+                  htmltools::tags$a(
+                    # title = hover,
+                    href = url,
+                    target = "_blank",
+                    value
+                  )
+                }
+              }, name = selected_language[48]),
+            QuestionText = reactable::colDef(show = FALSE),
+            Source = reactable::colDef(show = FALSE)
+          ), 
+          columnGroups = list(
+            reactable::colGroup(
+              name = selected_language[35], 
+              columns = c("Lower90", "Upper90")
+              #columns = c(selected_language[36], selected_language[37])
+            )
+          ), 
+          theme = reactable::reactableTheme(
+            backgroundColor = "#153015"
+          ),
+        )
         
       })
       
