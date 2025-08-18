@@ -4,8 +4,8 @@
 build_ui<- function(questions, type) {
 
   # Split the 'questions' data frame into a list of data frames, by "Group"
-  questions_list <- questions %>% 
-    split(.$Group) %>% 
+  questions_list <- questions |> 
+    split(.$Group) |> 
     purrr::map(~ dplyr::mutate(.x, QuestionNumber = dplyr::row_number()))
   
   # Initialize two empty lists
@@ -14,7 +14,7 @@ build_ui<- function(questions, type) {
   
   for (g in names(questions_list)) {
     
-    current_tbl <- questions_list %>% 
+    current_tbl <- questions_list |> 
       purrr::pluck(g)
     
     for (i in 1:(nrow(current_tbl))) {

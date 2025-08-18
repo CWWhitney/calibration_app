@@ -39,14 +39,22 @@ mod_question_ui <- function(
     id, 
     question,
     question_row_number,
-    type
-    ) {
+    type,
+    word_for_question,
+    word_for_answer,
+    word_for_correct,
+    word_for_incorrect,
+    word_for_confidence,
+    word_for_confidence_interval,
+    word_for_lower_bound,
+    word_for_upper_bound
+) {
   ns <- NS(id)
-
+  
   shiny::tagList(
     
     shiny::h3(
-      paste0(selected_language[44], question_row_number)
+      word_for_question, question_row_number
     ), 
     
     shiny::hr(), 
@@ -56,25 +64,21 @@ mod_question_ui <- function(
     shiny::br(), 
     
     if (type == "binary") {
-      
-      shiny::tagList(
-        shiny::div(
-          style = "padding-left: 20px;", 
-          shinyWidgets::awesomeRadio(
-            inputId = ns("input_A"),
-            label = selected_language[45],
-            choices = c(selected_language[31], selected_language[32]),
-            selected = selected_language[31],
-            status = "warning"
-          )
-        ), 
-        
+      bslib::layout_column_wrap(
+        width = 1/2,
+        shinyWidgets::awesomeRadio(
+          inputId = ns("input_A"),
+          label = word_for_answer,
+          choices = list(TRUE, FALSE) |> purrr::set_names(c(word_for_correct, word_for_incorrect)),
+          selected = NA,
+          status = "warning"
+        ),
         shiny::sliderInput(
           inputId = ns("input_B"), 
-          label = selected_language[46], 
+          label = word_for_confidence, 
           min = 50, 
           max = 100, 
-          value = 60, 
+          value = 50, 
           step = 5, 
           post = "%"
         )
@@ -83,23 +87,18 @@ mod_question_ui <- function(
     } else {
       
       shiny::tagList(
-        shiny::h5(selected_language[35]),
-        
-        shiny::div(
-          style = "display: inline-block;",
-          shiny::numericInput(
+        shiny::h5(word_for_confidence_interval),
+        bslib::layout_column_wrap(
+          width = 1/2,
+          shinysurveys::numberInput(
             inputId = ns("input_A"),
-            label = selected_language[33],
-            value = 0
-          )
-        ), 
-        
-        shiny::div(
-          style = "display: inline-block;",
-          shiny::numericInput(
+            label = word_for_lower_bound,
+            placeholder = 0
+          ),
+          shinysurveys::numberInput(
             inputId = ns("input_B"),
-            label = selected_language[34],
-            value = 0
+            label = word_for_upper_bound,
+            placeholder = 0
           )
         )
       )
@@ -120,19 +119,44 @@ mod_question_ui <- function(
 #' @export
 #'
 #' @inherit mod_question_ui title description details examples
-mod_question_server <- function(id) {
+mod_question_server <- function(id, question_type, required_text_label, left_lower_label) {
   moduleServer(
     id,
     function(input, output, session) {
-       ns <- session$ns
-       
-       
-       return(
-         list(
-           A = reactive(input$input_A),
-           B = reactive(input$input_B)
-         )
-       )
+      ns <- session$ns
+      
+      ## Create an InputValidator object
+      iv <- InputValidator$new()
+      
+      ## Add validation rules
+      iv$add_rule("input_A", sv_required(interface_translator$t(required_text_label)))
+      iv$add_rule("input_B", sv_required(interface_translator$t(required_text_label)))
+      
+      if(question_type == "range") {
+        iv$add_rule("input_A", function(value) {
+          if (input$input_B < input$input_A & !is.na(input$input_A) & !is.na(input$input_B)) {
+            interface_translator$t(left_lower_label)
+          }
+        })
+        
+        iv$add_rule("input_B", function(value) {
+          if (input$input_B < input$input_A & !is.na(input$input_A) & !is.na(input$input_B)) {
+            ""
+          }
+        })
+      }
+      
+      ## Start displaying errors in the UI
+      iv$enable()
+      
+      
+      return(
+        list(
+          is_valid = reactive(iv$is_valid()),
+          A = reactive(input$input_A),
+          B = reactive(input$input_B)
+        )
+      )
     }
   )
 }

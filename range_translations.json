@@ -1,0 +1,1755 @@
+{
+  "languages": ["German", "English", "Kiswahili", "Spanish", "Vietnamese", "Engkis"],
+  "translation": [
+    {
+      "German": "Wie tief (in Meter) ist die tiefste Stelle im Ozean laut modernen Messungen mit Mehrstrahlentechnologie?",
+      "English": "How deep is the deepest place in the ocean (in meters) according to modern measurements with multibeam technologies?",
+      "Kiswahili": "Kina cha bahari kirefu zaidi (kwa mita) ni kipi kulingana na vipimo vya kisasa na teknolojia ya multibeam?",
+      "Spanish": "¿Cuál es el punto más profundo (en metros) del océano?",
+      "Vietnamese": "Nơi sâu nhất dưới đáy biển là bao nhiêu (m)?",
+      "Engkis": "How deep is the deepest place in the ocean (in meters) according to modern measurements with multibeam technologies? (Kina cha bahari kirefu zaidi (kwa mita) ni kipi kulingana na vipimo vya kisasa na teknolojia ya multibeam?)"
+    },
+    {
+      "German": "In welchem Jahr ist Ludwig van Beethoven geboren?",
+      "English": "In which year was Ludwig van Beethoven born?",
+      "Kiswahili": "Mwaka gani Ludwig van Beethoven alizaliwa?",
+      "Spanish": "¿Cuando nació Ludwig van Beethoven?",
+      "Vietnamese": "Ludwig van Beethoven sinh năm nào?"
+    },
+    {
+      "German": "Was ist das maximale Gewicht von einem kleinen Hühnerei (Größe S)? (in Gramm)",
+      "English": "What is the maximum weight of a small (size S) chicken egg? (in grams)",
+      "Kiswahili": "Uzito wa juu wa yai la kifaranga cha kuku (ukubwa S) ni kiasi gani? (kwa gramu)",
+      "Spanish": "¿Cuál es el peso máximo (en gramos) de un huevo de gallina pequeño?",
+      "Vietnamese": "Khối lượng của 1 quả trứng gà cỡ nhỏ (cỡ S) là bao nhiêu gram?",
+      "Engkis": "What is the maximum weight of a small (size S) chicken egg? (in grams) (Uzito wa juu wa yai la kifaranga cha kuku (ukubwa S) ni kiasi gani? (kwa gramu)"
+    },
+    {
+      "German": "Wie groß ist Fläche von NRW (Stand 2020)? (in km²)",
+      "English": "What is the size (surface area) of NRW (year 2020)? (km2)",
+      "Kiswahili": "Ni kubwa kwa ukubwa gani eneo la jimbo la North Rhine-Westphalia (mwaka 2020)? (km2)",
+      "Spanish": "¿Cuál es el área (en kilómetros cuadrados) del NRW?"
+    },
+    {
+      "German": "In welchem Jahr wurde die Firma FENDT gegründet?",
+      "English": "In what year was the FENDT company established? (Company for agricultural machines)",
+      "Kiswahili": "Mwaka gani kampuni ya FENDT iliundwa? (Kampuni ya mashine za kilimo)",
+      "Spanish": "¿En qué año se fundó la compañía FENDT? (Una empresa de máquinas para la agricultura)"
+    },
+    {
+      "German": "Was ist die Distanz zwischen Bonn und dem Nordkapp, wenn man mit dem Auto fährt (in km), laut Google Maps?",
+      "English": "What is the distance between Bonn and the north cape (Norway) by car (in km), according to google maps?",
+      "Spanish": "Según Google Maps, ¿ cuál es la distancia entre Bonn y North Cape (Noruega) en coche  (en kilómetos)?"
+    },
+    {
+      "German": "Wie viel Prozent eines Quadrates kann ein Kreis derselben Breite bedecken? (in %)",
+      "English": "What percentage of a square's area could be covered by a circle of the same width?",
+      "Spanish": "¿Qué porcentaje del área de un cuadrado puede ser cubierta por un círculo de la misma amplitud?"
+    },
+    {
+      "German": "In welchem Jahr wurde die königlich höhere landwirtschaftliche Lehranstalt zu Poppelsdorf in Bonn gegründet?",
+      "English": "In what year was the royal agricultural academy of Bonn (königlich höhere landwirtschaftliche Lehranstalt zu Poppelsdorf) founded?",
+      "Spanish": "¿En qué año se fundó la academia real de agricultura de Bonn?"
+    },
+    {
+      "German": "In welchem Jahr wurde die königlich preußische landwirtschaftliche Akademie zu Poppelsdorf in Bonn gegründet?",
+      "English": "In what year was the royal prussian agricultural academy of Bonn (königlich preußische landwirtschaftliche Akademie zu Poppelsdorf) founded?",
+      "Spanish": "¿En qué año se fundó la real academia prusiana de agricultura de Bonn?"
+    },
+    {
+      "German": "Wie hoch ist das Stadthaus in Bonn? (in Meter)",
+      "English": "How tall is the Stadthaus in Bonn? (in meters)",
+      "Kiswahili": "Jengo la manispaa ya Jiji la Bonn lina urefu wa mita ngapi?",
+      "Spanish": "¿Qué tan alto es el Stadthaus de Bonn (en metros)?"
+    },
+    {
+      "German": "In welchem Jahr hat England das letzte Mal die Fußball WM gewonnen?",
+      "English": "In what year did England win its last football World Cup title?",
+      "Kiswahili": "Ni mwaka gani Uingreza ilishinda kwa mara ya mwisho kombe la dunia?",
+      "Spanish": "¿En qué año Inglaterra ganó su último título de fútbol en una Copa del Mundo?",
+      "Vietnamese": "Nước Anh vô địch World Cup gần đây nhất vào năm nào?"
+    },
+    {
+      "German": "Wie viele, von der UN anerkannte, Länder gibt es auf der Erde? (Stand 2021)",
+      "English": "How many countries are in the World according to the UN in 2021?",
+      "Kiswahili": "Kutokana na takwimu za umoja ya mataifa za mwaka 2021, dunia nzima ina jumla ya nchi ngapi ?",
+      "Spanish": "De acuerdo con la ONU, ¿cuántos países había en el mundo en 2021?",
+      "Vietnamese": "Có bao nhiêu quốc gia trên thế giới vào năm 2021 theo Liên hiệp quốc?",
+      "Engkis": "How many countries are in the World according to the UN in 2021? (Kutokana na takwimu za umoja ya mataifa za mwaka 2021, dunia nzima ina jumla ya nchi ngapi ?"
+    },
+    {
+      "German": "Wie viele Sprachen werden in 2021 auf der Erde gesprochen (laut Ethnologue)?",
+      "English": "How many spoken languages exists on earth in 2021 (counted by the Ethnologue)?",
+      "Kiswahili": "Takwimu za mwaka 2021 inaonyesha dunia ina jumla ya lugha ngapi zinazozungumzwa?",
+      "Spanish": "¿Cuántos idiomas hablados existían en el mundo en 2021?",
+      "Engkis": "How many spoken languages exists on earth in 2021 (counted by the Ethnologue)? (Takwimu za mwaka 2021 inaonyesha dunia ina jumla ya lugha ngapi zinazozungumzwa?)"
+    },
+    {
+      "German": "Wie hoch ist das höchste Gebäude in Deutschland? (in Meter)",
+      "English": "What is the height of the tallest building in Germany? (in meters)",
+      "Kiswahili": "Jengo refu nchini Ujerumani lina urefu wa mita ngapi?",
+      "Spanish": "¿Qué tan alto es el edificio más alto en Alemania?"
+    },
+    {
+      "German": "Wie viele Liter Wein konsumiert laut der aktuellsten Studie (2020) die/der durchschnittliche Deutsche pro Jahr?",
+      "English": "How many liters of wine did the average German citizen consume in 2020?",
+      "Kiswahili": "Ni lita ngapi za wine mwananchi wa kwaida wa Ujerumani alikunywa kwa mwaka 2020"
+    },
+    {
+      "German": "Wie viel Prozent der Deutschen lebten im Jahr 2005 in Städten?",
+      "English": "What percentage of Germans lived in urban areas in 2005?",
+      "Kiswahili": "Ni asilimia ngapi ya wajerumani wanaishi mijini?",
+      "Spanish": "¿Qué porcentaje de Alemanes vivían en áreas urbanas en 2005?",
+      "Engkis": "What percentage of Germans lived in urban areas in 2005? (Ni asilimia ngapi ya wajerumani wanaishi mijini?)"
+    },
+    {
+      "German": "Distanz von der Erde zur Sonne beträgt 150 Millionen km. Wie weit ist die Venus von der Sonne entfernt? (in Millionen km)",
+      "English": "The Earth is 150 million km from the sun. How far is Venus from the sun (in millions of km)?",
+      "Kiswahili": "Dunia iko umbali wa kilomita 150 kutoka kwenye jua. Venus iko mbali kwa kiasi cha kilomita milioni ngapi kotoka kwenye jua?",
+      "Spanish": "El planeta Tierra está a 150 millones de km del sol.   ¿Qué tan lejos está Venus del sol (en millones de km)?"
+    },
+    {
+      "German": "In welchem Jahr wurde das erste dokumentierte elektrische Auto in Deutschland gebaut?",
+      "English": "In which year was the first documented electric car built in Germany?",
+      "Kiswahili": "Ni mwaka gani gari la kwanza kutumia umeme lilirekodiwa kutengenezwa Ujerumani?",
+      "Spanish": "¿En qué año se construyó el primer carro eléctrico en Alemania?"
+    },
+    {
+      "German": "Wie viele Mitarbeiter hat Aldi Süd heute (Stand 2021) auf der gesamten Erde?",
+      "English": "How many staff members does the company Aldi Süd have in the world (in 2021)?",
+      "Spanish": "¿Cuántos empleados tiene la compañía Aldi Sud en el mundo al 2021?"
+    },
+    {
+      "German": "Wie lang (in cm) können die größten Salamander auf unserem Planeten werden (Weltrekord)?",
+      "English": "How long (in cm) can the largest salamander on earth get? (world record)",
+      "Spanish": "¿Qué tan larga (en cm)  es la salamandra más larga del mundo (record mundial)?"
+    },
+    {
+      "German": "Wie viele Milchkühe gab es 2016 in Deutschland? (in Millionen)",
+      "English": "How many milk cows were there in Germany in 2016? (in millions)",
+      "Kiswahili": "Ujerumani ilikuwa na ng'ombe milioni ngapi wa maziwa mwaka 2016?",
+      "Spanish": "¿Cuántas vacas lecheras había en Alemania en 2016 (en millones)?"
+    },
+    {
+      "German": "Was ist die Entfernung (Luftlinie) von München nach Hamburg? (in Kilometer)",
+      "English": "What is the linear distance from Munich (München) to Hamburg? (km)",
+      "Kiswahili": "Umbali kutoka München hadi Hamburg ni kilomita ngapi?",
+      "Spanish": "¿Cuál es la distancia de Munich a Hamburgo (en km)?"
+    },
+    {
+      "German": "In welchem Jahr fuhr die erste Eisenbahn in Deutschland?",
+      "English": "In what year was the first train ride in Germany?",
+      "Kiswahili": "Ni mwaka gani treni ya kwanza iliendeshwa Ujerumani?"
+    },
+    {
+      "German": "Wie viele Nationalparks gibt es in Deutschland? (Stand 2021)",
+      "English": "How many national parks are there in Germany? (in 2021)",
+      "Kiswahili": "Hadi kufikia mwaka 2021, Ujerumani ilikuwa na hifadhi ya taifa za wanyama ngapi?",
+      "Spanish": "¿Cuántos parques nacionales hay en Alemania al 2021?"
+    },
+    {
+      "German": "Wie groß war der größte jemals gemessene Mensch? (in Zentimeter)",
+      "English": "How tall (in cm) was the tallest man ever?",
+      "Kiswahili": "Mtu mrefu kuliko wote duniani ana urefu wa sentimenta ngapi?",
+      "Spanish": "¿Qué tan alto (en cm) era el hombre más alto de la historia?",
+      "Engkis": "How tall (in cm) was the tallest man ever? (Mtu mrefu kuliko wote duniani ana urefu wa sentimenta ngapi?)"
+    },
+    {
+      "German": "Wie viele zertifizierte ökologisch bewirtschaftete Betriebe gab es 2020 in Deutschland?",
+      "English": "How many certified organic farms were there in Germany in 2020?",
+      "Spanish": "¿Cuántas granjas certificadas orgánicas había en Alemania en 2020?"
+    },
+    {
+      "German": "Was war die Einwohnerzahl von China im Jahr 2017? (in Milliarden)",
+      "English": "As of 2017, what was the population of China (in billions)?",
+      "Kiswahili": "Hadi kufikia mwaka 2017, idadi ya watu nchini China ilikuwa bilioni ngapi?",
+      "Vietnamese": "Tính đến năm 2017, dân số của Trung Quốc là bao nhiêu tỷ người?",
+      "Engkis": "As of 2022, what was the population of China (in billions)? (Hadi kufikia mwaka 2022, idadi ya watu nchini China ilikuwa bilioni ngapi?)"
+    },
+    {
+      "German": "Wie viele Menschen haben grüne Augen? (in Prozent)",
+      "English": "What percentage of people in the world have green eyes?",
+      "Kiswahili": "Asilimia ngapi ya watu duniani wana macho ya kijani?",
+      "Spanish": "¿Qué porcentaje de gente del mundo tiene ojos verdes?",
+      "Vietnamese": "Trên thế giới có bao nhiêu % số người có mắt màu xanh?"
+    },
+    {
+      "German": "Wie tief ist der tiefste See auf unserem Planeten? (in Metern)",
+      "English": "How deep is the deepest lake in the world? (meters)",
+      "Kiswahili": "Ziwa lenye kina kirefu duniani lina kina kiasi cha mita ngapi?",
+      "Spanish": "¿Qué tan profundo es el lago más profundo del mundo (en m)?",
+      "Engkis": "How deep is the deepest lake in the world? (meters) (Ziwa lenye kina kirefu duniani lina kina kiasi cha mita ngapi?)"
+    },
+    {
+      "German": "In welchem Jahr wurde das erste Mal die Zugspitze bestiegen?",
+      "English": "What was the year of the first ascent of the Zugspitze (highest mountain in Germany)?",
+      "Spanish": "¿En qué año alguien subió Zugspitze por primera vez?"
+    },
+    {
+      "German": "Wie groß ist die Oberfläche der Atacama Wüste in Chile? (in km²)",
+      "English": "What is the surface area of the Atacama Desert in Chile? (km2)",
+      "Spanish": "¿Cuánto mide la superficie del desierto Atacama en Chile (en km cuadrados)?"
+    },
+    {
+      "German": "Wie viele Alben verkaufte die Rockband AC/DC bisher? (in Millionen)",
+      "English": "How many albums has the Rock band AC/DC sold as of 2021? (in millions)",
+      "Spanish": "¿CUántos discos ha vendido la banda de Rock AC/DC hasta el 2021 (en millones)?"
+    },
+    {
+      "German": "Wie viele Hindus leben laut der deutschen hinduistischen Gemeinde in Deutschland?",
+      "English": "How many Hindus live in Germany as of 2021 according to the German Hindu congregation?",
+      "Spanish": "¿Cuántos Hindús viven en Alemania al 2021?"
+    },
+    {
+      "German": "Wie viele Meter beträgt die Höhe der Victoriafälle in Sambia?",
+      "English": "How many meters tall are the Victoria Falls?",
+      "Kiswahili": "Maporomoko ya mto Victoria yana urefu wa mita ngapi?",
+      "Spanish": "¿Qué tan altas son las Cascadas de Victoria en Zimbabwe?",
+      "Vietnamese": "Thác nước Victoria cao bao nhiêu mét?"
+    },
+    {
+      "German": "Wie viele Zentimeter lang ist ein 50 Euro Schein?",
+      "English": "How many cm long is a 50 Euro (€) bill?",
+      "Kiswahili": "Noti ya euro 50 ina urefu wa sentimenta ngapi?",
+      "Spanish": "¿Cuánto mide en cm un billete de 50  Euros?",
+      "Vietnamese": "Đồng 50 Euro dài bao nhiêu cm?",
+      "Engkis": "How many cm long is a 50 Euro (€) bill? (Noti ya euro 50 ina urefu wa sentimenta ngapi?)"
+    },
+    {
+      "German": "Wie viele Zentimeter lang ist ein 50 Kenia-Schilling Schein?",
+      "English": "How many cm long is a 50 Kenyan Shilling bill?",
+      "Kiswahili": "Noti ya shilingi za Kikenya 50 ina urefu wa sentimenta ngapi?"
+    },
+    {
+      "German": "Wie viel Prozent betrug 2009 der Anteil der kenianischen Bevölkerung der unter 15 Jahren alt war?",
+      "English": "What percentage of the Kenyan population was under 15 years old in 2009?",
+      "Vietnamese": "Vào 2009, Kenya có bao nhiêu phần trăm dân số dưới độ tuổi 15?"
+    },
+    {
+      "German": "In welchem Jahr wurde Elvis Presley geboren?",
+      "English": "What year was the singer Elvis Presley born?",
+      "Spanish": "¿En qué año nació el cantante Elvis Presley?",
+      "Vietnamese": "Elvis Presley sinh năm nào?"
+    },
+    {
+      "German": "Wie viel Prozent der Atmosphäre besteht aus Sauerstoff?",
+      "English": "What percentage of the Earth's atmosphere is oxygen by volume?",
+      "Spanish": "¿Qué porcentaje del volumen de la atmósfera de la Tierra está compuesto de oxígeno?",
+      "Vietnamese": "Oxy chiếm bao nhiêu phần trăm thể tích trong không khí?"
+    },
+    {
+      "German": "Was ist der Breitengrad (°) von Ouagadougou? Tipp: Breitengrad 0° = Äquator und 90° = Nordpol",
+      "English": "What is the latitude (in °) of Ouagadougou in Burkina Faso? Hint: Latitude is 0° at the equator and 90° at the North Pole.",
+      "Vietnamese": "Vĩ độ của Ouagadougou là bao nhiêu? Gợi ý: Vĩ độ là 0° tại xích đạo và 90° tại cực bắc."
+    },
+    {
+      "German": "Wie viele Flugzeuge und Helikopter besaß das kenianische Militär im Jahr 2021?",
+      "English": "In 2021, the Kenyan military owned how many airplanes and helicopters?",
+      "Vietnamese": "Vào năm 2021, quân đội Kenya sở hữu bao nhiêu chiếc máy bay và trực thăng?"
+    },
+    {
+      "German": "In welchem Jahr wurde die erste europäische Druckerpresse mit beweglichen Lettern erfunden?",
+      "English": "In what year was the first European printing press with movable types was invented?",
+      "Vietnamese": "Máy in ấn đầu tiên của châu Âu được phát minh vào năm nào?"
+    },
+    {
+      "German": "Wie viel Prozent des kenianischen Bruttoinlandsproduktes wurde 2012 von Landwirtschaft, Forstwirtschaft und Fischerei erwirtschaftet?",
+      "English": "What percentage of Kenya's GDP was generated by agriculture, forestry, and fishing in 2012?",
+      "Vietnamese": "Vào năm 2012, nền nông nghiệp, lâm nghiệp và đánh bắt thủy hải sản tạo ra bao nhiêu % tổng GDP của Kenya?"
+    },
+    {
+      "German": "Laut den Regierungen von China und Nepal, wie hoch liegt die Spitze des Mount Everest über dem Meeresspiegel?",
+      "English": "According to 2020 surveys by the Chinese and Nepalese governments, how many meters above sea level is the peak of Mt. Everest?",
+      "Vietnamese": "Theo khảo sát của chính phủ Trung Quốc và chính phủ Nepal, vào năm 2020, đỉnh Everest cao bao nhiêu mét so với mực nước biển?"
+    },
+    {
+      "German": "Wie lang ist die äthiopisch-somalische Grenze? (in km) (Jahr 2020)",
+      "English": "How long is Ethiopia's border with Somalia (in km)? (year 2020)",
+      "Vietnamese": "Theo con số vào năm 2020, chiều dài đường biên giới giữa Ethiopia và Somalia là bao nhiêu km?",
+      "Engkis": "How long is Ethiopia's border with Somalia (in km)? (year 2020) (Hadi kufikia mwaka 2020, mpaka wa Ethiopia na Somalia ulikuwa na urefu wa kilomita ngapi?)"
+    },
+    {
+      "German": "Wie viele Kilometer ist der Nil lang?",
+      "English": "How many km long is the Nile River?",
+      "Vietnamese": "Sông Nile dài bao nhiêu km?",
+      "Engkis": "How many km long is the Nile River? (Mto Nile una urefu wa kilometer ngapi?)"
+    },
+    {
+      "German": "In welchem Jahr wurde die Jomo Kenyatta Universität gegründet?",
+      "English": "In what year was Jomo Kenyatta University of Agriculture and Technology founded?",
+      "Vietnamese": "Trường đại học Nông nghiệp và Kỹ thuật Jomo Kenyata được thành lập vào năm nào?",
+      "Engkis": "In what year was Jomo Kenyatta University of Agriculture and Technology founded? (Ni mwaka gani Chuo Kikuu Cha Jomo Kenyata cha Kenya Kilianzishwa?)"
+    },
+    {
+      "German": "Wie groß ist die Flügelspannweite (in Meter) einer Boeing 737-700?",
+      "English": "What is the wingspan (in m) of a Boeing 737-700, the newest airplane in the Kenya Airways fleet?",
+      "Vietnamese": "Sải cánh của chiếc Boeing 737-700, chiếc máy bay mới nhất của hãng hàng không Kenya dài bao nhiêu mét?"
+    },
+    {
+      "German": "Wie viele Nördliche Breitmaulnashörner lebten im Oktober 2021?",
+      "English": "How many northern white rhinoceros are alive as of October 2021?",
+      "Vietnamese": "Có bao nhiêu con tê giác trắng phương Bắc còn sống tính đến tháng 10/2021"
+    },
+    {
+      "German": "Was ist die durchschnittliche Temperatur der abyssalen Zone (wo Ozeane mehr als 2000 Meter tief sind) in °C?",
+      "English": "What is the average temperature of the abyssal zone (where the oceans are more than 2000 m deep) in °C?",
+      "Spanish": "¿Cuál es el promedio de la temperatura en grados Centígrados de la zona abisal del océano (profundidad mínima de 2000 m)?",
+      "Vietnamese": "Nhiệt độ trung bình tại khu vực sâu trên 2000m dưới đáy đại dương là bao nhiêu °C?"
+    },
+    {
+      "German": "In welchem Jahr durchbrach die Population auf der Erde die Grenze von 7 Milliarden Menschen?",
+      "English": "What year did the earth's population exceed 7 billion?",
+      "Spanish": "¿En qué año la población del mundo excedió los 7 billones de habitantes?",
+      "Vietnamese": "Dân số thế giới vượt ngưỡng 7 tỉ người vào năm nào?"
+    },
+    {
+      "German": "In welchem Jahr hat Ngũgĩ wa Thiong'o \"The River Between\" veröffentlicht?",
+      "English": "What year did Ngũgĩ wa Thiong'o publish The River Between?",
+      "Vietnamese": "Ngũgĩ wa Thiong'o xuất bản cuốn tiểu thuyết The River Between vào năm nào?"
+    },
+    {
+      "German": "Wie breit ist ein Tor auf einem normalen Fußballfeld entsprechend der FIFA Regularien? (in Zentimeter)",
+      "English": "According to the FIFA rules, how wide, in centimeters, is the goal in football (soccer)?",
+      "Spanish": "De acuerdo a las reglas de FIFA, ¿qué tan ancha, en centímetros, debe de ser la portería de fútbol soccer?",
+      "Vietnamese": "Theo luật FIFA, cầu môn bóng đá rộng bao nhiêu cm?"
+    },
+    {
+      "German": "Wie viele Zuschauer passten in das römische Kolosseum?",
+      "English": "How many spectators did the Roman Colosseum hold?",
+      "Vietnamese": "Đấu trường La Mã có sức chứa bao nhiêu?"
+    },
+    {
+      "German": "Die erste Versuchsrakete auf dem Mars war die Viking 1, in welchem Jahr landete sie dort?",
+      "English": "In what year did the first probe to land on Mars, Viking 1, land?",
+      "Spanish": "¿En qué año aterrizó la primera misión, Viking 1, en Marte?",
+      "Vietnamese": "Tầu thăm dò đầu tiên,Viking 1, hạ cánh xuống sao Hỏa vào năm nào?"
+    },
+    {
+      "German": "Wie alt war die jüngste Person die je ins All geschickt wurde, laut dem Guinness Buch der Rekorde? (Stand 2021)",
+      "English": "According to Guinness world records, how old was the youngest person to fly into space? (Year 2021)",
+      "Spanish": "De acuerdo al récord Guinness, ¿qué edad tenía la persona más joven en volar al espacio?",
+      "Vietnamese": "Theo kỷ lục Guinness, người trẻ nhất bay vào không gian bao nhiêu tuổi?"
+    },
+    {
+      "German": "Wie viele Meter hoch ist das One World Trade Center (genannt \"Freedom tower\") in New-York?",
+      "English": "How many meters tall is the One World Trade Center (also called \"Freedom tower\") in New-York?",
+      "Vietnamese": "Trung tâm thương mại thế giới mới (hay còn gọi là \"Freedom tower\") tại New-York cao bao nhiêu m?"
+    },
+    {
+      "German": "Was war die maximale Flughöhe des Breitling Orbiter 3,der erste Ballon der die Erde umfahren hat, in Kilometern?",
+      "English": "What was the maximum altitude of the Breitling Orbiter 3, the first balloon to circumnavigate the globe, in kilometers?",
+      "Vietnamese": "Độ cao tối đa của Breitling Orbiter 3, khinh khí cầu đầu tiên bay vòng quanh trái đất là bao nhiêu km?"
+    },
+    {
+      "German": "Wie viel Prozent des Arbeitsaufwands, bei einem Projekt zur Software Entwicklung, geht laut Saleh (2011) durchschnittlich in das Design?",
+      "English": "On average, what percentage of the total software development project effort is spent in design according to Saleh (2011)?",
+      "Vietnamese": "Trung bình thì khâu thiết kế chiếm bao nhiêu % trong tổng công sức của một dự án phát triển phần mềm?"
+    },
+    {
+      "German": "Wie viele Personen wurden nach der Nuklearkatastrophe von Tschernobyl aus der stark-kontaminierten Zone evakuiert?",
+      "English": "How many people were evacuated from the highly-contaminated zone after the Chernobyl nuclear power plant accident?",
+      "Spanish": "¿Cuántas personas fueron evacuadas de la zona altamente contaminada en Chernobyl después del desastre nuclear?",
+      "Vietnamese": "Có bao nhiêu người được sơ tán từ vùng nhiễm xạ mức cao sau sự cố nhà máy hạt nhân Chebonyl?"
+    },
+    {
+      "German": "Wie viele Meter lang waren die längsten Luftschiffe?",
+      "English": "How many meters long were the largest airships?",
+      "Vietnamese": "Các khí cầu lớn nhất dài bao nhiêu mét?"
+    },
+    {
+      "German": "Wie viele Kilometer ist die Luftlinie von Nairobi nach Amsterdam?",
+      "English": "How many km is the flying distance from Nairobi to Amsterdam?",
+      "Vietnamese": "Nairobi cách Amsterdam bao nhiêu km theo đường chim bay?"
+    },
+    {
+      "German": "Welche Geschwindigkeit in km/h kann der schnellste Vogel, der Falke, im Sturzflug erreichen?",
+      "English": "The fastest bird, the falcon, can fly at a speed of how many km per hour in a dive?",
+      "Spanish": "¿A qué velocidad (en km por hora) puede volar el pájaro más rápido del mundo, el falcón, en una caída de picada?",
+      "Vietnamese": "Chim cắt có khả năng bay với vận tốc bao nhiêu km/h?"
+    },
+    {
+      "German": "In welchem Jahr wurde die Doppelhelixstruktur der DNA aufgedeckt?",
+      "English": "What year was the double helix structure of DNA discovered?",
+      "Spanish": "¿En qué año se descubrió la estructura de doble hélice del DNA?",
+      "Vietnamese": "Cấu trúc xoắn kép của DNA được phát hiện vào năm nào?"
+    },
+    {
+      "German": "Was ist die maximale Breite eine American Football Feldes, in Metern?",
+      "English": "What is the maximum width of a football field, in meters?",
+      "Kiswahili": "Uwanja wa mpira unaweza ukafikia upana wa mita ngapi?",
+      "Spanish": "¿Cuál es el máximo ancho de una cancha de fútbol soccer, en metros?",
+      "Vietnamese": "Độ rộng tối đa của một sân bóng là bao nhiêu mét?",
+      "Engkis": "What is the maximum width of a football field, in meters? (Uwanja wa mpira unaweza ukafikia upana wa mita ngapi?)"
+    },
+    {
+      "German": "Wie hoch war der prozentuale Zuwachs in Internetdiensten von 1996 bis 1997",
+      "English": "What was the percentage growth in Internet hosts from 1996 to 1997?",
+      "Vietnamese": "Tỷ lệ tăng trưởng trong các máy chủ internet từ năm 1996 đến năm 1997 là bao nhiêu %?"
+    },
+    {
+      "German": "Wie viele Kalorien (kcal) sind in einem Liter Orangensaft (gekühlt, aus Konzentrat)?",
+      "English": "How many calories (kcal) are in 1 liter of orange juice (chilled, includes from concentrate)?",
+      "Spanish": "¿Cuántas calorías (kcal) hay en 1 litro de jugo de naranja?",
+      "Vietnamese": "Lượng calories (kcal) trong 1 lit nước cam?"
+    },
+    {
+      "German": "Bei welcher Geschwindigkeit wird die Schallmauer auf Höhe des Meeresspiegel durchbrochen?",
+      "English": "How fast would you have to travel at sea level to break the sound barrier (in km/h)?",
+      "Spanish": "¿Qué tan rápido tendrías que avanzar, a nivel del mar, para romper la barrera del sonido (en km/hora)?",
+      "Vietnamese": "Con người cần phải di chuyển với tốc độ bao nhiêu để phá vỡ rào cản âm thanh (tính bằng km/h)?"
+    },
+    {
+      "German": "Wie viele Jahre war Nelson Mandela im Gefängnis?",
+      "English": "How many years was Nelson Mandela in prison?",
+      "Vietnamese": "Nelson Mandela đã ở tù bao nhiêu năm?"
+    },
+    {
+      "German": "Wie hoch war die durchschnittliche tägliche Kalorienaufnahme in Entwicklungs-Ländern im Jahr 2015 laut FAO?",
+      "English": "What was the average daily calorie intake in developed countries (per person) in 2015, according to FAO?",
+      "Spanish": "¿Cuál fue la ingesta diaria promedio de calorías por persona en los países en desarrollo en el 2015 (en kcal), de acuerdo a FAO?",
+      "Vietnamese": "Theo FAO, vào năm 2015 lượng calo tiêu thụ trung bình hàng ngày của một người ở nước phát triển là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Nationen waren 1994 Mitglied der United Nations (Vereinte Nationen)?",
+      "English": "In 1994, how many nations were members of the United Nations?",
+      "Kiswahili": "Kufikia Mwaka 1994, ni nchi ngapi zilikuwa zinaunda jumuiya ya umoja wa mataifa",
+      "Spanish": "¿Cuántos países eran miembros de las Naciones Unidas en 1994?",
+      "Vietnamese": "Năm 1994, có bao nhiêu quốc gia là thành viên liên hợp quốc?",
+      "Engkis": "In 1994, how many nations were members of the United Nations?"
+    },
+    {
+      "German": "In welchem Jahr ist der Kenya Forest Service entstanden?",
+      "English": "In what year was the Kenya Forest Service was formed?",
+      "Vietnamese": "Cơ quan dịch vụ lâm nghiệp Kenya được hình thành năm nào?"
+    },
+    {
+      "German": "Wie viele Meter hoch ist der welthöchste Wasserfall (Angel Falls, Venezuela)?",
+      "English": "How many meters high is the world’s highest waterfall (Angel Falls, Venezuela)?",
+      "Spanish": "¿Cuántos metros mide la cascada más alta del mundo (Salto del Ángel, Venezuela)?",
+      "Vietnamese": "Thác nước cao nhất thế giới Angel Falls tại Venezuela cao bao nhiêu mét?"
+    },
+    {
+      "German": "Wie tief unter dem Meeresspiegel liegt die Titanic (in km)?",
+      "English": "How deep beneath the sea was the Titanic found (in km)?",
+      "Vietnamese": "Con tàu Titanic được tìm thấy ở độ sâu bao nhiêu km dưới đáy biển?",
+      "Engkis": "How deep beneath the sea was the Titanic found (in km)? (Ni katika kina gani cha bahari masalia ya meli ya Titatiki yalionekana (katika km)?)"
+    },
+    {
+      "German": "Wie hoch ist die High School Absolventen Rate in New Hampshire im Jahr 2019-2020?",
+      "English": "What was the high school graduation rate in New Hampshire in the year 2019-2020?",
+      "Vietnamese": "Tỷ lệ tốt nghiệp trung học ở New Hampshire năm học 2019-2020 là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Länder hatten 2020 mindestens ein McDonalds Restaurant?",
+      "English": "How many countries had at least one McDonald’s restaurant in 2020?",
+      "Vietnamese": "Vào năm 2020, có bao nhiêu quốc gia có ít nhất 1 cửa hàng McDonald’s?"
+    },
+    {
+      "German": "Wie viele Angestellte hatte eBay am 31.12.2005?",
+      "English": "How many employees did eBay have on 31th of December 2005?",
+      "Vietnamese": "eBay có bao nhiêu nhân viên trong quý đầu tiên của năm 2006?"
+    },
+    {
+      "German": "Laut UNGGIM - ISPRS, wie hoch war die Abdeckung der Kartierung des Afrikanischen Kontinents im Maßstab 1/25,000 in 2007? (in %)",
+      "English": "According to UNGGIM - ISPRS, what was the mapping coverage of Africa continent at 1/25,000 scale (or better) in 2012? (in %)",
+      "Vietnamese": "Theo UNGGIM - ISPRS, phạm vi lập bản đồ của châu Phi theo tỷ lệ 1/25,000 năm 2012 là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Meter hoch ist der höchste Wasserfall der Welt (Angel Falls, Venezuela)?",
+      "English": "How many casualties did the French suffer in the Battle of Waterloo?",
+      "Vietnamese": "Tổn thất về người mà Pháp phải chịu trong trận chiến Waterloo là bao nhiêu (số người chết)?"
+    },
+    {
+      "German": "Was ist die Reichweite einer Minuteman Rakete, in Kilometern?",
+      "English": "What is the range in kilometers of a Minuteman Missile?",
+      "Vietnamese": "Tầm bắn của tên lửa Minuteman là bao nhiêu tính theo km?"
+    },
+    {
+      "German": "Wie viele Sekunden ist The Supremes’ (mit Diana Ross) Lied „Stop! In the Name of Love“ lang?",
+      "English": "How many seconds long is The Supremes’ (with Diana Ross) song Stop! In the Name of Love?",
+      "Vietnamese": "Bài hát của Supreme (hát với Diana Ross) Stop! In the Name of Love có độ dài bao nhiêu giây?"
+    },
+    {
+      "German": "Wie viele Bachelor-Studenten besuchten die University of Cambridge im Jahr 1990?",
+      "English": "How many undergraduates attended the University of Cambridge in 1990?",
+      "Vietnamese": "Có bao nhiêu sinh viên đại học tại trường đại học Cambridge vào năm 1990?"
+    },
+    {
+      "German": "Wie viele Liter sind ein US-amerikanisches Bushel (beides Maßeinheiten für Volumen)?",
+      "English": "How many liters are in a US-bushel (both are measures of volume)?",
+      "Vietnamese": "Một bushel bằng bao nhiêu lít (cả hai đều đo thể tích)?"
+    },
+    {
+      "German": "Wie viele Monarchen hatte England in den letzten tausend Jahren?",
+      "English": "How many monarchs has England had in the last thousand years?",
+      "Vietnamese": "Anh có bao nhiêu quốc vương trong 1 ngàn năm qua?"
+    },
+    {
+      "German": "Bei einer Lufttemperatur von -20°C, und einer Windgeschwindigkeit von 25 km/h, wie hoch ist die gefühlte Temperatur (in °C)?",
+      "English": "If the air temperature is -20°C, and the wind speed is 25 km/h, what would wind chill be (in °C)?",
+      "Vietnamese": "Nếu nhiệt độ không khí là -20°C, tốc độ gió là 25 km/h, thì gió lạnh bao nhiêu tính theo °C?"
+    },
+    {
+      "German": "Wie viele Autos verkaufte Toyota in Afrika im Jahr 2020?",
+      "English": "How many cars did Toyota sell in Africa in 2020?",
+      "Kiswahili": "Kampuni ya magani ya Toyota iliuza magari mangapi Africa mwaka 2020",
+      "Vietnamese": "Lượng ô tô mà Toyota bán ở châu Phi trong năm 2020 là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Goldmedaillen gewann Jesse Owens bei den Olympischen Spielen 1936 in Berlin?",
+      "English": "How many gold medals did Jesse Owens win at the 1936 Berlin Olympics?",
+      "Vietnamese": "Jesse Owens đã đạt bao nhiêu huy chương vàng trong Thế vận hội mùa đông tại Berlin năm 1936?"
+    },
+    {
+      "German": "Welchen Wasserverbrauch hat der durchschnittliche Haushalt in den USA am Tag? (in Liter)",
+      "English": "How many liters of water does the average household in the United States use per day?",
+      "Kiswahili": "Kwa wastani familia moja nchini Marekani wanatumia lita ngapi za maji kwa siku?",
+      "Vietnamese": "Một hộ dân trung bình tại Hoa Kỳ sử dụng bao nhiêu lít nước một ngày?"
+    },
+    {
+      "German": "Wie hoch war der durchschnittliche Verkaufspreis eines Hauses in den USA im ersten Quartal 2001 laut FRED? (in Dollar)",
+      "English": "What was the average price in the United States of a house sold in first quarter 2001, in dollars according to FRED?",
+      "Vietnamese": "Theo FRED, giá nhà trung bình tại Hoa Kỳ trong quý 1 năm 2001 là bao nhiêu tính bằng USD?"
+    },
+    {
+      "German": "Der Airbus A380 hat 525 Sitzplätze in der 3-Klassen-Konfiguration.Wie viele Sitzplätze könnte es geben wäre alles Economy-Class",
+      "English": "The Airbus A380 has seats for 525 people in a standard three-class design. How many people would there be room for if there was only economy class?",
+      "Vietnamese": "Airbus A380 có sức chứa 525 người nếu ghế được thiết kế có 3 hạng (hạng nhất, hạng thương gia và hạng phổ thông). Vậy nếu máy bay Airbus 380 được thiết kế lại và chỉ có ghế phổ thông thì sẽ có bao nhiêu ghế trên máy bay?"
+    },
+    {
+      "German": "Wie viele cm wächst das menschliche Kopfhaar in einem Jahr im Durchschnitt?",
+      "English": "Human hair on the head grows at an average rate of how many centimeters per year?",
+      "Kiswahili": "Nywele za kichwa cha binadamu zinakuwa kwa wastani wa sentimeta ngapi kwa mwaka?",
+      "Spanish": "¿En promedio, cuántos centímetros crece el cabello humano en la cabeza al año?",
+      "Vietnamese": "Tóc của con người phát triển với tốc độ trung bình là bao nhiêu cm mỗi năm",
+      "Engkis": "Human hair on the head grows at an average rate of how many centimeters per year? (Nywele za kichwa cha binadamu zinakuwa kwa wastani wa sentimeta ngapi kwa mwaka?)"
+    },
+    {
+      "German": "In welchem Jahr wurde Mozambique unabhängig?",
+      "English": "Mozambique became an independent state in what year?",
+      "Kiswahili": "Msumbiji ilikuwa nchi huru mwaka gani?",
+      "Vietnamese": "Mozambique trở thành quốc gia độc lập năm nào?",
+      "Engkis": "Mozambique became an independent state in what year? (Msumbiji ilikuwa nchi huru mwaka gani?)"
+    },
+    {
+      "German": "Wie viel Gramm wiegt eine durchschnittliche Visitenkarte, gedruckt auf 225 g/m² Papier?",
+      "English": "How many grams does an average business card printed on 225 g/m² paper weigh?",
+      "Vietnamese": "Khối lượng của một tấm danh thiếp trung bình được in trên giấy 225g/m² là bao nhiêu gam?"
+    },
+    {
+      "German": "In welchem Durchschnittsalter bekamen Frauen in Australien im Jahr 2019 ihr erstes Kind?",
+      "English": "What was the average age of a woman giving birth to her first child in Australia in 2019?",
+      "Kiswahili": "Ni umri gani wa wastani wa mwanamke kujifungua mtoto wake wa kwanza nchini Australia mnamo 2019?",
+      "Vietnamese": "Vào năm 2019, tuổi trung bình của một phụ nữ Úc sinh con đầu lòng là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Fehler enthalten 1000 Zeilen Code von kommerzieller Software im Durchschnitt?",
+      "English": "Up to how many errors can be expected in 1000 lines of code in average, according to McConnell (2009)?",
+      "Vietnamese": "Theo McConnell năm 2019, trung bình có bao nhiêu lỗi có thể được phát hiện trên 1000 dòng mã của phần mềm thương mại Hoa Kỳ?"
+    },
+    {
+      "German": "Wie viele Wörter hat ein englischer Wikipedia Artikel im Durchschnitt?",
+      "English": "What is the average number of words in an English Wikipedia article?",
+      "Vietnamese": "Số từ trung bình của một bài viết trên Wikipedia là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Tonnen wog der schwerste Meteorit der auf der Erde gefunden wurde?",
+      "English": "The largest meteorite ever found on Earth weighed how many tons?",
+      "Spanish": "¿Cuántas toneladas pesó el meteorito más grande que se encontró en la Tierra?",
+      "Vietnamese": "Thiên thạch lớn nhất từng được tìm thấy trên trái đất nặng bao nhiêu tấn?"
+    },
+    {
+      "German": "In welchem Jahr gewann „Vom Winde verweht“ einen Oscar in der Kategorie Bester Film?",
+      "English": "Gone With The Wind won the Oscar for Best Picture in what year?",
+      "Vietnamese": "Cuốn theo chiều gió đạt giải Oscar cho phim xuất sắc nhất vào năm nào?"
+    },
+    {
+      "German": "Wie viele Straßenkilometer sind es von Maputo, Mozambique nach Luanda, Angola laut Google Maps?",
+      "English": "What is the road kilometer distance from Maputo, Mozambique to Luanda, Angola according to google maps?",
+      "Vietnamese": "Khoảng cách từ Maputo, Mozambique đến Luanda, Angola là bao nhiêu km đường bộ?"
+    },
+    {
+      "German": "Wie viele Buchstaben gibt es im griechischen Alphabet?",
+      "English": "How many letters are in the Greek alphabet?",
+      "Vietnamese": "Có bao nhiêu chữ cái trong bảng chữ cái Hy Lạp?"
+    },
+    {
+      "German": "In welchem Jahr wurde Mickey Mouse von Walt Disney erschaffen?",
+      "English": "What year did Walt Disney create Mickey Mouse?",
+      "Spanish": "¿En qué año Walter Disney creó a Mickey Mouse?",
+      "Vietnamese": "Walt Disney đã tạo ra chuột Mickey vào năm nào?"
+    },
+    {
+      "German": "Wie viele Erdbeben gab es im zwanzigsten Jahrhundert mit einer 8.0 oder höher auf der Richter-Skala?",
+      "English": "How many 20th century earthquakes world-wide measured above 8.0 on the Richter scale?",
+      "Spanish": "¿Cuántos terremotos en el mundo han medido más de 8.0 en la escala de Rítcher en el siglo 20?",
+      "Vietnamese": "Có bao nhiêu trận động đất trên thế giới với cường độ lớn hơn 8 độ Richter xảy ra trong thế kỷ 20?"
+    },
+    {
+      "German": "Wie viele Theaterstücke schrieb William Shakespeare?",
+      "English": "How many plays (only dramas, not sonnets) did William Shakespeare write?"
+    },
+    {
+      "German": "Wie viele Elemente des Periodensystems wurden im zwanzigsten Jahrhundert entdeckt?",
+      "English": "How many of the elements in the Periodic Table were discovered in the 20th century?",
+      "Spanish": "¿Cuántos de los elementos de la tabla periódica se descubrieron en el siglo 20?",
+      "Vietnamese": "Có bao nhiêu nguyên tố trong bảng tuần hoàn hóa học được phát hiện trong thế kỷ 20?"
+    },
+    {
+      "German": "In welchem Jahr wurde Mozart geboren?",
+      "English": "What year was Mozart born?",
+      "Vietnamese": "Mozart sinh năm nào?"
+    },
+    {
+      "German": "Wie viele Male größer ist der Jupiter als die Erde im Durchmesser?",
+      "English": "How many times greater is Jupiter's diameter than earth?",
+      "Kiswahili": "Kipenyo cha sayari ya Jupiter ni kubwa mara ngapi zaidi ya dunia?",
+      "Spanish": "¿El diámetro de Júpiter mide cuántas veces el diámetro de la Tierra?",
+      "Vietnamese": "Đường kính của sao Mộc lớn hơn đường kính trái đất bao nhiêu lần?"
+    },
+    {
+      "German": "Der durchschnittliche US Haushalt hatte 2015 wie viele TV Sets?",
+      "English": "The average US home had how many television sets in 2015?",
+      "Kiswahili": "Kwa wastani, kaya moja nchini Marekani ilikwa na television ngapi mwaka 2015?",
+      "Vietnamese": "Vào năm 2015, một hộ dân trung bình tại Hoa Kỳ có bao nhiêu chiếc tivi?"
+    },
+    {
+      "German": "In welchem Jahr begann der Bau des Son La Damms (Talsperre in Vietnam)?",
+      "English": "Construction of Son La Dam (Vietnam) began in what year?",
+      "Vietnamese": "Việc xây dựng đập Sơn La bắt đầu vào năm nào?"
+    },
+    {
+      "German": "In welchem Jahr begann der Bau der Represa Reventazón (Talsperre in Costa Rica)?",
+      "English": "Construction of Represa Reventazó (dam in Costa Rica) began in what year?"
+    },
+    {
+      "German": "In welchem Jahr begann der Bau des Gitaru Damms (Talsperre in Kenia)?",
+      "English": "Construction of Gitaru Dam (Kenya) began in what year?",
+      "Vietnamese": "Việc xây dựng đập Gitaru bắt đầu vào năm nào?"
+    },
+    {
+      "German": "Was war die Weltrekord Zeit für einen Marathon im Jahr 1983 (in Minuten)?",
+      "English": "What was the world record time for a marathon in 1983 (in minutes)?",
+      "Spanish": "¿Cuál era el tiempo record para correr un maratón en 1983 (en minutos)?",
+      "Vietnamese": "Kỷ lục thế giới của cuộc thi chạy marathon năm 1983 là bao nhiêu phút?"
+    },
+    {
+      "German": "In welchem Jahr wurde Algerien ein unabhängiger Staat?",
+      "English": "In what year did Algeria become an independent state?",
+      "Kiswahili": "Ni mwaka gani nchi ya Algeria ilipata uhuru?",
+      "Vietnamese": "Algeria giành độc lập vào năm bao nhiêu?",
+      "Engkis": "In what year did Algeria become an independent state? (In what year did Algeria become an independent state?)"
+    },
+    {
+      "German": "Wie viele cm ist eine typische Visitenkarte in den USA lang?",
+      "English": "How many centimeters long is a typical US business card?",
+      "Vietnamese": "Một chiếc danh thiếp thông thường dài bao nhiêu cm?"
+    },
+    {
+      "German": "Wie groß ist die Oberfläche des Lake Victoria in km²?",
+      "English": "What is the surface area of Lake Victoria in square kilometers?",
+      "Kiswahili": "Ziwa Viktoria lina eneo la kilomita ngapi za mraba?",
+      "Vietnamese": "Diện tích mặt hồ Victoria là bao nhiêu mét vuông?"
+    },
+    {
+      "German": "In welchem Jahr wurde Kofi Annan geboren?",
+      "English": "What year was Kofi Annan born?",
+      "Kiswahili": "Koffi Annan alizaliwa mwaka gani?",
+      "Vietnamese": "Kofi Annan sinh vào năm nào?"
+    },
+    {
+      "German": "Wie groß ist die Distanz (Luftlinie) zwischen Nairobi und Kapstadt (in km)?",
+      "English": "What is the air distance between Nairobi and Cape Town (in km)?",
+      "Kiswahili": "Umbali kutoka Nairobi hadi Capetown ni kilomita ngapi?",
+      "Vietnamese": "Khoảng cách giữa Nairobi và Cape Town là bao nhiêu km theo đường chim bay?",
+      "Engkis": "What is the air distance between Nairobi and Cape Town (in km)?(Umbali  wa anga kutoka Nairobi hadi Capetown ni kilomita ngapi?)"
+    },
+    {
+      "German": "Wie alt war Nelson Mandela als er starb?",
+      "English": "How old was Nelson Mandela when he died?",
+      "Kiswahili": "Nelson Mandela alikufa akiwa na miaka mingapi?",
+      "Vietnamese": "Tuổi thọ của Nelson Mandela là bao nhiêu?",
+      "Engkis": "How old was Nelson Mandela when he died? (Nelson Mandela alikufa akiwa na miaka mingapi?)"
+    },
+    {
+      "German": "Wie hoch ist \"Point Lenana\" einer von Mt. Kenyas Gipfeln?",
+      "English": "How high is Point Lenana, one of Mt. Kenya's summits?",
+      "Vietnamese": "Point Lenana, một trong những đỉnh núi tại Kenya, cao bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Staaten sind in der afrikanischen Union? (Stand 2021)",
+      "English": "How many countries are in the African Union? (in 2021)",
+      "Vietnamese": "Có bao nhiêu nước thuộc liên minh Châu Phi vào năm 2021?"
+    },
+    {
+      "German": "Was ist die durchschnittliche Temperatur in Nairobi im August (°C)?",
+      "English": "What is the average temperature in Nairobi in August (°C)?",
+      "Kiswahili": "Kwa wastani joto la Nairobi ni centigredi ngapi mwezi wa nane?",
+      "Vietnamese": "Nhiệt độ trung bình trong tháng 8 tại Nairobi là bao nhiêu? (tính theo °C)?"
+    },
+    {
+      "German": "In welchem Jahr wurde \"Masai Mara\" in Kenia zum Nationalpark erklärt?",
+      "English": "The Masai Mara in Kenya was declared a National Park in what year?",
+      "Vietnamese": "Masai Mara ở Kenya được công bố là Vườn quốc gia vào năm nào?"
+    },
+    {
+      "German": "Wie viele Jahre in Folge hat David Rudisha die Auszeichnung \"Track & Field Athlete of the Year\" gewonnen?",
+      "English": "How many consecutive Track & Field Athlete of the Year awards has David Rudisha won?",
+      "Vietnamese": "David Rudisha đã dành được bao nhiêu giải thưởng liên tiếp cho giải vận động viên điền kinh của năm?"
+    },
+    {
+      "German": "Wie viel Prozent der kenianischen Bevölkerung lebte 2010 in Städten?",
+      "English": "What percentage of Kenyan lived in cities in 2010?",
+      "Kiswahili": "Asilimia ngapi ya Wakenya walikuwa wanaishi mijini mwaka 2010?",
+      "Vietnamese": "Tỷ lệ người Kenya sống tại thành thị trong năm 2010 là bao nhiêu?",
+      "Engkis": "What percentage of Kenyan lived in cities in 2010? (Asilimia ngapi ya Wakenya walikuwa wanaishi mijini mwaka 2010?)"
+    },
+    {
+      "German": "In welchem Jahr wurde Angola unabhängig?",
+      "English": "What year did Angola gain independence?",
+      "Kiswahili": "Angola ilipata uhuru mwaka gani?",
+      "Vietnamese": "Angola giành độc lập năm nào?"
+    },
+    {
+      "German": "Wie viele Billionen Kenia-Schilling Einnahmen hatte Safaricom (kenianisches Unternehmen) im Jahr 2010?",
+      "English": "How many billions of shillings did Safaricom earn in turnover in 2010?",
+      "Vietnamese": "Doanh thu của Safaricom trong năm 2010 là bao nhiêu? (tính theo shilling)"
+    },
+    {
+      "German": "Wie hoch ist KICC in Metern?",
+      "English": "How tall is KICC in meters?",
+      "Kiswahili": "Jengo la KICC lina urefu wa mita ngapi?",
+      "Vietnamese": "KICC cao bao nhiêu mét"
+    },
+    {
+      "German": "Wie weit ist es vom Kakuma Flüchtlingslager nach Nairobi über die Straße in km laut Google Maps?",
+      "English": "What is the distance from Kakuma refugee camp to Nairobi by road in km?",
+      "Vietnamese": "Khoảng cách theo đường bộ từ trại tị nạn Kakuma tới Nairobi là bao nhiêu?"
+    },
+    {
+      "German": "In welchem Jahr wurde die Eisenbahnlinie Kenia (Mombasa) - Uganda (Kampala) in Kenia fertiggestellt?",
+      "English": "What year was the Kenya (Mombasa) - Uganda (Kampala) railroad completed in Kenya?",
+      "Kiswahili": "Ni mwaka gani reli ya Kenya (Mombasa) hadi Uganda (Kampala) ilikamilika kujengwa?",
+      "Vietnamese": "Đường sắt nối Kenya (Msa) -Uganda (Kampala) được hoàn thành vào năm nào tại Kenya?"
+    },
+    {
+      "German": "Wie viele Nationalparks gibt es laut Kenya Wildlife Service in Kenia? (Stand 2021)",
+      "English": "How many national parks are there in Kenya according to Kenya Wildlife Service? (in 2021)",
+      "Kiswahili": "Kwa mujibu wa Kenya Wildlife Service (2021), Kenya ina jumla ya hifadhi za taifa za wanyama ngapi?",
+      "Vietnamese": "Theo Kenya Wildlife Service năm 2021, có bao nhiêu vườn quốc gia tại Kenya  ?"
+    },
+    {
+      "German": "Wie viele Menschen lebten laut kenianischem Zensus 2009 in Mombasa?",
+      "English": "What is the population of Mombasa according to 2009 census?",
+      "Kiswahili": "Kwa mujibu wa sensa ya mwaka 2009, Mombasa ina watu wangapi?",
+      "Vietnamese": "Theo điều tra dân số năm 2009, dân số của Mombasa là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Ärzte gab es 2014 in Kenia pro 10 000 Einwohner im Mittel?",
+      "English": "In Kenya, how many doctors were there per 10,000 residents, on average in 2014?",
+      "Kiswahili": "Nchini Kenya, idadi ya madaktari kwa mwaka 2014 ilikuwa _____ kwa kila watu 10,000 ?",
+      "Vietnamese": "Vào năm 2014 tại Kenya, trung bình có bao nhiêu bác sỹ trên 10,000 dân?"
+    },
+    {
+      "German": "Welcher Anteil des kenianischen Energiebedarfs wurde im April 2020 aus geothermalen Quellen gedeckt?",
+      "English": "Of all Kenya's electricity needs, how much was met by geothermal power in April 2020? (in %)",
+      "Kiswahili": "Kati ya umeme wote unaotumika Kenya, ni asilimia ngapi inatokana na geothermal?",
+      "Vietnamese": "Trong tổng nhu cầu điện tại Kenya, bao nhiêu % được đáp ứng bằng nhiệt điện?Trong tổng nhu cầu điện tại Kenya vào tháng 4/2020, bao nhiêu % được đáp ứng bằng nhiệt điện?"
+    },
+    {
+      "German": "Kenias \"Great Rift Valley\" wurde vor wie vielen Millionen Jahren geformt?",
+      "English": "Kenya’s Great Rift Valley was formed around how many million years ago?",
+      "Kiswahili": "Bonde la ufa la Kenya lilitokea miaka milioni ngapi iliyopita?",
+      "Vietnamese": "Thung lũng Great Rift Valley của Kenya được hình thành cách đây khoảng bao nhiêu triệu năm?"
+    },
+    {
+      "German": "In welchem Jahr fand \"Henry Morton Stanley\" \"David Livingstone\" in Malawi?",
+      "English": "What year did Henry Morton Stanley find David Livingstone in Malawi?",
+      "Vietnamese": "Henry Morton Stanley tìm thấy David Livingstone tại Malawi vào năm nào?"
+    },
+    {
+      "German": "Kenia ist ungefähr____ km² groß.",
+      "English": "Kenya is roughly ____square kilometers.",
+      "Kiswahili": "Kenya ina ukubwa wa kilomita za mraba________?",
+      "Vietnamese": "Kenya rộng khoảng ____km vuông.",
+      "Engkis": "Kenya is roughly ____square kilometers (Kenya ina ukubwa wa kilomita za mraba________?)"
+    },
+    {
+      "German": "Wie viele kg wiegt eine Million 1$-Scheine?",
+      "English": "How many kilograms do one million dollars in one-dollar notes weigh?",
+      "Spanish": "¿Cuántos kilogramos pesa un millón de dólares en billetes de un dólar?"
+    },
+    {
+      "German": "Wie viele Meter beträgt die Flügelspannweite einer Boeing 747-400?",
+      "English": "What is the wingspan of a Boeing 747-400?"
+    },
+    {
+      "German": "Wie viele freilebende Wolfsrudel gab es 2019 in Deutschland?",
+      "English": "How many wild wolf packs lived in Germany in 2019?"
+    },
+    {
+      "German": "Was ist die Gesamtlänge eines Tennisplatzes? (in Meter)",
+      "English": "What is the length of an entire tennis court in meter ?",
+      "Kiswahili": "Jumla ya urefu wa uwanja wa tenis ni mita ngapi?"
+    },
+    {
+      "German": "Wie viele Krankenhäuser gab es im Jahr 2018 in Deutschland?",
+      "English": "How many hospitals were there in Germany in 2018?"
+    },
+    {
+      "German": "Wie viele Patientenbetten hatten alle Krankenhäuser in Deutschland zusammen im Jahr 2018?",
+      "English": "How many hospital beds were in all hospitals combined in Germany in 2018?"
+    },
+    {
+      "German": "In welchem Jahr wurde Amazon als Online Buchhandlung gegründet?",
+      "English": "In which year was amazon founded as an online bookstore?"
+    },
+    {
+      "German": "Welche Bevölkerungsdichte hatte Russland im Jahr 2012? (in Einwohner pro km²)",
+      "English": "What was the population density of Russia in 2012? (in people per km²)"
+    },
+    {
+      "German": "Wie viele Kilometer Schienennetz gibt es in Deutschland (2019)?",
+      "English": "How many kilometers of railway was there in Germany in 2019?"
+    },
+    {
+      "German": "Die Tschechen trinken am meisten Bier in Europa, wie viele Liter pro Kopf?",
+      "English": "The Czechs are drinking the most beer in Europe, how many liter per head a year?",
+      "Kiswahili": "Watu wa Czech wanaongoza kwa kunywa bia Ulaya. Mtu mmoja anakunywa kiasi gani kwa mwaka?"
+    },
+    {
+      "German": "Wie viele Kalorien, laut Richtwert, hat eine Flasche (750 ml) mittelkräftiger, trockener Wein? (in kcal)",
+      "English": "How many kilocalories are in a bottle (750 ml) of dry red wine in average?"
+    },
+    {
+      "German": "Welche Diagonale hat ein Papier des Formats DIN A1? (in cm)",
+      "English": "What is the diagonal of a DIN A1 Paper in cm?",
+      "Kiswahili": "Urefu wa karatasi aina ya DIN A1 kwa mshazari ni sentimenta ngapi?"
+    },
+    {
+      "German": "Auf wie viele Tonnen wird der größte Dinosaurier der existiert hat von Mazzetta et al. (2004) geschätzt ?",
+      "English": "How many tons are estimated by Mazzetta et al. (2004) for the weight largest dinosaur that lived on earth?"
+    },
+    {
+      "German": "Der Vatikanstaat ist der kleinste Staat der Welt. Welche Fläche umfasst er (in km²)?",
+      "English": "The Vatican State is the smallest state in the world. What is its area in km²?",
+      "Kiswahili": "Nchi ya Vatican ndiyo nchi yenye eneo dogo kuliko lote duniani. Lina ukubwa wa kilomita za mraba ngapi?",
+      "Engkis": "The Vatican State is the smallest state in the world. What is its area in km²?  (Nchi ya Vatican ndiyo nchi yenye eneo dogo kuliko lote duniani. Lina ukubwa wa kilomita za mraba ngapi?)"
+    },
+    {
+      "German": "Wie viel cm Höhe erreichte die bisher höchste Titanwurz Blüte (größte Pflanzenblüte) im Botanischen Garten Bonn? (Stand 2021)",
+      "English": "Until 2021, what was the height of the highest flower of the corpse flower in the botanical garden Bonn? (in cm)"
+    },
+    {
+      "German": "Wie viel cm Höhe erreichte die bisher höchste Titanwurz Blüte der Welt? (Weltrekord aus dem Jahr 2010)",
+      "English": "What was the height of the highest flower of the corpse flower in the World in cm? (World record from 2010)"
+    },
+    {
+      "German": "Ein Acre sind wie viele Quadratmeter?",
+      "English": "How many square meters are one acre?",
+      "Kiswahili": "Heka moja in kilomita za mraba ngapi?",
+      "Engkis": "How many square meters are one acre? (Heka moja in mita za mraba ngapi? )"
+    },
+    {
+      "German": "Wie viele Bierdosen lassen sich aus dem Material einer Boeing 747 machen?",
+      "English": "How many Beer cans could be produced from the metal material of a Boeing 747?"
+    },
+    {
+      "German": "Wie viel Tonnen flüssiger Wirtschaftsdünger wurden von März 2019 bis Februar 2020 auf deutschen Feldern verteilt? (in Millionen)",
+      "English": "How many tons of liquid manure is used on German fields from march 2019 to February 2020? (in millions)"
+    },
+    {
+      "German": "Hamburg hat die meisten Brücken aller europäischen Städte, wie viele?",
+      "English": "Hamburg has the most bridges of all European cities, how many?"
+    },
+    {
+      "German": "Wie viele Stichwörter enthält die aktuelle 28. Auflage des deutschen Rechtschreib-Dudens?",
+      "English": "How many words does the official dictionary of the German language, the Duden (Edition 28), contain?"
+    },
+    {
+      "German": "Die Zugspitze, der höchste Berg Deutschlands, ist wie viel Meter über Normalhöhennull?",
+      "English": "How high is the „Zugspitze“, the highest mountain in Germany? (in meter)",
+      "Kiswahili": "Mlima mrefu kuliko wote Ujerumani una urefu wa mita ngapi?"
+    },
+    {
+      "German": "Wie viele Monate ist ein Afrikanischer Elefant trächtig?",
+      "English": "How long is an elephant’s pregnancy in month?",
+      "Kiswahili": "Tembo anabeba mimba kwa miezi mingapi?",
+      "Spanish": "¿Cuánto dura el embarazo de los elefantes (en meses)?",
+      "Engkis": "How long is an elephant’s pregnancy in month? (Tembo anabeba mimba kwa miezi mingapi?)"
+    },
+    {
+      "German": "Wie viele afrikanische Länder durchfließt der Fluss Nil?",
+      "English": "How many African countries does the river Nile cross?",
+      "Kiswahili": "Ni nchi ngapi za Kiafrika ambazo mto Nile unapita?",
+      "Engkis": "How many African countries does the river Nile cross? (Ni nchi ngapi za Kiafrika ambazo mto Nile unapita?)"
+    },
+    {
+      "German": "Bei welcher Temperatur in ˚C schmilzt Schwefel?",
+      "English": "Sulfur melts at which temperature (˚C)?",
+      "Kiswahili": "Salpha inayeyuka kwa joto la centigredi kiasi gani?",
+      "Spanish": "¿A qué temperatura (en grados Centígrados) se derrite el azufre?"
+    },
+    {
+      "German": "Welche Temperatur wird im Winter an den Polen des Mars gemessen?",
+      "English": "What is the temperature at the poles of Mars at wintertime (°C)?",
+      "Spanish": "¿Cuál es la temperatura de los polos de Marte en invierno (en grados Centígrados)?"
+    },
+    {
+      "German": "Wie viele zertifizierte Bio-Höfe gab es 2017 insgesamt in Deutschland?",
+      "English": "How many certified Organic farms existed in Germany in 2017?"
+    },
+    {
+      "German": "Wie viele Vornamen darf ein Kind in Deutschland, laut Urteil des OLG Düsseldorf, maximal haben?",
+      "English": "How many given names may a child in Germany have (according to court judgement)?",
+      "Kiswahili": "Kwa mujibu wa sheria za Ujerumani, mtoto anaweza kuwa na majina hadi mangapi?",
+      "Engkis": "How many given names may a child in Germany have (according to court judgement)? (Kwa mujibu wa sheria za Ujerumani, mtoto anaweza kuwa na majina hadi mangapi?)"
+    },
+    {
+      "German": "Bei wie vielen Minuten liegt der Weltrekord im Luftanhalten?",
+      "English": "What's the current world record in holding breath (minutes)?",
+      "Kiswahili": "Rekodi ya juu kabisa duniani ya binadamu kuzuia pumzi ni dakika ngapi?",
+      "Spanish": "¿Cuál es el récord actual de contener la respiración bajo el agua para un humano (en minutos)?",
+      "Engkis": "What's the current world record in holding breath (minutes)? (Rekodi ya juu kabisa duniani ya binadamu kuzuia pumzi ni dakika ngapi?)"
+    },
+    {
+      "German": "Wie viele km lang ist die längste Ameisenkolonie der Welt?",
+      "English": "How long is the world's longest ant colony (km)?",
+      "Spanish": "¿Cuánto mide la colonia de hormigas más larga del mundo (en km)?"
+    },
+    {
+      "German": "Wie hoch ist die bisher schnellste Laufgeschwindigkeit in km/h, die je für einen Menschen gemessen wurde?",
+      "English": "What's the maximum speed ever recorded for a human running (km/h)?",
+      "Kiswahili": "Spidi ya juu kabisa kurekodiwa ya binadamu kukimbia ni kilometa ngapi kwa saa?",
+      "Spanish": "¿Cuál es la velocidad máxima a la que un humano ha corrido en el mundo (km/h)?"
+    },
+    {
+      "German": "Wieviel Umsatz (in Milliarden €) erwirtschaftete der deutsche LEH 2019 übergreifend über alle Vertriebsformate?",
+      "English": "What were the sales of the entire German food retail in 2019 (billion €)?"
+    },
+    {
+      "German": "Wie viele Walküren gibt es in Wagners Ring des Nibelungen?",
+      "English": "What's the number of Valkyries in Wagner's \"Nibelungen\"?"
+    },
+    {
+      "German": "In welchem Jahr wurde das erste Fahrrad erfunden?",
+      "English": "In what year was the bike invented?",
+      "Kiswahili": "Baiskeli iligunduliwa mwaka gani?",
+      "Spanish": "¿En qué año se inventó la  bicicleta?"
+    },
+    {
+      "German": "Wie viele Kalorien hat eine 50g Portion gesalzene Erdnüsse?",
+      "English": "50 g of salted peanuts contain how many calories?",
+      "Spanish": "¿Cuántas calorías contienen 50 gramos de cacahuates salados?"
+    },
+    {
+      "German": "Wie viele Auszubildende gab es 2017 in Deutschland in der Fachrichtung Baumschule?",
+      "English": "How many trainees (Auszubildende) worked in tree nurseries in Germany in 2017?"
+    },
+    {
+      "German": "In wie vielen Ländern hat der Discounter Lidl Filialen? (Stand 2021)",
+      "English": "In how many countries does the discounter Lidl have shops? (in 2021)"
+    },
+    {
+      "German": "Wie viele Weihnachtsbäume wurden 2019 in Deutschland verkauft?",
+      "English": "How many Christmas trees were sold in Germany in 2019?",
+      "Kiswahili": "Ni miti mingapi ya krismas iliuzwa Ujerumani mwaka 2019?"
+    },
+    {
+      "German": "Was ist die Entfernung (Luftlinie) von Bonn nach Bad Münstereifel? (in Kilometer)",
+      "English": "What's the linear distance between Bonn and Bad Münstereifel (km)?"
+    },
+    {
+      "German": "Wie viele Fachberater für Fischotter beschäftigt das Land Bayern? (Stand 2021)",
+      "English": "How many consultants on otter issues does the state of Bavaria employ? (in 2021)"
+    },
+    {
+      "German": "Wie hoch ist der prozentuale Gehalt an Natrium in der Erdkruste? (%)",
+      "English": "What is the percentage of sodium in the earth's crust? (%)",
+      "Spanish": "¿Cuál es el porcentaje de sodio en la superficie de la tierra?"
+    },
+    {
+      "German": "Wieviel Euro kostete ein Gramm reines Gold am 29.10.2021?",
+      "English": "How many euros did one gram of pure gold cost on 29th of October 2021?"
+    },
+    {
+      "German": "Wieviel Prozent der Autobahnkilometer auf Deutschen Autobahnen waren 2015 komplett ohne Geschwindigkeitsbegrenzung?",
+      "English": "What percentage of the motorway kilometers on German motorways were completely without speed limit in 2015?"
+    },
+    {
+      "German": "Wie viele Zimmer bewohnt der Sultan von Brunei?",
+      "English": "How many rooms does the Sultan of Brunei inhabit?"
+    },
+    {
+      "German": "In welchem Jahr wurde der 5 Uhr Tee in Großbritannien eingeführt?",
+      "English": "What year was the 5 o'clock tea introduced in the UK?"
+    },
+    {
+      "German": "In welchem Jahr wurden Oreo Kekse erfunden?",
+      "English": "In what year were Oreo cookies invented?",
+      "Spanish": "¿En qué año se inventaron las galletas Oreo?"
+    },
+    {
+      "German": "Wie viele Menschen wurden zwischen 4. März und 25. Juni 2020 in Köln als von Corona geheilt registriert?",
+      "English": "How many people were registered as cured of corona in Cologne between March 4 and June 25, 2020?"
+    },
+    {
+      "German": "Welche Länge hat der Rhein in Km?",
+      "English": "How long is the Rhine river in km?"
+    },
+    {
+      "German": "Wie oft gewann Vietnam den Titel im AFF Cup (Asienmeisterschaft im Fußball) bis 2020?",
+      "English": "How many times Vietnam has won the titles in AFF (ASEAN Football Federation Championship) cup until 2020?",
+      "Vietnamese": "Việt Nam đã vô địch AFF cup bao nhiêu lần?"
+    },
+    {
+      "German": "Wann wurde Dang Duc Song, der Held und Oberst in der Dien Bien Phu Schlacht, geboren?",
+      "English": "When was Dang Duc Song, the hero and colonel in Dien Bien Phu battle, born?",
+      "Vietnamese": "Anh hùng lực lượng vũ trang nhân dân Chiến dịch Điện Biên Phủ, Đại tá Đặng Đức Song sinh năm bao nhiêu?"
+    },
+    {
+      "German": "Wie lang ist die Grenze der Provinz Dien Bien zu Laos und China in km?",
+      "English": "How long is the border of Dien Bien Province to Lao and China (km)?",
+      "Vietnamese": "Tuyến đường biên giới giáp Lào và Trung Quốc của Điện Biên dài bao nhiêu km?"
+    },
+    {
+      "German": "Welche Fläche hat die Provinz Son La (Vietnam) in km²?",
+      "English": "How big is the area in Son La Province (km2)?",
+      "Vietnamese": "Diện tích tỉnh Sơn La rộng bao nhiêu km2?"
+    },
+    {
+      "German": "Wie viele zentral verwaltete Städte gab es in Vietnam Ende 2020?",
+      "English": "How many centrally administered cities were there in Vietnam (until the end of 2020)?",
+      "Vietnamese": "Việt Nam có bao nhiêu thành phố trực thuộc trung ương (đến cuối 2020)?"
+    },
+    {
+      "German": "Wie groß ist die Entfernung zwischen Dien Bien und MocChau mit dem Auto, laut Google Maps in km?",
+      "English": "How far is the distance from Dien Bien to MocChau by car, according to google map (km)",
+      "Vietnamese": "Khoảng cách từ Điện Biên đến Mộc Châu là bao nhiêu theo đường ô tô, xác định bằng google map (km)"
+    },
+    {
+      "German": "Wie hoch ist der aktuelle Zinssatz (Stand April 2022) für Erspartes bei der Agribank (ein Monat, für Privatkunden)?",
+      "English": "How much is the current (April 2022) interest rate for saving at Agribank (one month, individual customer)?",
+      "Vietnamese": "Tỉ giá lãi suất hiện tại (tháng 4/2022) của Ngân hàng nông nghiệp (kì hạn 1 tháng cho cá nhân) là bao nhiêu?"
+    },
+    {
+      "German": "Wie viele Buchstaben hat das vietnamesische Alphabet?",
+      "English": "How many letters are in the Vietnamese alphabet?",
+      "Vietnamese": "Bảng chữ cái của Việt Nam có bao nhiêu chữ?"
+    },
+    {
+      "German": "Wann starb Ho Chi Minh?",
+      "English": "In what year did Ho Chi Minh die?",
+      "Vietnamese": "Bác Hồ mất năm bao nhiêu?"
+    },
+    {
+      "German": "Wie hoch (in m) ist das höchste Wohn- und Bürogebäude in Vietnam?",
+      "English": "How many meters ais the tallest (apartment and office) building in Vietnam?",
+      "Vietnamese": "Tòa nhà cao nhất tại Việt Nam cao bao nhiêu (m)?"
+    },
+    {
+      "German": "In welchem Jahr wurde Ho Chi Minh geboren?",
+      "English": "What year was Ho Chi Minh born?",
+      "Vietnamese": "Bác Hồ sinh năm bao nhiêu?"
+    },
+    {
+      "German": "Wie groß ist die Fläche von Hanoi in km²?",
+      "English": "What is the size (surface area) of Hanoi? (km2)",
+      "Vietnamese": "Diện tích của Hà Nội là bao nhiêu (km2)?"
+    },
+    {
+      "German": "Wie viele Einwohner hatte Vietnam am 01.04.2019 laut dem nationalen Zensus?",
+      "English": "What is population of Vietnam (until 0h 1 April 2019) reported by the National Population Census ?",
+      "Vietnamese": "Dân số của Việt Nam là bao nhiêu (theo công bố tổng điều tra dân số đến ngày 01.04.2019) ?"
+    },
+    {
+      "German": "Wann flog das erste Flugzeug?",
+      "English": "In what year did the first airplane recorded fly?",
+      "Kiswahili": "Ni mwaka gani ndege ya kwanza ili rekodiwa kuruka?",
+      "Spanish": "¿En qué año fue el primer vuelo de un avión?",
+      "Vietnamese": "Máy bay đầu tiên trên thế giới cất cánh năm bao nhiêu?"
+    },
+    {
+      "German": "Welcher Anteil von Vietnams GDP wurde im Jahr 2020 von Landwirtschaft, Forstwirtschaft und Fischerei erwirtschaftet?",
+      "English": "What percentage of Vietnam's GDP was generated by agriculture, forestry and fishing in 2020?",
+      "Vietnamese": "Nông nghiệp, lâm nghiệp, thủy sản đóng góp bao nhiêu % vào GDP của cả nước năm 2020?"
+    },
+    {
+      "German": "Wie lang ist die Küstenlinie von Vietnam (ohne Inseln) in km?",
+      "English": "How long is the coastline of Vietnam (excluding islands) (in km)?",
+      "Vietnamese": "Đường bờ biển Việt Nam dài bao nhiêu mét (không tính các đảo)?"
+    },
+    {
+      "German": "Wie lang ist der Mekong?",
+      "English": "How many km long is the Mekong River?",
+      "Vietnamese": "Sông Mekong River dài bao nhiêu (km)?"
+    },
+    {
+      "German": "In welchem Jahr wurde \"CARE international\" gegründet?",
+      "English": "In what year was CARE International founded?",
+      "Vietnamese": "CARE Quốc tế được thành lập vào năm nào?"
+    },
+    {
+      "German": "An wie viele Länder grenzt Dien Bien?",
+      "English": "With how many countries does Dien Bien share its border with?",
+      "Vietnamese": "Điện Biên giáp biên giới với bao nhiêu nước?"
+    },
+    {
+      "German": "Wie viel Prozent der Vietnamesischen Bevölkerung war laut dem Zensus am 01.04.2019 weiblich?",
+      "English": "What is the percentage of women in Vietnam population (until 0h 1 April 2019) reported by the National Population Census?",
+      "Vietnamese": "Tỉ lệ phần trăm phụ nữ trong dân số Việt Nam là bao nhiêu, tính đến ngày 1/4/2019?"
+    },
+    {
+      "German": "In welchem Jahr wurde mit dem Bau von Ho Chi Minhs Palast begonnen?",
+      "English": "What year was the construction of Ho Chi Minh palace started?",
+      "Vietnamese": "Lăng Bác Hồ khởi công xây dựng vào năm nào?"
+    },
+    {
+      "German": "Wie viele arme Haushalte gab es in der Provinz Dien Bien in Jahr 2018?",
+      "English": "How many poor households were there in Dien Bien Province in 2018?",
+      "Vietnamese": "Có bao nhiêu hộ nghèo tại tỉnh Điện Biên tính đến năm 2018?"
+    },
+    {
+      "German": "Wie lang ist ein 10€ Schein (in mm)?",
+      "English": "How long is a €10 note (in mm)?",
+      "Kiswahili": "Noti ya euro 10 ina urefu wa milimita ngapi?"
+    },
+    {
+      "German": "Wie hoch ist typischerweise der Anteil von Kupfer in Bronze?",
+      "English": "What is typically the percentage of copper in bronze?",
+      "Kiswahili": "Asilimia ngapi ya madini ya bronze inaundwa na shaba (copper)?",
+      "Spanish": "¿Qué porcentaje del bronce típicamente es cobre?"
+    },
+    {
+      "German": "Wie viele Sekunden lang ist das Lied \"Bohemian Rhapsody\"?",
+      "English": "How many seconds long does the song \"Bohemian Rhapsody\" last?"
+    },
+    {
+      "German": "Wie lang ist die Grenze zwischen Deutschland und der Schweiz in km?",
+      "English": "How long is the border between Germany and Switzerland in km?",
+      "Kiswahili": "Mpaka kati ya Ujerumani na Uswisi una urefu wa kilomita ngapi?"
+    },
+    {
+      "German": "Bei welcher Höhe liegt der Weltrekord im Stabhochsprung in m? (Stand April 2022)",
+      "English": "At what height is the world record in pole vaulting in m? (In April 2022)"
+    },
+    {
+      "German": "Wie viele Einwohner hatte Deutschland 1970?",
+      "English": "How many inhabitants did Germany have in 1970?",
+      "Kiswahili": "Nchi ya Ujerumani ilikuwa na wakaazi wangapi mwaka 1970?"
+    },
+    {
+      "German": "In welchem Jahr gewann \"Forrest Gump\" den Oscar in der Kategorie \"Bester Film\"?",
+      "English": "In which year did the film \"Forrest Gump\" win the Oscar for Best Picture?"
+    },
+    {
+      "German": "Was ist der Schmelzpunkt von Gold (in °C)?",
+      "English": "What is the melting point of gold (in °C)?",
+      "Kiswahili": "Dhahabu inayeyuka kwenye joto la centigredi kiasi gani?",
+      "Spanish": "¿A qué temperatura se derrite el oro (en grados Centígrados)?"
+    },
+    {
+      "German": "In welchem Jahr wurde Gerhard Schröder geboren?",
+      "English": "In which year was Gerhard Schröder born?"
+    },
+    {
+      "German": "Wie viele Millionen Harry Potter Bücher (alle Bände) wurden bisher weltweit verkauft?",
+      "English": "How many million copies of the Harry Potter books (all parts) have been sold worldwide to date?"
+    },
+    {
+      "German": "Wie hoch ist die Lebenserwartung eines Großen Tümmlers (in Jahren) laut Gol'din und Glandilina (2015)?",
+      "English": "What is the life expectancy of a bottlenose dolphin (in years) according to Gol'din and Glandilina (2015)?",
+      "Spanish": "¿Cuál es la expectativa de vida de un delfín nariz de botella (en años)?"
+    },
+    {
+      "German": "Wie hoch war der Anteil an Einwohnern in Costa Rica die das Internet nutzten 2020?",
+      "English": "What was the percentage of people in Costa Rica using the internet in 2020?"
+    },
+    {
+      "German": "In welchem Jahr wurde die erste Folge der Serie \"Friends\" in den USA ausgestrahlt?",
+      "English": "In which year was the first episode of the series \"Friends\" broadcasted in the USA?"
+    },
+    {
+      "German": "Wie hoch ist der mittlere jährliche Niederschlag (in mm/Jahr) in der Sahara Wüste?",
+      "English": "What is the average annual rainfall (in mm/year) in the Sahara Desert?",
+      "Kiswahili": "Kwa wastani jangwa la Sahara linapata mvua kiasi gani kwa mwaka (mm/mwaka)?"
+    },
+    {
+      "German": "Wie hoch war die durchschnittliche Kalorienaufnahme in Deutschland pro Person und Tag (in kcal) 2018?",
+      "English": "What was the average calorie intake in Germany per person/day (in kcal) in 2018?"
+    },
+    {
+      "German": "In welchem Jahr veröffentlichte Jules Verne \" 20 000 Meilen unter dem Meer\"?",
+      "English": "In which year did Jules Verne publish \"20,000 Leagues Under the Sea\"?"
+    },
+    {
+      "German": "Auf welchem nördliche Breitengrad liegt Freiburg im Breisgau? (Tipp: Äquator 0°, Nordpol 90°)",
+      "English": "On which degree of northern latitude is Freiburg im Breisgau located? (Hint: Equator: 0°, North Pole: 90°)"
+    },
+    {
+      "German": "Wie viele Abgeordnete sitzen im Europäischen Parlament? (Stand 2021)",
+      "English": "How many members does the European Parliament have (in 2021)?"
+    },
+    {
+      "German": "Wie viele olympische Goldmedaillen gewann Deutschland im Zeitraum 1992 bis 2016 bei den Sommerspielen?",
+      "English": "How many Summer-Olympic gold medals did Germany win from 1992-2016 ?"
+    },
+    {
+      "German": "Wie viele Milliliter sind in einer (US)-gallon?",
+      "English": "How many milliliters is a (US) gallon?",
+      "Spanish": "¿Cuántos mililitros hay en un galón?"
+    },
+    {
+      "German": "Wie viele Insektenarten wurden laut Zang (2013) bisher wissenschaftlich beschrieben?",
+      "English": "How many insect species have been scientifically described to date according to Zhang (2013)?"
+    },
+    {
+      "German": "Wie viele Kilogramm kann ein ausgewachsener Giraffenbulle wiegen?",
+      "English": "How much can a full-grown bull giraffe weigh (in kg)?",
+      "Kiswahili": "Twiga dume ambaye amaefikia kiasi cha mwisho cha ukuwaji anaweza kuwa na uzito wa kilo ngapi?",
+      "Spanish": "¿Cuánto puede pesar una jirafa adulta (en kg)?",
+      "Engkis": "How much can a full-grown bull giraffe weigh (in kg)?(Twiga dume ambaye amaefikia kiasi cha mwisho cha ukuwaji anaweza kuwa na uzito wa kilo ngapi?)"
+    },
+    {
+      "German": "Wie viele Wörter hat die Bibel (Ausgabe Luther 2017) in deutscher Sprache?",
+      "English": "How many words does the German Bible (Version Luther 2017) have?"
+    },
+    {
+      "German": "Alle wie viel Minuten wir in Costa Rica ein Kind geboren?",
+      "English": "Every how many minutes is a baby born in Costa Rica?"
+    },
+    {
+      "German": "Wie viele Einwohner hatte Costa Rica im Jahr 1892?",
+      "English": "How many inhabitants did Costa Rica have in 1892?"
+    },
+    {
+      "German": "Wie hoch ist das höchste Bürogebäude in Costa Rica (in m)? (Stand 2021)",
+      "English": "How high is the tallest office building in Costa Rica (in m)? (Year 2021)"
+    },
+    {
+      "German": "Auf welchem Platz lag \"José Daniel\" auf der Liste der beliebtesten Namen in Costa Rica 2016?",
+      "English": "Where did \"José Daniel\" rank among the most popular names in 2016 in Costa Rica?"
+    },
+    {
+      "German": "In welchem Jahr wurde Laura Chinchilla, eine ehemalige Präsidentin von Costa Rica, geboren?",
+      "English": "In which year was Laura Chinchilla, former president of Costa Rica, born?"
+    },
+    {
+      "German": "Um wie viele cm ist die durchschnittliche Größe von Frauen in Costa Rica im Zeitraum 1896 bis 1996 gestiegen?",
+      "English": "By how many centimeters did the average height of women in Costa Rica increase from 1896 to 1996?"
+    },
+    {
+      "German": "Wie viele Wörter enthält das Wörterbuch der royalen spanischen Akademie (23. Auflage)?",
+      "English": "How many words does the Royal Spanish Academy Dictionary contain (23th edition)?",
+      "Spanish": "¿Cuántas palabras contiene el Diccionario de la Real Academia Española (Edición 23)?"
+    },
+    {
+      "German": "In welchem Jahr wurde San José (Costa Rica) gegründet?",
+      "English": "In which year was San José (Costa Rica) founded?"
+    },
+    {
+      "German": "Wie hoch war die durchschnittliche Kalorienaufnahme in Costa Rica pro Person und Tag (in kcal) 2018?",
+      "English": "What was the average calorie intake in Costa Rica per person/day (in kcal) in 2018?"
+    },
+    {
+      "German": "Wie schwer war das Apollo 13 Kommandomodul (die Kapsel in der die Astronauten saßen) in kg?",
+      "English": "How much did the Apollo 13 Command Module (the capsule where the astronauts sat) weigh (in kg)?"
+    },
+    {
+      "German": "In welchem Jahr wurde Simon Bolivar (Venezuelanischer Soldat und Staatsmann) geboren?",
+      "English": "In which year was Simon Bolivar (Venezuelan soldier and statesman) born?"
+    },
+    {
+      "German": "Wie viele olympische Medaillen gewann Costa Rica im Zeitraum 1936 bis 2016?",
+      "English": "How many Olympic medals did Costa Rica win from 1936-2016?"
+    },
+    {
+      "German": "Wie viele Wörter hat die Bibel in englischer Sprache (English Standard Version (ESV))?",
+      "English": "How many words does the Bible have (English Standard Version (ESV))?",
+      "Kiswahili": "Bibilia ya kawaida ina jumla ya maneno mangapi?",
+      "Engkis": "How many words does the Bible have (English Standard Version (ESV))? (Bibilia ya kawaida ina jumla ya maneno mangapi?)"
+    },
+    {
+      "German": "Wie viele Vertiefungen hat ein Golfball? (Titleist Pro V1 Modell 2017/18)",
+      "English": "How many dimples does a golf ball have? (Titleist Pro V1 model 2017/18)",
+      "Spanish": "¿Cuántos hoyuelos tiene una pelota de golf?"
+    },
+    {
+      "German": "Wie viele Minuten Laufzeit hat der Film \"Mamma Mia! Here we go again\"?",
+      "English": "How many minutes is the running time of the film \"Mamma Mia! Here we go again\"?"
+    },
+    {
+      "German": "Wie viele Meter lang darf ein Zug in Deutschland laut DB-Richtlinien maximal sein?",
+      "English": "What is the maximum length (in m) of a train in Germany according to DB guidelines?"
+    },
+    {
+      "German": "Wie viele Achsen darf ein Zug in Deutschland laut DB-Richtlinien maximal haben?",
+      "English": "What is the maximum number of axles a train may have in Germany according to DB guidelines?"
+    },
+    {
+      "German": "Wie viele 2€ Münzen mit dem Motiv \"Kölner Dom\" wurden in den Umlauf gebracht?",
+      "English": "How many 2€ coins with the motif \"Cologne Cathedral\" were put into circulation?"
+    },
+    {
+      "German": "Wie viele cm breit ist die Oberseite eines Schwebebalkens? (entsprechend der FIG Regeln)",
+      "English": "How many cm wide is the upper surface of a balance beam? (according to FIG rules)"
+    },
+    {
+      "German": "Wie viele Millionen mal wurde das meistverkaufte Nintendo DS Spiel (New Super Mario Bros) verkauft.",
+      "English": "How many million copies of the best-selling Nintendo DS game (New Super Mario Bros) have been sold?"
+    },
+    {
+      "German": "Wie viele Buchstaben hat das längste Wort im Oxford Englisch Wörterbuch?",
+      "English": "How many letters does the longest word in the Oxford English Dictionary have?",
+      "Kiswahili": "Neno refu zaidi kwenye kamusi ya kiingereza ya Oxford ina herufi ngapi?"
+    },
+    {
+      "German": "Wie viele Samen (botanisch Achänen) hat eine Erdbeere im Durchschnitt?",
+      "English": "How many seeds (botanically achenes) does an average Strawberry have?",
+      "Spanish": "¿Cuántas semillitas tiene una fresa en promedio?"
+    },
+    {
+      "German": "In welchem Jahr wurde der erste elektrische Kühlschrank für den Hausgebrauch erfunden?",
+      "English": "In which year was the first electric refrigerator for domestic use invented?",
+      "Kiswahili": "Ni mwaka gani frigi ya kwanza inayotumia umeme kwa matumizi ya nyumbani iligunduliwa?",
+      "Spanish": "¿En qué año se inventó el refrigerador eléctrico para uso doméstico?"
+    },
+    {
+      "German": "Wie viele Meter hoch ist Europas höchste Staumauer (Grande Dixence-Damm in der Schweiz)?",
+      "English": "How many meters high is europe's highest dam (Grande Dixence-dam in Switzerland)?"
+    },
+    {
+      "German": "Wie viele Knochen hat ei n Mensch? (laut gängigen Lehrbüchern)",
+      "English": "How many bones are in a human body? (according to textbook knowledge)",
+      "Kiswahili": "Mwili wa binadamu una mifupa mingapi?",
+      "Spanish": "¿Cuántos huesos hay en el cuerpo humano?"
+    },
+    {
+      "German": "Wie viele Zähne hat ein Opossum?",
+      "English": "How many teeth does an opossum have?",
+      "Spanish": "¿Cuántos dientes tienen las zarigüeyas?"
+    },
+    {
+      "German": "Um wie viel Grad (°) kann eine Eule ihren Kopf drehen?",
+      "English": "By how many degrees (°) can an owl turn its head?",
+      "Kiswahili": "Bundi anaweza kuzungusha kichwa chake kwa digree ngapi?",
+      "Spanish": "¿Cuántos grados pueden girar la cabeza los búhos?"
+    },
+    {
+      "German": "Wie viele Stunden hat ein Tag auf dem Mond? (Sonnenaufgang bis Sonnenaufgang)",
+      "English": "How many hours does a day on the moon have? (Sunset to sunset)",
+      "Spanish": "¿Cuántas horas tiene un día en la luna (de amanecer a atardecer)?"
+    },
+    {
+      "German": "Wie viele Minuten pro Tag verbrachte ein Deutscher 2021 im Durchschnitt auf sozialen Medien?",
+      "English": "On average, how many minutes per day did a German spend on social media in 2021?"
+    },
+    {
+      "German": "Wie viele Minuten pro Tag verbrachte ein Vietnamese 2021 im Durchschnitt auf sozialen Medien?",
+      "English": "On average, how many minutes per day did a Vietnamese spend on social media in 2021?"
+    },
+    {
+      "German": "Auf wie vielen Hektar wurden im Jahr 2017 in Deutschland Birnen angebaut?",
+      "English": "On how many hectares were pears grown in Germany in 2017?"
+    },
+    {
+      "German": "Bei welchem Gewicht in g liegt der Weltrekord für die schwerse Kirsche?",
+      "English": "What is the world record weight in g for the heaviest cherry?",
+      "Spanish": "¿Cuál es el record del mundo para la cereza más pesada (en gramos)?"
+    },
+    {
+      "German": "Wie hoch war die Durchschnittstemperatur im Winter (Dez-Feb) 2021/2022 in Deuschland in °C?",
+      "English": "What was the average temperature in Germany during winter (Dec-Feb) 2021/2022 in °C?",
+      "Kiswahili": "Kwa wastani kiasi cha joto katika kipindi cha baridi (Mwezi 12 hadi 2) 2021/2022 nchini Ujerumani ilikuwa kiasi gani?"
+    },
+    {
+      "German": "Wie viele Liter Glühwein werden in Deutschland jährlich konsumiert?",
+      "English": "How many litres of mulled wine are consumed in Germany each year?"
+    },
+    {
+      "German": "Wie viele Stände hat der Weihnachtsmarkt in der Bonner Innenstadt?",
+      "English": "How many stands are there at the Christmas market in Bonn?"
+    },
+    {
+      "German": "Wie viele Weihnachtsmärkte gibt es in Deutschland? (Stand 2001)",
+      "English": "How many Christmas markets are there in Germany? (Data from 2001)",
+      "Kiswahili": "Kwa mujibu takwimu za mwaka 2001, Ujerumani ina jumla ya masoko mangapi ya Krismas?"
+    },
+    {
+      "German": "Welchen Anteil (%) am Jahresumsatz des Einzelhandels macht das Weihnachtsgeschäft aus? (Umsätze im November und Dezember)",
+      "English": "What share (%) of annual retail sales did Christmas sales account for in 2021 in Germany? (Sales in November and December)"
+    },
+    {
+      "German": "Wie viele Rentiere hat der Weihnachtsmann (Laut dem Lied \"Rudolph the red-nosed reindeer?",
+      "English": "How many reindeer does Santa Claus have (According to the song \"Rudolph the red-nosed reindeer\")?"
+    },
+    {
+      "German": "Wie viel (in €) gaben die Deutschen im Durchschnitt im Jahr 2021 für Weihnachtsgeschenke aus?",
+      "English": "How much (in €) did the average German spent on Christmas presents in 2021?"
+    },
+    {
+      "German": "Wie viele Millionen Schokonikoläuse wurden 2022 in Deuschland produziert?",
+      "English": "How many million chocolate Santas were produced in Germany in 2022"
+    },
+    {
+      "German": "Wie viel Prozent der Deutschen kaufen sich selbst Weihnachtsgeschenke?",
+      "English": "What percentage of Germans get Christmas presents for themselves?",
+      "Kiswahili": "Ni asilimia ngapi ya Wajerumani wanajipa wenyewe zawadi za Krismas?"
+    },
+    {
+      "German": "Was ist die Maximalgeschwindigkeit eines Rentiers (Rangifer tarandus) in km/h?",
+      "English": "What is the top speed of a conventional reindeer (Rangifer tarandus) in km/h?"
+    },
+    {
+      "German": "Wie viele Haushalte muss der Weihnachtsmann pro Sekunde beliefern?",
+      "English": "How many households does santa have to serve per second?",
+      "Kiswahili": "Ni nyumba ngapi Santa anatakiwa kuhudumia kwa sekunde?"
+    },
+    {
+      "German": "Wie viele Weihnachtsbäume werden jährlich in Europa produziert?",
+      "English": "How many Christmas trees are grown in Europe each year?",
+      "Kiswahili": "Ni miti mingapi ya Krismas inalimwa kila mwaka Ulaya?"
+    },
+    {
+      "German": "Wie viele Lichter hat der Rockefaller Center Weihnachtsbaum in New York?",
+      "English": "How many Christmas lights are used on the Rockefeller Center Christmas tree in New York City?"
+    },
+    {
+      "German": "Wie viele Geister kommen in \"A Christmas Carol\" von Charles Dickens vor?",
+      "English": "How many ghosts show up in \"A Christmas Carol\" by Charles Dickens?"
+    },
+    {
+      "German": "Wann wurde die erste Weihnachtskarte versendet?",
+      "English": "When was the first commercial Christmas card sent?"
+    },
+    {
+      "German": "Wie viele Nadeln hat eine 1.63 m hohe Nordmanntanne?",
+      "English": "How many needles does an Nordmann fir Christmas tree of 1.63 metres of height have?"
+    },
+    {
+      "German": "Am Weihnachtstag welchen Jahres wurde der Wissenschaftler Isaac Newton geboren? (Julianischer Kalender)",
+      "English": "On Christmas day of which year was scientist Isaac Newton born? (Julian calendar)",
+      "Kiswahili": "Ni Krismas ya mwaka gani mwana sayansi Isack Newton alizaliwa?"
+    },
+    {
+      "German": "In vielen westlichen Ländern wird Zimt mit gemütlichen Wintertagen in Verbindung gebracht. Wie viel Zimt wurde in Vietnam im Jahr 2020 produziert (in Tonnen)?",
+      "English": "In many western countries, cinnamon is associated with cozy winter days. How much cinnamon was produced in Vietnam in 2020 (in metric tons)?"
+    },
+    {
+      "German": "Der Stern von Bethlehem in der Bibel könnte sich auf den Halleyschen Kometen beziehen. Er umkreist die Sonne und ist von der Erde aus regelmäßig zu sehen. Das letzte Mal war er im Jahr 1986 zu sehen. Wann der das nächste Mal zu sehen?",
+      "English": "The star of Bethlehem in the bible might refer to Halley’s Comet. It orbits the sun and is periodically visible from earth. Its last appearance was 1986. When is the next one?"
+    },
+    {
+      "German": "\"Jingel Bells\" war das erste Lied überhaupt welches im Weltall gespielt wurde. Wann war das?",
+      "English": "“Jingle Bells” was the first song ever played in space, when was it?"
+    },
+    {
+      "German": "Wann wurde das Lied \"Santa Claus is coming to town\" geschrieben?",
+      "English": "In which year was the Song \"Santa Claus Is Coming to Town\" written?"
+    },
+    {
+      "German": "\"Stille Nacht\" ist das meistgespielte Weihnachtslied der Welt. Wann wurde es von der UNESCO zum immateriellen Kulturerbe für Österreich erklärt?",
+      "English": "“Silent Night” is the most recorded Christmas song in the world. When was it declared an intangible cultural heritage by UNESCO for Austria?"
+    },
+    {
+      "German": "Wie viel cm wachsen Babys zwischen dem 1. und 3. Lebensmonat pro Monat (Durchschnitt für Jungen und Mädchen)?",
+      "English": "How much do babies grow in height between 1 and 3 months of age (average für boys and girls per month) (cm)?",
+      "Kiswahili": "Mtoto wa mwezi mmoja hadi mitatu anakuwa kwa kimo cha sentimeter ngapi kwa wastani?"
+    },
+    {
+      "German": "Wie viele Milchzähne haben Kinder?",
+      "English": "How many milk teeth do children have?",
+      "Kiswahili": "Mtoto ana meno ya utoto mangapi?",
+      "Engkis": "How many milk teeth do children have? (Mtoto ana meno ya utoto mangapi?)"
+    },
+    {
+      "German": "Was ist die Standardhöhe eines Trockners? (in cm)",
+      "English": "What is the standard height of a frontloader washing machine (cm)?",
+      "Kiswahili": "Mashine ya kufulia ya kawaida ina urefu wa sentimeta ngapi?"
+    },
+    {
+      "German": "Was ist die Standardhöhe einer Frontlader Waschmachine? (in cm)",
+      "English": "What is the standard height of a tumble dryer (cm)?",
+      "Kiswahili": "Mashine ya kukaushia nguo ya kawaida ina urefu wa sentimeta ngapi?"
+    },
+    {
+      "German": "Was ist die Standardgröße eines Kochfeldes mit 4 Platten (Breite) (cm)?",
+      "English": "What is a standard size of a hob with 4 plates (wide) (cm)?"
+    },
+    {
+      "German": "Welches ist die empfohlene Mindestschlafdauer für Säuglinge ( 4-12 Monate) (laut dem U.S. National Center for Chronic Disease Prevention and Health Promotion) (in Stunden)?",
+      "English": "What is the recommended minimum sleep duration for infants ( 4-12 months) (according to the U.S. National Center for Chronic Disease Prevention and Health Promotion) (in hours)?"
+    },
+    {
+      "German": "Was ist die empfohlene Mindestschlafdauer für Neugeborene (0-3 Monate) (nach Angaben des U.S. National Center for Chronic Disease Prevention and Health Promotion) (in Stunden)?",
+      "English": "What is the recommended minimum sleep duration for newborns ( 0-3 months) (accoroding to the U.S. National Center for Chronic Disease Prevention and Health Promotion) (in hours)?"
+    },
+    {
+      "German": "Was ist die empfohlene Mindestschlafdauer für Jugendliche (13-18 Jahre) (laut dem U.S. National Center for Chronic Disease Prevention and Health Promotion) (in Stunden)?",
+      "English": "What is the recommended minimum sleep duration for teens (13-18 years) (according to the U.S. National Center for Chronic Disease Prevention and Health Promotion) (in hours)?"
+    },
+    {
+      "German": "Wie groß ist der Unterschied zwischen männlichen und weiblichen Säuglingen bei der Aufnahme von Muttermilch (in %)?",
+      "English": "How much is the difference between male and female infant human milk intake (in %)?"
+    },
+    {
+      "German": "Bis zu welcher Schwangerschaftswoche gelten Neugeborene als Frühchen?",
+      "English": "Up until how many weeks are re pre-term babies delivered?"
+    },
+    {
+      "German": "Wie viele Wochen dauert eine vollständige Schwangerschaft (Keine Frühchen) beim Menschen?",
+      "English": "How many weeks is a full-term pregancy (a safe pregancy duration for babies to be born in)?",
+      "Kiswahili": "Mimba ilizokomaa na kuwa tayari kuzaliwa salama inakuwa na wiki ngapi?"
+    },
+    {
+      "German": "Wie hoch ist der Kilimanjaro (in m)?",
+      "English": "What is the height of mount Kilimanjaro in meter?",
+      "Kiswahili": "Mlima Kilimanjaro una urefu wa mita ngapi?",
+      "Engkis": "What is the height of mount Kilimanjaro in meter? (Mlima Kilimanjaro una urefu wa mita ngapi?)"
+    },
+    {
+      "German": "Welche Fläche hat Tansania (in m²)?",
+      "English": "What is the size (in square km) of Tanzania country?",
+      "Kiswahili": "Nchi ya Tanzania ina ukubwa wa kilomita ngapi za mraba?",
+      "Engkis": "What is the size (in square km) of Tanzania country? (Nchi ya Tanzania ina ukubwa wa kilomita ngapi za mraba?)"
+    },
+    {
+      "German": "In wie viele Regionen ist tansanische Festland eingeteilt?",
+      "English": "How many regions does Tanzania mainland has?",
+      "Kiswahili": "Tanzania bara ina jumla ya mikoa mingapi?",
+      "Engkis": "How many regions does Tanzania mainland has? (Tanzania bara ina jumla ya mikoa mingapi?)"
+    },
+    {
+      "German": "Wie viele Bezirke hat die Insel Tansania (Sansibar)?",
+      "English": "How many districts does Tanzania island (Zanzibar) has?",
+      "Kiswahili": "Tanzania visiwani (Zanzibar) ina jumla ya wilaya ngapi?",
+      "Engkis": "How many districts does Tanzania island (Zanzibar) has? (Tanzania visiwani (Zanzibar) ina jumla ya wilaya ngapi?)"
+    },
+    {
+      "German": "Wie viele Menschen leben in der Dar es salaam Region in Tansania?",
+      "English": "What is the population of Dar es salaam region ?",
+      "Kiswahili": "Mkoa wa Dar es salaam una jumla ya watu wangapi?",
+      "Engkis": "What is the population of Dar es salaam region as of 2022? (Mkoa wa Dar es salaam una jumla ya watu wangapi hadi kufikia 2022?)"
+    },
+    {
+      "German": "Wie viele Nationalparks gibt es auf dem tansanischen Festland?",
+      "English": "How many National Parks does the Tanzania mainland  has?",
+      "Kiswahili": "Tanzania bara ina jumla ya hifadhi za taifa za wanyama ngapi?",
+      "Engkis": "How many National Parks does the Tanzania mainland  has? (Tanzania bara ina jumla ya hifadhi za taifa za wanyama ngapi?)"
+    },
+    {
+      "German": "Wie viele Länder bilden den Regionalblock der Ostafrikanischen Gemeinschaft?",
+      "English": "How many countries forms East Africa community regional block?",
+      "Kiswahili": "Jumuiya ya Africa mashariki inaundwa na nchi ngapi?",
+      "Engkis": "How many countries forms East Africa community regional block ? (Jumuiya ya Africa mashariki inaundwa na nchi ngapi?)"
+    },
+    {
+      "German": "Wie alt ist der ehemalige Präsident von Kenia (Uhuru Kenyata)? (Alter im November 2023)",
+      "English": "What is the age of the former president of Kenya (Uhuru Kenyata)? (Age in November 2023)",
+      "Kiswahili": "Rais mstaafu wa Kenya (Uhuru Kenyata) ana umri wa miaka mingapi?",
+      "Engkis": "What is the age of the former president of Kenya (Uhuru Kenyata) ? (Rais mstaafu wa Kenya (Uhuru Kenyata) ana umri wa miaka mingapi?)"
+    },
+    {
+      "German": "Wie hoch ist der Anteil afrikanischer Nationen in der UN? (%)",
+      "English": "What is the percentage of African nations in the UN?",
+      "Kiswahili": "Nchi za afrika zinaunda silimia ngapi ya nchi zote zinazounda umoja wa nchi za mataifa (UN)?",
+      "Engkis": "What is the percentage of African nations in the UN? (Nchi za afrika zinaunda silimia ngapi ya nchi zote zinazounda umoja wa nchi za mataifa (UN)?)"
+    },
+    {
+      "German": "Wie hoch ist das Ruhestandsalter für Beamte in Deutschland ab dem Jahr 2023?",
+      "English": "What is the age retirement for a public servant in Germany as of 2023?",
+      "Kiswahili": "Kwa takwimu za mwaka 2023, mtumishi wa uma nchini Ujerumani anastaafu akiwa na miaka mingapi?",
+      "Engkis": "What is the age retirement for a public servant in Germany as of 2023 ? (Kwa takwimu za mwaka 2023, mtumishi wa uma nchini Ujerumani anastaafu akiwa na miaka mingapi?)"
+    },
+    {
+      "German": "Wie viele Etagen hat das höchste Gebäude in Dar es salaam (Stadt in Tansania)?",
+      "English": "What is the number of floors of the tallest building in Dar es salaam ?",
+      "Kiswahili": "Jengo refu kuliko lote Dar es salaam lina jumla ya ghorofa ngapi?",
+      "Engkis": "What is the total number of floors of the tallest building in Dar es salaam ? (Jengo refu kuliko lote Dar es salaam lina jumla ya ghorofa ngapi? )"
+    },
+    {
+      "German": "Wie viele Frauen heiratete König Mswati III. von Swasiland bis 2023?",
+      "English": "How many wives did King Mswati III of Swaziland married until 2023?",
+      "Kiswahili": "Mfalme Mswati wa III wa Swaziland ana jumla ya wake wangapi hadi kufikia mwaka 2023?",
+      "Engkis": "How many wives did King Mswati III of Swaziland married until 2023 ? (Mfalme Mswati wa III wa Swaziland ana jumla ya wake wangapi hadi kufikia mwaka 2023?)"
+    },
+    {
+      "German": "Wie alt ist der ehemalige Präsident von Tansania Ali Hassan Mwinyi? (Alter im Januar 2024)",
+      "English": "What is the age of the former president of Tanzania (Ali Hassan Mwinyi)? (Age in Janary 2024)",
+      "Kiswahili": "Rais mstaafu wa Tanzania (Ali Hassan Mwinyi) ana umri wa miaka mingapi?",
+      "Engkis": "What is the age of the former president of Tanzania (Ali Hassan Mwinyi) (Age in January 2024)? (Rais mstaafu wa Tanzania (Ali Hassan Mwinyi) ana umri wa miaka mingapi?)"
+    },
+    {
+      "German": "Was ist die beste Marathon Zeit von Elium Kipchoge in Minuten (in einem experimentellen Lauf über die Marathon Distanz)?",
+      "English": "What is the best marothon record for Eliud Kipchoge in minutes? (in an experimental run over the marathon distance)"
+    },
+    {
+      "German": "In welchem Jahr starb Jomo Kenyatta, der ehealige Präsident von Kenya?",
+      "English": "In which year did the late president jomo Kenyatta die?"
+    },
+    {
+      "German": "Wie lang ist der Weg von Nairobi nach Mombasa mit dem Auto?",
+      "English": "What is the road distance in km from Nairobi to Mombasa?"
+    },
+    {
+      "German": "Wie viele Bezirke/Landkreise hat Kenia?",
+      "English": "How many counties are in Kenya?"
+    },
+    {
+      "German": "Wie viele Sprachen werden in Kenia gesprochen?",
+      "English": "How many languages are spoken in kenya?"
+    },
+    {
+      "German": "Wie viele Wahlbezirke gibt es im Bezirk Machakos (Kenia)?",
+      "English": "How many electral wards are in Machakos county?"
+    },
+    {
+      "German": "Wie viel in Milliarden kenianische Schilling hat die Kenya Revenue Authority (KRA) im Haushaltsjahr 2020/2021 aus Wetten, Glücksspielen und Lotterien eingenommen?",
+      "English": "How much in Billion shillings did KRA collect from betting, gaming and lotterry in the financial year 2020/2021?"
+    },
+    {
+      "German": "Wie oft hat sich Raila Odinga um das Amt des Präsidenten in Kenia beworben?",
+      "English": "How many times has Raila Odinga vied for the presidential seat in Kenya?"
+    },
+    {
+      "German": "In welchem Jahr wurde die neue kenianische Verfassung verkündet?",
+      "English": "In which year was the new Kenyan constitution promulgated?"
+    },
+    {
+      "German": "Der Kilimandscharo ist höher als der Mt. Kenia. Wie groß ist der Höhenunterschied in Fuß?",
+      "English": "Mt Kilimanjaro is taller than Mt. Kenya. What is the difference in height in feet?"
+    },
+    {
+      "German": "Wie viele Flüsse fließen in den Victoriasee?",
+      "English": "How many rivers feed Lake Victoria?"
+    },
+    {
+      "German": "Wie viele Studierende erhielten bei der 70. Abschlussfeier an der Universität von Nairobi ihren Abschluss?",
+      "English": "How many students graduated from the university of Nairobi on their 70th graduation ceremony  in 2023?"
+    },
+    {
+      "German": "In welchem Jahr wurde Ghana unabhängig?",
+      "English": "In what year did Ghana gain independence?"
+    },
+    {
+      "German": "In wie viele Regionen ist Ghana aktuell (2024) eingeteilt?",
+      "English": "How many regions does Ghana currently (2024) have?"
+    },
+    {
+      "German": "Wie viele Jahre war Kwame Nkrumah der Präsident von Ghana?",
+      "English": "How many years did Kwame Nkrumah serve as the president of Ghana"
+    },
+    {
+      "German": "Wie viele Einwohner hat Ghana? (Stand 30.08.2024)",
+      "English": "What is the population of Ghana as of 30th August 2024?"
+    },
+    {
+      "German": "An wie viele Länder grenzt Ghana?",
+      "English": "How many countries share a border with Ghana?"
+    },
+    {
+      "German": "In welchem Jahr wurde Accra zur Hauptstadt von Ghana ernannt?",
+      "English": "In which year was Accra named the capital of Ghana?"
+    },
+    {
+      "German": "Wie viele Meter hoch ist der Mount Afadja, der höchste Berg in Ghana?",
+      "English": "How many meters tall is Mount Afadja, the highest mountain in Ghana?"
+    },
+    {
+      "German": "Wie viele Jahre herrschten die Briten an der Goldküste bevor Ghana Unabhängigkeit erlangte?",
+      "English": "How many years did the British rule the Gold Coast before Ghana gained independence?"
+    },
+    {
+      "German": "Wie viele Seehäfen gibt es Ghana?",
+      "English": "How many ports are there in Ghana?"
+    },
+    {
+      "German": "Wie viele bedeutende ethnische Gruppen gibt es in Ghana?",
+      "English": "How many major ethnic groups are recognized in Ghana?"
+    },
+    {
+      "German": "Wie viele Kilometer ist der Volta River (Fluss in Ghana) lang?",
+      "English": "How many kilometers long is the Volta River?"
+    },
+    {
+      "German": "In welchem Jahr wurde die Ghana Standards Authority (GSA) eingerichtet?",
+      "English": "In which year was the Ghana Standards Authority (GSA) established?"
+    },
+    {
+      "German": "Wie viele verschiedene Präsidenten hatte Ghana seit der Unabhängigkeit? (Stand 2023)",
+      "English": "How many presidents has Ghana had since independence (as of 2023)?"
+    },
+    {
+      "German": "In wie viele lokale Verwaltungseinheiten ist Ghana eingeteilt?",
+      "English": "How many local districts are there in Ghana?"
+    },
+    {
+      "German": "Wie viele Kilometer ist die Küstenlinie von Ghana lang?",
+      "English": "What is the length of Ghana's coastline in kilometers?"
+    },
+    {
+      "German": "Wie viele Nationalparks gibt es in Ghana?",
+      "English": "How many national parks are there in Ghana?"
+    },
+    {
+      "German": "In welchem Jahr wurde das Kwama Nkrumah Mausoleum gebaut?",
+      "English": "In what year was the Kwame Nkrumah Mausoleum built?"
+    },
+    {
+      "German": "Wie viele Jahre hat es gedauert den Akosombo Staudamm zu bauen?",
+      "English": "How many years did it take to construct the Akosombo Dam?"
+    },
+    {
+      "German": "Wie viele Staaten gehören laut UN Definition zu Westafrika?",
+      "English": "How many countries are in West Africa? (according to UN definition)"
+    },
+    {
+      "German": "In welchem Jahr wurde der Mole Nationalpark gegründet?",
+      "English": "In what year was Mole National Park established?"
+    },
+    {
+      "German": "In welcher Jahr führte Ghana erfolgreich eine Merhwertsteuer ein?",
+      "English": "In what year did Ghana successfully introduce Value Added Tax (VAT)?"
+    },
+    {
+      "German": "In welchem Jahr wurde der von der ghanaischen Filmindustrie produzierte Film \"Love Brewed in the African Pot\" veröffentlicht?",
+      "English": "In what year was the Ghanaian film industry’s first feature film, \"Love Brewed in the African Pot,\" released?"
+    },
+    {
+      "German": "Wie viel Staaten sind der Europäischen Union? (Stand 2023)",
+      "English": "How many countries are members of the European Union (as of 2023)?"
+    },
+    {
+      "German": "In welchem Jahr fand die erste FIFA Fußballweltmeisterschaft statt?",
+      "English": "In what year was the first FIFA World Cup held?"
+    },
+    {
+      "German": "Wie lautet die chemische Ordnungszahl von Kohlenstoff?",
+      "English": "What is the chemical atomic number of carbon?"
+    },
+    {
+      "German": "Wie viele Chromosomen haben Meschen?",
+      "English": "How many chromosomes do humans have?"
+    },
+    {
+      "German": "Wie viele Elemente sind im Periodensystem aufgelistet? (Stand 2023)",
+      "English": "How many elements are there in the periodic table (as of 2023)?"
+    },
+    {
+      "German": "Wie viele Bytes sind in einem Kilobyte (KB)?",
+      "English": "How many bytes are there in a kilobyte (KB)?"
+    },
+    {
+      "German": "Wie viele Rippenpaare haben Menschen?",
+      "English": "How many pairs of ribs do humans have?"
+    },
+    {
+      "German": "Wie viele Kammern hat das menschlich Herz?",
+      "English": "How many chambers does the human heart have?"
+    },
+    {
+      "German": "Wie viele Planeten gehören zu unserem Sonnensystem?",
+      "English": "How many planets are in our Solar System?"
+    }
+  ]
+}

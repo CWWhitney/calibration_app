@@ -41,24 +41,18 @@ mod_metrics_page_ui <- function(id, tab_title, left_column_header, right_column_
     title = tab_title, 
     
     shiny::fluidRow(
-      
       shiny::column(
         width = 6, 
-        
         shiny::h2(left_column_header), 
         echarts4r::echarts4rOutput(outputId = ns("binary_metrics_chart"))
       ), 
-      
       shiny::column(
         width = 6, 
-        
         shiny::h2(right_column_header), 
         echarts4r::echarts4rOutput(outputId = ns("range_metrics_chart"))
       )
     ), 
-    
     shiny::hr(), 
-    
     shiny::fluidRow(
       shiny::h4(
         class = "text-center", 
@@ -85,33 +79,35 @@ mod_metrics_page_server <- function(id, rctv) {
     function(input, output, session) {
       ns <- session$ns
       
-
+      
       ## 3.10 Binary Metrics Chart ----
       # Create the chart to hold the binary metrics
       output$binary_metrics_chart <- echarts4r::renderEcharts4r({
-
         # Require that there is data in the "binary" response table
         shiny::req(nrow(rctv$binary_tbl) > 0)
-        
         # Create the "binary" metrics interactive chart
         generate_binary_metrics_chart(
-          data = rctv$binary_tbl
+          data = rctv$binary_tbl,
+          label_true = interface_translator$t(selected_language[31]),
+          label_false = interface_translator$t(selected_language[32]),
+          word_predicted = interface_translator$t(selected_language[38]),
+          word_correct = interface_translator$t(selected_language[39]),
+          word_for_round = interface_translator$t(selected_language[50])
         )
-        
       })
       
       ## 3.11 Range Metrics Chart ----
       # Create the chart to hold the range metrics
       output$range_metrics_chart <- echarts4r::renderEcharts4r({
-        
         # Require that there is data in the "range" response table
         shiny::req(nrow(rctv$range_tbl) > 0)
-        
         # Create the "range" metrics interactive chart
         generate_range_metrics_chart(
-          data = rctv$range_tbl
+          data = rctv$range_tbl,
+          word_correct = interface_translator$t(selected_language[39]),
+          word_confidence = interface_translator$t(selected_language[40]),
+          word_for_round = interface_translator$t(selected_language[50])
         )
-        
       })
     }
   )

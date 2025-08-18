@@ -28,7 +28,7 @@
 #'    )
 #'  
 #'  }
-mod_help_page_ui <- function(id, tab_title) {
+mod_help_page_ui <- function(id, tab_title, url = "'https://www.youtube.com/embed/7P2YI9-smfU'") {
   ns <- NS(id)
   shiny::tabPanel(
     title = tab_title, 
@@ -43,7 +43,7 @@ mod_help_page_ui <- function(id, tab_title) {
     shiny::HTML(
       glue::glue(
         "<iframe width='560' height='315'", 
-        "src='https://www.youtube.com/embed/7P2YI9-smfU'", 
+        "src={url}", 
         "title='YouTube video player' frameborder='0' allow='accelerometer;", 
         "autoplay; clipboard-write; encrypted-media; gyroscope;", 
         "picture-in-picture' allowfullscreen></iframe>", 

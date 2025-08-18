@@ -40,12 +40,12 @@ my_pins <- pins::pin_search(
 my_pins
 
 # Read both of the pins into a single, concatenated data frame
-df <- my_pins %>% 
-  split(.$name) %>% 
+df <- my_pins |> 
+  split(.$name) |> 
   purrr::map_dfr(
     function(x) pins::pin_read(board = board, name = x$name), 
     .id = "source"
-  ) %>% 
+  ) |> 
   tibble::as_tibble()
 
 df #downlod this as a .csv or other file format 
