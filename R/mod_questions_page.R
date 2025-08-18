@@ -200,7 +200,6 @@ mod_questions_page_server <- function(
       )
       
       # Question ---------------------------------------------------------------
-      
       current_question_reactive <- reactive({
         # Require the current question type, group number, and question number
         shiny::req(
