@@ -47,26 +47,20 @@ mod_question_ui <- function(
     word_for_confidence,
     word_for_confidence_interval,
     word_for_lower_bound,
-    word_for_upper_bound
+    word_for_upper_bound,
+    next_btn_label
 ) {
   ns <- NS(id)
   
-  shiny::tagList(
-    
-    shiny::h3(
-      word_for_question, question_row_number
-    ), 
-    
-    shiny::hr(), 
+  bslib::card(
+    bslib::card_header(h3(word_for_question, question_row_number), class = "bg-dark"),
     
     shiny::h4(question), 
-    
-    shiny::br(), 
     
     if (type == "binary") {
       bslib::layout_column_wrap(
         width = 1/2,
-        shinyWidgets::awesomeRadio(
+        prettyRadioButtons(
           inputId = ns("input_A"),
           label = word_for_answer,
           choices = list(TRUE, FALSE) |> purrr::set_names(c(word_for_correct, word_for_incorrect)),
@@ -103,8 +97,17 @@ mod_question_ui <- function(
         )
       )
       
-    }
-    
+    },
+    bslib::card_footer(
+      #### Previous / Next Buttons ------------------------------------------
+      class = "bg-dark d-flex justify-content-end",
+      shiny::actionButton(
+        class = "btn btn-lg", 
+        inputId = ns("next_btn"), 
+        label = next_btn_label, 
+        icon = shiny::icon(name = "arrow-right")
+      )
+    )
   )
 }
 
@@ -154,7 +157,8 @@ mod_question_server <- function(id, question_type, required_text_label, left_low
         list(
           is_valid = reactive(iv$is_valid()),
           A = reactive(input$input_A),
-          B = reactive(input$input_B)
+          B = reactive(input$input_B),
+          next_btn = reactive(input$next_btn)
         )
       )
     }

@@ -12,7 +12,6 @@
 #'
 #' @param id The namespace id of the module.
 #' @param tab_title The title of the tab panel.
-#' @param next_btn_label The label for the next button.
 #' @param binary_results_panel_title The title for the binary results panel.
 #' @param range_results_panel_title The title for the range results panel.
 #'
@@ -29,7 +28,6 @@
 #'       mod_questions_page_ui(
 #'         id = "mod_questions_page",
 #'         tab_title = "Questions",
-#'         next_btn_label = "Next",
 #'         binary_results_panel_title = "Binary Results",
 #'         range_results_panel_title = "Range Results"
 #'       )
@@ -54,68 +52,101 @@
 #'         word_for_confidence = "Confidence",
 #'         word_for_confidence_interval = "Confidence Interval",
 #'         word_for_lower_bound = "Lower Bound",
-#'         word_for_upper_bound = "Upper Bound"
+#'         word_for_upper_bound = "Upper Bound",
+#'         next_btn_label = "Next"
 #'       )
 #'     }
 #'   )
 #' }
-mod_questions_page_ui <- function(id, tab_title, next_btn_label, binary_results_panel_title, range_results_panel_title) {
+mod_questions_page_ui <- function(id, tab_title, binary_results_panel_title, range_results_panel_title) {
   ns <- shiny::NS(id)
   # shiny::tabPanel(
   bslib::nav_panel(
     title = tab_title, 
-    
-    shiny::fluidRow(
-      ### Questions UI Elements ------------------------------------------------
-      shiny::column(
-        width = 6, 
-        shiny::wellPanel(
-          style = "background: #153015;", 
-          
-          #### Question & Response UI -------------------------------------------
-          shiny::uiOutput(outputId = ns("question_ui")), 
-          
-          shiny::hr(), 
-          
-          #### Previous / Next Buttons ------------------------------------------
-          shiny::div(
-            style = "float: right;",
-            shiny::actionButton(
-              class = "btn btn-lg", 
-              inputId = ns("next_btn"), 
-              label = next_btn_label, 
-              icon = shiny::icon(name = "arrow-right")
-            )
-          ), 
-          
-          shiny::br(), 
-          shiny::br()
-        )
-      ), 
-      
-      ### Response UI Elements -------------------------------------------------
-      shiny::column(
-        width = 6, 
+    bslib::layout_column_wrap(
+      width = 1/2,
+      shiny::uiOutput(outputId = ns("question_ui")),
+      bslib::navset_card_tab(
+        id = ns("results_tabset"),
+        #### Binary Results Table --------------------------------------------
+        bslib::nav_panel(
+          title = binary_results_panel_title, 
+          value = "binary_results_panel", 
+          reactable::reactableOutput(outputId = ns("results_binary_tbl"))
+        ), 
         
-        shiny::tabsetPanel(
-          id = ns("results_tabset"), 
-          
-          #### Binary Results Table --------------------------------------------
-          shiny::tabPanel(
-            title = binary_results_panel_title, 
-            value = "binary_results_panel", 
-            reactable::reactableOutput(outputId = ns("results_binary_tbl"))
-          ), 
-          
-          #### Range Results Table ---------------------------------------------
-          shiny::tabPanel(
-            title = range_results_panel_title, 
-            value = "range_results_panel", 
-            reactable::reactableOutput(outputId = ns("results_range_tbl"))
-          )
+        #### Range Results Table ---------------------------------------------
+        bslib::nav_panel(
+          title = range_results_panel_title, 
+          value = "range_results_panel", 
+          reactable::reactableOutput(outputId = ns("results_range_tbl"))
         )
+        
+        
+        # shiny::tabsetPanel(
+        #   id = ns("results_tabset"), 
+        #   
+        #   #### Binary Results Table --------------------------------------------
+        #   shiny::tabPanel(
+        #     title = binary_results_panel_title, 
+        #     value = "binary_results_panel", 
+        #     reactable::reactableOutput(outputId = ns("results_binary_tbl"))
+        #   ), 
+        #   
+        #   #### Range Results Table ---------------------------------------------
+        #   shiny::tabPanel(
+        #     title = range_results_panel_title, 
+        #     value = "range_results_panel", 
+        #     reactable::reactableOutput(outputId = ns("results_range_tbl"))
+        #   )
+        # )
+        
+        
       )
-    )
+    ),
+    
+    # shiny::fluidRow(
+    #   ### Questions UI Elements ------------------------------------------------
+    #   shiny::column(
+    #     width = 6, 
+    #     shiny::wellPanel(
+    #       style = "background: #153015;", 
+    #       
+    #       #### Question & Response UI -------------------------------------------
+    #       shiny::uiOutput(outputId = ns("question_ui")), 
+    #       
+    #       shiny::hr(), 
+    #       
+    #       , 
+    #       
+    #       shiny::br(), 
+    #       shiny::br()
+    #     )
+    #   ), 
+    #   
+    #   ### Response UI Elements -------------------------------------------------
+    #   shiny::column(
+    #     width = 6, 
+    #     
+    #     shiny::tabsetPanel(
+    #       id = ns("results_tabset"), 
+    #       
+    #       #### Binary Results Table --------------------------------------------
+    #       shiny::tabPanel(
+    #         title = binary_results_panel_title, 
+    #         value = "binary_results_panel", 
+    #         reactable::reactableOutput(outputId = ns("results_binary_tbl"))
+    #       ), 
+    #       
+    #       #### Range Results Table ---------------------------------------------
+    #       shiny::tabPanel(
+    #         title = range_results_panel_title, 
+    #         value = "range_results_panel", 
+    #         reactable::reactableOutput(outputId = ns("results_range_tbl"))
+    #       )
+    #     )
+    #   )
+    # )
   )
 }
 
@@ -141,6 +172,7 @@ mod_questions_page_ui <- function(id, tab_title, next_btn_label, binary_results_
 #' @param word_for_confidence_interval The word for "confidence interval".
 #' @param word_for_lower_bound The word for "lower bound".
 #' @param word_for_upper_bound The word for "upper bound".
+#' @param next_btn_label The label for the next button.
 #'
 #' @return `list` of `shiny::reactive({})`s
 #'
@@ -172,6 +204,7 @@ mod_questions_page_server <- function(
     word_for_confidence_interval,
     word_for_lower_bound,
     word_for_upper_bound,
+    next_btn_label,
     modal_text_1_binary,
     modal_text_1_range,
     modal_text_2_binary,
@@ -254,8 +287,21 @@ mod_questions_page_server <- function(
           word_for_confidence = interface_translator$t(word_for_confidence),
           word_for_confidence_interval = interface_translator$t(word_for_confidence_interval),
           word_for_lower_bound = interface_translator$t(word_for_lower_bound),
-          word_for_upper_bound = interface_translator$t(word_for_upper_bound)
+          word_for_upper_bound = interface_translator$t(word_for_upper_bound),
+          next_btn_label = interface_translator$t(next_btn_label)
         )
+        # 
+        # # Show a "Group Complete" pop-up modal
+        # shiny::tagList(
+        #   bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark p-0"),
+        #   glue::glue(
+        #     interface_translator$t(group_complete_dialog_text_1)
+        #   ),
+        #   shiny::br(), 
+        #   interface_translator$t(group_complete_dialog_text_2)
+        # )
+        
+        #interface_translator$t(group_complete_dialog_button)
         
       })
       
@@ -267,7 +313,7 @@ mod_questions_page_server <- function(
       
       # Next Button ------------------------------------------------------------
       # When the "Next" button is clicked...
-      shiny::observeEvent(input$next_btn, {
+      shiny::observeEvent(question_reactives$next_btn(), {
         #shinyjs::disable("next_btn")
         
         ## Start Question Module Server ----------------------------------------

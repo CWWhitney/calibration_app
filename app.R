@@ -11,7 +11,6 @@ source("global.R")
 ui <- function() {
   div(
     shiny.i18n::usei18n(interface_translator),
-    # shiny::navbarPage(
     bslib::page_navbar(
       # Set Up Global UI Elements ----------------------------------------------
       title = interface_translator$t(selected_language[1]),
@@ -27,22 +26,16 @@ ui <- function() {
         tags$script(
           HTML("window.onbeforeunload = function(evt) {return true;}")
         )
+        # 
+        # # Enable use of {waiter} package 
+        # waiter::use_waiter(), 
+        # 
       ), 
-      # 
-      # # Enable use of {waiter} package 
-      # waiter::use_waiter(), 
-      # 
-      # # Set the color for all 'inputSlider()' widgets to "Bonn Yellow"
-      # shinyWidgets::chooseSliderSkin(
-      #   skin = "Shiny",
-      #   color = "#FBBA00"
-      # ),
       
       # Questions Page -------------------------------------------------------
       mod_questions_page_ui(
         id = "questions_page",
         tab_title = interface_translator$t(selected_language[2]),
-        next_btn_label = interface_translator$t(selected_language[3]),
         binary_results_panel_title = interface_translator$t(selected_language[4]),
         range_results_panel_title = interface_translator$t(selected_language[5])
       ), 
@@ -55,32 +48,32 @@ ui <- function() {
         right_column_header = interface_translator$t(selected_language[8]),
         text_center = interface_translator$t(selected_language[9])
       ), 
-      # Help Page ------------------------------------------------------------
-      mod_help_page_ui(
-        id = "help_page_1",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/7P2YI9-smfU'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_2",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_3",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_4",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_5",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
-      ),
+      # Help Pages ------------------------------------------------------------
+      # mod_help_page_ui(
+      #   id = "help_page_1",
+      #   tab_title =  interface_translator$t(selected_language[10]),
+      #   url = "'https://www.youtube.com/embed/7P2YI9-smfU'"
+      # ),
+      # mod_help_page_ui(
+      #   id = "help_page_2",
+      #   tab_title =  interface_translator$t(selected_language[10]),
+      #   url = "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'"
+      # ),
+      # mod_help_page_ui(
+      #   id = "help_page_3",
+      #   tab_title =  interface_translator$t(selected_language[10]),
+      #   url = "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'"
+      # ),
+      # mod_help_page_ui(
+      #   id = "help_page_4",
+      #   tab_title =  interface_translator$t(selected_language[10]),
+      #   url = "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'"
+      # ),
+      # mod_help_page_ui(
+      #   id = "help_page_5",
+      #   tab_title =  interface_translator$t(selected_language[10]),
+      #   url = "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
+      # ),
       # Footer -----------------------------------------------------------------
       footer = tagList(
         hr(),
@@ -314,6 +307,7 @@ server <- function(input, output, session) {
     word_for_confidence_interval = selected_language[35],
     word_for_lower_bound = selected_language[33],
     word_for_upper_bound = selected_language[34],
+    next_btn_label = selected_language[3],
     modal_text_1_binary = selected_language[19],
     modal_text_1_range = selected_language[20],
     modal_text_2_binary = selected_language[21],

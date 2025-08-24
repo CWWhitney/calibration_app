@@ -2,6 +2,7 @@
 library(googlesheets4)
 library(pins)
 library(purrr)
+library(bslib)
 library(shiny.i18n)
 library(jsonlite)
 library(shinyvalidate)
@@ -46,11 +47,11 @@ options(scipen=1000000000)
 ## Change and use these to set up each workshop
 selected_questions <- list(
   Group_1 = list(
-    binary = c(138:139), #c(138:147),
-    range = c(153:154) #c(153:162)
+    binary = c(138), #c(138:147),
+    range = c(153) #c(153:162)
   ),
   Group_2 = list(
-    binary = c(148:149), #c(148:151, 153),
+    binary = c(148:169), #c(148:151, 153),
     range = c(175, 184, 207) #c(175:182, 184, 207)
   ),
   
@@ -184,11 +185,13 @@ range_translator$set_translation_language(language)
 app_theme <- bslib::bs_theme(
   version = 5, 
   bootswatch = "sketchy", 
+  dark = "#153015",
   bg = "#153015", 
   fg = "#FFFFFF", 
   primary = "#004F9E",   # Bonn blue
   secondary = "#FBBA00",   # Bonn yellow
   warning = "#FBBA00", # Bonn yellow
+  danger = "#FE6100",
   "body-bg" = "#153015",
   "navbar-bg" = "#153015",
   "navbar-light-color" = "white",
