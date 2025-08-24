@@ -122,40 +122,48 @@ mod_question_ui <- function(
 #' @export
 #'
 #' @inherit mod_question_ui title description details examples
-mod_question_server <- function(id, question_type, required_text_label, left_lower_label) {
+mod_question_server <- function(id, question_type, required_text_label, number_text_label, left_lower_label) {
   moduleServer(
     id,
     function(input, output, session) {
       ns <- session$ns
       
-      ## Create an InputValidator object
+      ## Main validator
       iv <- InputValidator$new()
       
-      ## Add validation rules
-      iv$add_rule("input_A", sv_required(interface_translator$t(required_text_label)))
-      iv$add_rule("input_B", sv_required(interface_translator$t(required_text_label)))
+      ## Conditional validator for "binary" type
+      binary_iv <- InputValidator$new()
+      binary_iv$condition(~ question_type() == "binary")
       
-      if(question_type == "range") {
-        iv$add_rule("input_A", function(value) {
-          if (input$input_B < input$input_A & !is.na(input$input_A) & !is.na(input$input_B)) {
-            interface_translator$t(left_lower_label)
-          }
-        })
+      binary_iv$add_rule("input_A", sv_required(interface_translator$t(required_text_label)))
+      binary_iv$add_rule("input_B", sv_required(interface_translator$t(required_text_label)))
         
-        iv$add_rule("input_B", function(value) {
-          if (input$input_B < input$input_A & !is.na(input$input_A) & !is.na(input$input_B)) {
-            ""
-          }
-        })
-      }
+      ## Conditional validator for "range" type
+      range_iv <- InputValidator$new()
+      range_iv$condition(~ question_type() == "range")
       
-      ## Start displaying errors in the UI
-      iv$enable()
+      range_iv$add_rule("input_A", sv_required(interface_translator$t(number_text_label)))
+      range_iv$add_rule("input_B", sv_required(interface_translator$t(number_text_label)))
       
+      range_iv$add_rule("input_A", function(value) {
+        if (input$input_B < input$input_A && !is.na(input$input_A) && !is.na(input$input_B)) {
+          interface_translator$t(left_lower_label)
+        }
+      })
+      
+      range_iv$add_rule("input_B", function(value) {
+        if (input$input_B < input$input_A && !is.na(input$input_A) && !is.na(input$input_B)) {
+          ""
+        }
+      })
+      
+      ## Add the conditional validator to the main validator
+      iv$add_validator(binary_iv)
+      iv$add_validator(range_iv)
       
       return(
         list(
-          is_valid = reactive(iv$is_valid()),
+          iv = iv,
           A = reactive(input$input_A),
           B = reactive(input$input_B),
           next_btn = reactive(input$next_btn)

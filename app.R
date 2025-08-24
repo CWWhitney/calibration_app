@@ -49,70 +49,72 @@ ui <- function() {
         text_center = interface_translator$t(selected_language[9])
       ), 
       # Help Pages ------------------------------------------------------------
-      # mod_help_page_ui(
-      #   id = "help_page_1",
-      #   tab_title =  interface_translator$t(selected_language[10]),
-      #   url = "'https://www.youtube.com/embed/7P2YI9-smfU'"
-      # ),
-      # mod_help_page_ui(
-      #   id = "help_page_2",
-      #   tab_title =  interface_translator$t(selected_language[10]),
-      #   url = "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'"
-      # ),
-      # mod_help_page_ui(
-      #   id = "help_page_3",
-      #   tab_title =  interface_translator$t(selected_language[10]),
-      #   url = "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'"
-      # ),
-      # mod_help_page_ui(
-      #   id = "help_page_4",
-      #   tab_title =  interface_translator$t(selected_language[10]),
-      #   url = "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'"
-      # ),
-      # mod_help_page_ui(
-      #   id = "help_page_5",
-      #   tab_title =  interface_translator$t(selected_language[10]),
-      #   url = "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
-      # ),
+      mod_help_page_ui(
+        id = "help_page_1",
+        tab_title =  interface_translator$t(selected_language[10]),
+        url = "'https://www.youtube.com/embed/7P2YI9-smfU'"
+      ),
+      mod_help_page_ui(
+        id = "help_page_2",
+        tab_title =  interface_translator$t(selected_language[10]),
+        url = "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'"
+      ),
+      mod_help_page_ui(
+        id = "help_page_3",
+        tab_title =  interface_translator$t(selected_language[10]),
+        url = "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'"
+      ),
+      mod_help_page_ui(
+        id = "help_page_4",
+        tab_title =  interface_translator$t(selected_language[10]),
+        url = "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'"
+      ),
+      mod_help_page_ui(
+        id = "help_page_5",
+        tab_title =  interface_translator$t(selected_language[10]),
+        url = "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
+      ),
+      nav_spacer(),
+      ## Language Selection ------------------------------------------------
+      # shiny::tabPanel(
+      #   title = "Language Selection", 
+      nav_item(
+        uiOutput("language_selection_ui")
+      ),
+      # ), 
       # Footer -----------------------------------------------------------------
-      footer = tagList(
-        hr(),
-        shiny::tabsetPanel(
-          ## Language Selection ------------------------------------------------
-          shiny::tabPanel(
-            title = "Language Selection", 
-            uiOutput("language_selection_ui"),
-          ), 
-          
-          ## Question Selection Static -----------------------------------------
-          shiny::tabPanel(
-            title = "Question Selection Static", 
-            reactable::reactableOutput(outputId = "lalal")
-          ),
-          ## Question Selection ------------------------------------------------
-          shiny::tabPanel(
-            title = "Question Selection", 
-            mod_question_selection_ui(id = "question_selection"),
-          ),
-          ## Binary Overview ------------------------------------------------
-          shiny::tabPanel(
-            title = "Binary Overview", 
-            verbatimTextOutput("binary_overview"),
-            verbatimTextOutput("binary_tbl_string"),
-          ),
-          ## Range Overview ------------------------------------------------
-          shiny::tabPanel(
-            title = "Range Overview", 
-            verbatimTextOutput("range_overview"),
-            verbatimTextOutput("range_tbl_string"),
-          ),
-          ## Input Overview ------------------------------------------------
-          shiny::tabPanel(
-            title = "Input Overview", 
-            verbatimTextOutput("dev_mode"),
-          )
-        )
-      )
+      # footer = tagList(
+      #   hr(),
+      #   shiny::tabsetPanel(
+      #     ## Question Selection Static -----------------------------------------
+      #     shiny::tabPanel(
+      #       title = "Question Selection Static", 
+      #       reactable::reactableOutput(outputId = "lalal")
+      #     ),
+      #     ## Question Selection ------------------------------------------------
+      #     shiny::tabPanel(
+      #       title = "Question Selection", 
+      #       mod_question_selection_ui(id = "question_selection"),
+      #     ),
+      #     ## Binary Overview ------------------------------------------------
+      #     shiny::tabPanel(
+      #       title = "Binary Overview", 
+      #       verbatimTextOutput("binary_overview"),
+      #       verbatimTextOutput("binary_tbl_string"),
+      #     ),
+      #     ## Range Overview ------------------------------------------------
+      #     shiny::tabPanel(
+      #       title = "Range Overview", 
+      #       verbatimTextOutput("range_overview"),
+      #       verbatimTextOutput("range_tbl_string"),
+      #     ),
+      #     ## Input Overview ------------------------------------------------
+      #     shiny::tabPanel(
+      #       title = "Input Overview", 
+      #       verbatimTextOutput("dev_mode"),
+      #     )
+      #   )
+      # )
     )
   )
 }
@@ -175,42 +177,42 @@ server <- function(input, output, session) {
   
   # URL Bookmarking ------------------------------------------------------------
   
-  observe({
-    my_url_string <-  stringr::str_c(
-      "?session=", session$token,
-      "&user_first_name=", user_info_reactives$user_first_name(),
-      "&user_last_name=", user_info_reactives$user_last_name(),
-      "&question_selection=", encrypted_question_index(),
-      "&binary_tbl=", encrypted_binary_tbl(),
-      "&range_tbl=", encrypted_range_tbl()
-    )
-    
-    message("Nchar URL:", nchar(my_url_string))
-    
-    my_url_string |> 
-      updateQueryString(mode = "push")
-  })
+  # observe({
+  #   my_url_string <-  stringr::str_c(
+  #     "?session=", session$token,
+  #     "&user_first_name=", user_info_reactives$user_first_name(),
+  #     "&user_last_name=", user_info_reactives$user_last_name(),
+  #     "&question_selection=", encrypted_question_index(),
+  #     "&binary_tbl=", encrypted_binary_tbl(),
+  #     "&range_tbl=", encrypted_range_tbl()
+  #   )
+  #   
+  #   message("Nchar URL:", nchar(my_url_string))
+  #   
+  #   my_url_string |> 
+  #     updateQueryString(mode = "push")
+  # })
   
   ## Read values from state$values when we restore
   app_restored <- reactiveVal(FALSE)
   
-  onRestore(function(state) {
-    app_restored(TRUE)
-    
-    browser("Restore")
-    
-    ## Parse URL parameters
-    query <- parseQueryString(session$clientData$url_search)
-    
-    if (!is.null(query$binary_tbl)) {
-      rctv$binary_tbl <- decrypt_binary_table(query$binary_tbl, key = our_key, nonce = our_nonce)
-    }
-    
-    if (!is.null(query$range_tbl)) {
-      rctv$range_tbl <- decrypt_range_table(query$range_tbl, key = our_key, nonce = our_nonce)
-    }
-    
-  })
+  # onRestore(function(state) {
+  #   app_restored(TRUE)
+  #   
+  #   browser("Restore")
+  #   
+  #   ## Parse URL parameters
+  #   query <- parseQueryString(session$clientData$url_search)
+  #   
+  #   if (!is.null(query$binary_tbl)) {
+  #     rctv$binary_tbl <- decrypt_binary_table(query$binary_tbl, key = our_key, nonce = our_nonce)
+  #   }
+  #   
+  #   if (!is.null(query$range_tbl)) {
+  #     rctv$range_tbl <- decrypt_range_table(query$range_tbl, key = our_key, nonce = our_nonce)
+  #   }
+  #   
+  # })
   
   # onRestored(function(state) {
   #
@@ -265,8 +267,10 @@ server <- function(input, output, session) {
       modal_dialog_title_new_session = selected_language[11],
       user_first_name_label = selected_language[12], 
       user_last_name_label = selected_language[13],
+      workshop_selection_label = "Select Workshop",
       user_first_name_required_label = selected_language[12],# "First name required",
       user_last_name_required_label = "Last name required",
+      workshop_selection_required_label = "Workshop selection required.",
       submit_user_info_btn_label = selected_language[14],
       modal_dialog_title_load_session = "Load Session",
       load_session_text = "Please select a previous session",
@@ -328,24 +332,22 @@ server <- function(input, output, session) {
     rctv = rctv
   )
   
-  
   # Language Selection ------------------------------------------------------
-  
   output$language_selection_ui <- 
     renderUI({
       req(user_info_reactives$selected_language())
-      
       selectInput(
         "selected_language",
-        "Language",
+        label = NULL,
         choices = interface_translator$get_languages(),
         selected = user_info_reactives$selected_language()
-      )
+      ) |> 
+        tagAppendAttributes(
+          class = "mb-0"
+        )
     })
   
   observeEvent(input$selected_language, {
-    ## This print is just for demonstration
-    print(paste("Language change!", input$selected_language))
     ## Here is where we update language in session
     shiny.i18n::update_lang(input$selected_language)
   })
@@ -353,57 +355,52 @@ server <- function(input, output, session) {
   
   # Question Selection ---------------------------------------------------------
   
-  output$lalal <- reactable::renderReactable({
-    reactable::reactable(
-      questions_full$binary,
-      selection = "multiple",
-      borderless = TRUE,
-      onClick = "select",
-      theme = reactable::reactableTheme(
-        backgroundColor = "#153015",
-        rowSelectedStyle = list(backgroundColor = "rgb(118, 118, 118, .5)", boxShadow = "inset 2px 0 0 0 #ffa62d")
-      )
-    )
-  })
-  
-  encrypted_question_index <- 
+  # output$lalal <- reactable::renderReactable({
+  #   reactable::reactable(
+  #     questions_full$binary,
+  #     selection = "multiple",
+  #     borderless = TRUE,
+  #     onClick = "select",
+  #     theme = reactable::reactableTheme(
+  #       backgroundColor = "#153015",
+  #       rowSelectedStyle = list(backgroundColor = "rgb(118, 118, 118, .5)", boxShadow = "inset 2px 0 0 0 #ffa62d")
+  #     )
+  #   )
+  # })
+  # 
+  encrypted_question_index <-
     mod_question_selection_server(id = "question_selection")
-  
-  
-  output$binary_overview <- renderPrint({
-    rctv$binary_tbl
-  })
-  
+
+
+  # output$binary_overview <- renderPrint({
+  #   rctv$binary_tbl
+  # })
+  # 
   encrypted_binary_tbl <- reactive({
-    rctv$binary_tbl |> 
+    rctv$binary_tbl |>
       encrypt_binary_table(key = our_key, nonce = our_nonce)
   })
-  
-  output$binary_tbl_string <- renderPrint({
-    encrypted_binary_tbl()
-  })
-  
-  
-  
-  output$range_overview <- renderPrint({
-    rctv$range_tbl
-  })
-  
+  # 
+  # output$binary_tbl_string <- renderPrint({
+  #   encrypted_binary_tbl()
+  # })
+  # 
+  # output$range_overview <- renderPrint({
+  #   rctv$range_tbl
+  # })
+  # 
   encrypted_range_tbl <- reactive({
-    rctv$range_tbl |> 
+    rctv$range_tbl |>
       encrypt_range_table(key = our_key, nonce = our_nonce)
   })
-  
-  output$range_tbl_string <- renderPrint({
-    encrypted_range_tbl()
-  })
-  
-  
-  
-  
-  output$dev_mode <- renderPrint({
-    reactiveValuesToList(input)
-  })
+  # 
+  # output$range_tbl_string <- renderPrint({
+  #   encrypted_range_tbl()
+  # })
+  # 
+  # output$dev_mode <- renderPrint({
+  #   reactiveValuesToList(input)
+  # })
   
   
   

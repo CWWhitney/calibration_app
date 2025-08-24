@@ -60,7 +60,6 @@
 #' }
 mod_questions_page_ui <- function(id, tab_title, binary_results_panel_title, range_results_panel_title) {
   ns <- shiny::NS(id)
-  # shiny::tabPanel(
   bslib::nav_panel(
     title = tab_title, 
     bslib::layout_column_wrap(
@@ -81,72 +80,8 @@ mod_questions_page_ui <- function(id, tab_title, binary_results_panel_title, ran
           value = "range_results_panel", 
           reactable::reactableOutput(outputId = ns("results_range_tbl"))
         )
-        
-        
-        # shiny::tabsetPanel(
-        #   id = ns("results_tabset"), 
-        #   
-        #   #### Binary Results Table --------------------------------------------
-        #   shiny::tabPanel(
-        #     title = binary_results_panel_title, 
-        #     value = "binary_results_panel", 
-        #     reactable::reactableOutput(outputId = ns("results_binary_tbl"))
-        #   ), 
-        #   
-        #   #### Range Results Table ---------------------------------------------
-        #   shiny::tabPanel(
-        #     title = range_results_panel_title, 
-        #     value = "range_results_panel", 
-        #     reactable::reactableOutput(outputId = ns("results_range_tbl"))
-        #   )
-        # )
-        
-        
       )
-    ),
-    
-    # shiny::fluidRow(
-    #   ### Questions UI Elements ------------------------------------------------
-    #   shiny::column(
-    #     width = 6, 
-    #     shiny::wellPanel(
-    #       style = "background: #153015;", 
-    #       
-    #       #### Question & Response UI -------------------------------------------
-    #       shiny::uiOutput(outputId = ns("question_ui")), 
-    #       
-    #       shiny::hr(), 
-    #       
-    #       , 
-    #       
-    #       shiny::br(), 
-    #       shiny::br()
-    #     )
-    #   ), 
-    #   
-    #   ### Response UI Elements -------------------------------------------------
-    #   shiny::column(
-    #     width = 6, 
-    #     
-    #     shiny::tabsetPanel(
-    #       id = ns("results_tabset"), 
-    #       
-    #       #### Binary Results Table --------------------------------------------
-    #       shiny::tabPanel(
-    #         title = binary_results_panel_title, 
-    #         value = "binary_results_panel", 
-    #         reactable::reactableOutput(outputId = ns("results_binary_tbl"))
-    #       ), 
-    #       
-    #       #### Range Results Table ---------------------------------------------
-    #       shiny::tabPanel(
-    #         title = range_results_panel_title, 
-    #         value = "range_results_panel", 
-    #         reactable::reactableOutput(outputId = ns("results_range_tbl"))
-    #       )
-    #     )
-    #   )
-    # )
+    )
   )
 }
 
@@ -229,7 +164,7 @@ mod_questions_page_server <- function(
           waiter::spin_flower(), 
           "Loading Next Question..."
         ), 
-        color = "#153015",
+        color = "#153015"
       )
       
       # Question ---------------------------------------------------------------
@@ -254,6 +189,9 @@ mod_questions_page_server <- function(
         
       })
       
+      end_of_group <- reactiveVal(FALSE)
+      end_of_workshop <- reactiveVal(FALSE)
+      
       # Render Question UI -----------------------------------------------------
       output$question_ui <- shiny::renderUI({
         
@@ -270,39 +208,78 @@ mod_questions_page_server <- function(
           question <- range_translator$t(question)
         }
         
-        # Display the appropriate UI response elements based on the current question type
-        mod_question_ui(
-          ns(
-            stringr::str_glue(
-              "group_{current_group_number()}_{current_question_type()}_answer_{current_question_number()}"
+        if (isTRUE(end_of_workshop())) {
+          
+          return(
+            bslib::card(
+              bslib::card_header(h3(interface_translator$t(completion_dialog_title)), class = "bg-dark"),
+              glue::glue(
+                interface_translator$t(completion_dialog_text_1)
+              ),
+              shiny::br(),
+              interface_translator$t(completion_dialog_text_2),
+              bslib::card_footer(
+                class = "bg-dark d-flex justify-content-end",
+                shiny::actionButton(
+                  class = "btn btn-lg", 
+                  inputId = ns("next_group"), 
+                  label = interface_translator$t(completion_dialog_text_2), 
+                  icon = shiny::icon(name = "arrow-right")
+                )
+              )
             )
-          ),
-          question = question,
-          question_row_number = current_question_number(),
-          type = current_question_type(),
-          word_for_question = interface_translator$t(word_for_question),
-          word_for_answer = interface_translator$t(word_for_answer),
-          word_for_correct = interface_translator$t(word_for_correct),
-          word_for_incorrect = interface_translator$t(word_for_incorrect),
-          word_for_confidence = interface_translator$t(word_for_confidence),
-          word_for_confidence_interval = interface_translator$t(word_for_confidence_interval),
-          word_for_lower_bound = interface_translator$t(word_for_lower_bound),
-          word_for_upper_bound = interface_translator$t(word_for_upper_bound),
-          next_btn_label = interface_translator$t(next_btn_label)
+          )
+        }
+        
+        if (isTRUE(end_of_group())) { 
+          ## Show a "Group Complete" pop-up modal
+          return(
+            bslib::card(
+              bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark"),
+              glue::glue(
+                interface_translator$t(group_complete_dialog_text_1)
+              ),
+              shiny::br(),
+              interface_translator$t(group_complete_dialog_text_2),
+              bslib::card_footer(
+                class = "bg-dark d-flex justify-content-end",
+                shiny::actionButton(
+                  class = "btn btn-lg", 
+                  inputId = ns("next_group"), 
+                  label = interface_translator$t(group_complete_dialog_button), 
+                  icon = shiny::icon(name = "arrow-right")
+                )
+              )
+            )
+          )
+        } 
+        # Display the appropriate UI response elements based on the current question type
+        return(
+          mod_question_ui(
+            ns("question"),
+            question = question,
+            question_row_number = current_question_number(),
+            type = current_question_type(),
+            word_for_question = interface_translator$t(word_for_question),
+            word_for_answer = interface_translator$t(word_for_answer),
+            word_for_correct = interface_translator$t(word_for_correct),
+            word_for_incorrect = interface_translator$t(word_for_incorrect),
+            word_for_confidence = interface_translator$t(word_for_confidence),
+            word_for_confidence_interval = interface_translator$t(word_for_confidence_interval),
+            word_for_lower_bound = interface_translator$t(word_for_lower_bound),
+            word_for_upper_bound = interface_translator$t(word_for_upper_bound),
+            next_btn_label = interface_translator$t(next_btn_label)
+          )
         )
-        # 
-        # # Show a "Group Complete" pop-up modal
-        # shiny::tagList(
-        #   bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark p-0"),
-        #   glue::glue(
-        #     interface_translator$t(group_complete_dialog_text_1)
-        #   ),
-        #   shiny::br(), 
-        #   interface_translator$t(group_complete_dialog_text_2)
-        # )
-        
-        #interface_translator$t(group_complete_dialog_button)
-        
+      })
+      
+      observeEvent(input$next_group, {
+        end_of_group(FALSE)
+        shiny::updateTabsetPanel(
+          session = session, 
+          inputId = "results_tabset", 
+          selected = paste0(rctv$current_question_type, "_results_panel")
+        )
       })
       
       # Question Responses -----------------------------------------------------
@@ -311,24 +288,24 @@ mod_questions_page_server <- function(
         B = NULL
       )
       
+      ## Start Question Module Server ----------------------------------------
+      question_reactives <- 
+        mod_question_server(
+          "question",
+          question_type = current_question_type,
+          required_text_label = "Required.",
+          number_text_label = "Required to be a number.",
+          left_lower_label = "Left has to be lower than right."
+        )
+      
       # Next Button ------------------------------------------------------------
-      # When the "Next" button is clicked...
+      ## When the "Next" button is clicked...
       shiny::observeEvent(question_reactives$next_btn(), {
         #shinyjs::disable("next_btn")
         
-        ## Start Question Module Server ----------------------------------------
-        question_reactives <- 
-          mod_question_server(
-            stringr::str_glue(
-              "group_{current_group_number()}_{current_question_type()}_answer_{current_question_number()}"
-            ),
-            question_type = current_question_type(),
-            required_text_label = "Required.",
-            left_lower_label = "Left has to be lower than right."
-          )
-        
+        question_reactives$iv$enable()
         ## Don't proceed if any input is invalid
-        req(question_reactives$is_valid())
+        req(question_reactives$iv$is_valid())
         
         question_responses$A <- question_reactives$A()
         question_responses$B <- question_reactives$B()
@@ -382,7 +359,6 @@ mod_questions_page_server <- function(
           )
         )
         
-        
         ## Launch the modal pop-up
         shiny::showModal(modal)
         #shinyjs::enable("next_btn")
@@ -393,6 +369,10 @@ mod_questions_page_server <- function(
       ## When the "Submit" button is clicked...
       shiny::observeEvent(input$submit_answer_btn, {
         
+        question_reactives$iv$disable()
+        ## Show the waiting screen
+        w$show()
+        
         ## ... remove the open modal dialogue
         shiny::removeModal()
         
@@ -401,9 +381,6 @@ mod_questions_page_server <- function(
         
         ## Capture the current Confidence / Upper90 
         current_response_2 <-  question_responses$B
-        
-        ## Show the waiting screen
-        w$show()
         
         ## Append a new row to the reactive "binary" or "range" data frame 
         if (current_question_type() == "binary") {
@@ -453,124 +430,113 @@ mod_questions_page_server <- function(
         }
         
         if (current_question_number() <= max(question_index$Index)) {
-          
           ## Increase the 'current_question_number' value by 1
           rctv$current_question_number <- current_question_number() + 1
-          
           ## Get the corresponding group number for the next question
           rctv$current_group_number <- question_index$Group[rctv$current_question_number]
-          
           ## Get the corresponding question type for the next question
           rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
-          
-          ## If the new question switches from "binary" to "range" (or vice versa), 
-          ## change the "Tables" tab to show the current table
-          if (question_index$QuestionType[rctv$current_question_number] != question_index$QuestionType[rctv$current_question_number - 1]) {
-            
-            shiny::updateTabsetPanel(
-              session = session, 
-              inputId = "results_tabset", 
-              selected = paste0(rctv$current_question_type, "_results_panel")
-            )
-            
-          }
-          
-          ## If the new question begins a new group, write the most current results to
-          ## {pins} database and show a pop-up
-          if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
-            
-            # browser("HERE")
-            
-            rctv$current_question_number <- 1
-            
-            rctv$binary_tbl_backend <- rctv$binary_tbl |> 
-              dplyr::rename_at( 2, ~"Question") |>
-              dplyr::rename_at( 5, ~"Response") |>
-              dplyr::rename_at( 6, ~"Confidence") |>
-              dplyr::rename_at( 7, ~"Truth")
-            
-            # write_to_pin(
-            #   board = board, 
-            #   type = "binary", 
-            #   data = rctv$binary_tbl_backend, 
-            #   user_first = trimws(input$user_first_name), 
-            #   user_last = trimws(input$user_last_name)
-            # )
-            
-            rctv$range_tbl_backend <- rctv$range_tbl |> 
-              dplyr::rename_at( 2, ~"Question") |>
-              dplyr::rename_at( 5, ~"Lower90") |>
-              dplyr::rename_at( 6, ~"Upper90") |>
-              dplyr::rename_at( 7, ~"Truth")
-            
-            # write_to_pin(
-            #   board = board, 
-            #   type = "range", 
-            #   data = rctv$range_tbl_backend, 
-            #   user_first = trimws(input$user_first_name), 
-            #   user_last = trimws(input$user_last_name)
-            # )
-            
-            # Show a "Group Complete" pop-up modal
-            shiny::modalDialog(
-              title = interface_translator$t(group_complete_dialog_title), 
-              glue::glue(
-                interface_translator$t(group_complete_dialog_text_1), 
-              ), 
-              footer = modalButton(interface_translator$t(group_complete_dialog_button)),
-              shiny::br(), 
-              interface_translator$t(group_complete_dialog_text_2), 
-              size = "l"
-            ) |> 
-              shiny::showModal()
-            
-          }
-          
-        } else {
-          ## If the submission was the last question in the *entire* workshop...
-          
-          browser("here")
-          
-          ## Write out the current results to the user's pin
-          write_to_pin(
-            board = board, 
-            type = "binary", 
-            data = rctv$binary_tbl, 
-            user_first = trimws(input$user_first_name), 
-            user_last = trimws(input$user_last_name)
+        } 
+        
+        
+        ## If the new question switches from "binary" to "range" (or vice versa), 
+        ## change the "Tables" tab to show the current table
+        if (question_index$QuestionType[rctv$current_question_number] != question_index$QuestionType[rctv$current_question_number - 1]) {
+          shiny::updateTabsetPanel(
+            session = session, 
+            inputId = "results_tabset", 
+            selected = paste0(rctv$current_question_type, "_results_panel")
           )
-          
-          write_to_pin(
-            board = board, 
-            type = "range", 
-            data = rctv$range_tbl, 
-            user_first = trimws(input$user_first_name), 
-            user_last = trimws(input$user_last_name)
-          )
-          
-          ## Hide the {waiter} loading screen
-          w$hide()
-          
-          ## Remove the "question_ui" output element (to keep it from overlapping 
-          ## the pop-up modal we create next)
-          shiny::removeUI(
-            selector = "div:has(> #question_ui)", 
-            immediate = TRUE
-          )
-          
-          ## Launch a pop-up modal letting the user know they have completed the 
-          ## workshop
-          shiny::modalDialog(
-            title = interface_translator$t(completion_dialog_title), 
-            glue::glue(
-              interface_translator$t(completion_dialog_text_1), 
-            ), 
-            shiny::br(), 
-            interface_translator$t(completion_dialog_text_2), 
-            size = "l"
-          ) |> 
-            shiny::showModal()
         }
+        
+        ## If the new question begins a new group, write the most current results to
+        ## {pins} database and show a pop-up
+        if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
+          shiny::updateTabsetPanel(
+            session = session, 
+            inputId = "results_tabset", 
+            selected = "binary"
+          )
+          ## If the submission was the last question in a group.
+          end_of_group(TRUE)
+        }
+        
+        ## If the question is the last of the workshop
+        if (current_question_number() == max(question_index$Index)) {
+          ## If the submission was the last question in the *entire* workshop.
+          end_of_workshop(TRUE)
+        }
+        
+        #   ## If the new question begins a new group, write the most current results to
+        #   ## {pins} database and show a pop-up
+        #   if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
+        #     
+        #     shiny::updateTabsetPanel(
+        #       session = session, 
+        #       inputId = "results_tabset", 
+        #       selected = "binary"
+        #     )
+        #     
+        #     # browser("HERE")
+        #     
+        #     # rctv$current_question_number <- 1
+        #     
+        #     rctv$binary_tbl_backend <- rctv$binary_tbl |> 
+        #       dplyr::rename_at( 2, ~"Question") |>
+        #       dplyr::rename_at( 5, ~"Response") |>
+        #       dplyr::rename_at( 6, ~"Confidence") |>
+        #       dplyr::rename_at( 7, ~"Truth")
+        #     
+        #     # write_to_pin(
+        #     #   board = board, 
+        #     #   type = "binary", 
+        #     #   data = rctv$binary_tbl_backend, 
+        #     #   user_first = trimws(input$user_first_name), 
+        #     #   user_last = trimws(input$user_last_name)
+        #     # )
+        #     
+        #     rctv$range_tbl_backend <- rctv$range_tbl |> 
+        #       dplyr::rename_at( 2, ~"Question") |>
+        #       dplyr::rename_at( 5, ~"Lower90") |>
+        #       dplyr::rename_at( 6, ~"Upper90") |>
+        #       dplyr::rename_at( 7, ~"Truth")
+        #     
+        #     # write_to_pin(
+        #     #   board = board, 
+        #     #   type = "range", 
+        #     #   data = rctv$range_tbl_backend, 
+        #     #   user_first = trimws(input$user_first_name), 
+        #     #   user_last = trimws(input$user_last_name)
+        #     # )
+        #     
+        #     # Show a "Group Complete" pop-up modal
+        #     end_of_group(TRUE)
+        #   }
+        #   
+        # } else {
+        #   ## If the submission was the last question in the *entire* workshop...
+        #   
+        #   end_of_workshop(TRUE)
+        #   
+        #   browser("here")
+        #   
+        #   # ## Write out the current results to the user's pin
+        #   # write_to_pin(
+        #   #   board = board, 
+        #   #   type = "binary", 
+        #   #   data = rctv$binary_tbl, 
+        #   #   user_first = trimws(input$user_first_name), 
+        #   #   user_last = trimws(input$user_last_name)
+        #   # )
+        #   # 
+        #   # write_to_pin(
+        #   #   board = board, 
+        #   #   type = "range", 
+        #   #   data = rctv$range_tbl, 
+        #   #   user_first = trimws(input$user_first_name), 
+        #   #   user_last = trimws(input$user_last_name)
+        #   # )
+        # }
         
       })
       
@@ -585,7 +551,7 @@ mod_questions_page_server <- function(
         shiny::req(rctv$binary_tbl)
         
         data <- rctv$binary_tbl |>
-          dplyr::filter(Group == rctv$current_group_number)
+          dplyr::filter(Group == current_group_number() - isTRUE(end_of_group()))
         
         #colnames(rctv$binary_tbl)[colnames(rctv$binary_tbl) == "Question"] = "interface_translator$t(selected_language[42])"
         
@@ -649,7 +615,7 @@ mod_questions_page_server <- function(
         shiny::req(rctv$range_tbl)
         
         data <- rctv$range_tbl |>
-          dplyr::filter(Group == rctv$current_group_number)
+          dplyr::filter(Group == current_group_number() - isTRUE(end_of_group()))
         
         # Populate the interactive table with the "range" data from the current
         # question group

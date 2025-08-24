@@ -51,8 +51,8 @@ selected_questions <- list(
     range = c(153) #c(153:162)
   ),
   Group_2 = list(
-    binary = c(148:169), #c(148:151, 153),
-    range = c(175, 184, 207) #c(175:182, 184, 207)
+    binary = c(148), #c(148:151, 153),
+    range = c(175) #c(175:182, 184, 207)
   ),
   
   Group_3 = list(
