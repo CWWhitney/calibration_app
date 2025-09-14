@@ -78,6 +78,7 @@ modal_user_info_modal_new_session <-
     user_first_name_label, 
     user_last_name_label,
     workshop_selection_label,
+    workshop_selection_choices,
     submit_user_info_btn_label
   ) {
     ns <- NS(id)
@@ -102,7 +103,7 @@ modal_user_info_modal_new_session <-
           shiny::selectInput(
             inputId = ns("workshop_selection"), 
             label = workshop_selection_label,
-            choices = c(1,2,3)
+            choices = workshop_selection_choices
           )
         )
       ), 
@@ -127,7 +128,6 @@ modal_user_info_modal_load_session <- function(
     id,
     modal_dialog_title,
     load_session_text,
-    table_data,
     confirm_load_session_label
 ) {
   ns <- NS(id)
@@ -136,15 +136,7 @@ modal_user_info_modal_load_session <- function(
     shiny::tagList(
       shiny::div(
         shiny::p(load_session_text),
-        reactable::reactable(
-          table_data, 
-          selection = "single",
-          searchable = TRUE,
-          theme = reactable::reactableTheme(
-            backgroundColor = "#153015",
-            searchInputStyle = list(color = "#153015")
-          )
-        )
+        reactable::reactableOutput(ns("table"))
       )
     ),
     easyClose = FALSE,
@@ -191,8 +183,6 @@ mod_user_info_modal_server <- function(
     confirm_load_session_label,
     language_choices,
     language_initial_value,
-    question_index,
-    app_restored,
     rctv
 ) {
   moduleServer(
@@ -201,7 +191,91 @@ mod_user_info_modal_server <- function(
       ns <- session$ns
       
       
+      selected_language <- reactiveVal()
+      
+      observe({
+        req(input$selected_language)
+        selected_language(input$selected_language)
+      })
+      
       # App Restore ------------------------------------------------------------
+      app_restored <- reactiveVal(FALSE)
+      
+      onRestore(function(state) {
+        app_restored(TRUE)
+        
+        ## Parse URL parameters
+        query <- parseQueryString(session$clientData$url_search)
+        
+        selected_user <- load_users_table() |> 
+          filter(
+            user_first_name == query$user_first_name,
+            user_last_name == query$user_last_name,
+            user_session == query$user_session,
+            workshop_set == query$workshops_set
+          )
+        
+        user_first_name(selected_user$user_first_name)
+        user_last_name(selected_user$user_last_name)
+        user_session(selected_user$user_session)
+        workshop_selection(selected_user$workshop_set)
+        
+        binary_responses <- load_users_binary_responses(
+          pool = pool, 
+          first_name = selected_user$user_first_name,
+          last_name = selected_user$user_last_name,
+          session = selected_user$user_session,
+          workshop = selected_user$workshop_set
+        ) |> 
+          dplyr::select(
+            Group = round_number,
+            Question = question_number,
+            QuestionText = question_text,
+            Index = index_in_set,
+            Response = response,
+            Confidence = confidence,
+            Truth = truth,
+            Brier = brier_score
+          ) |> 
+          dplyr::mutate(
+            Source = ""
+          )
+        
+        rctv$binary_tbl <- rctv$binary_tbl |>
+          rbind(binary_responses)
+        
+        range_responses <- load_users_range_responses(
+          pool = pool, 
+          first_name = selected_user$user_first_name,
+          last_name = selected_user$user_last_name,
+          session = selected_user$user_session,
+          workshop = selected_user$workshop_set
+        ) |> 
+          dplyr::select(
+            Group = round_number,
+            Question = question_number,
+            QuestionText = question_text,
+            Index = index_in_set,
+            Lower90 = lower_90,
+            Upper90 = upper_90,
+            Truth = truth,
+            RelativeError = relative_error
+          ) |> 
+          dplyr::mutate(
+            Source = ""
+          )
+        
+        rctv$range_tbl <- rctv$range_tbl |>
+          rbind(range_responses)
+        
+        rctv$current_group_number <- selected_user$round_number
+        rctv$current_question_number <- selected_user$question_number
+        rctv$current_question_type <- selected_user$question_type
+        
+        selected_language(query$selected_language)
+      })
+      
+      
       observe({
         req(!app_restored())
         
@@ -221,12 +295,15 @@ mod_user_info_modal_server <- function(
       observeEvent(
         input$new_session, 
         {
+          all_sets <- load_question_sets()
+          
           modal_user_info_modal_new_session(
             id = id,
             modal_dialog_title = interface_translator$t(modal_dialog_title_new_session),
             user_first_name_label = interface_translator$t(user_first_name_label), 
             user_last_name_label = interface_translator$t(user_last_name_label),
             workshop_selection_label = interface_translator$t(workshop_selection_label),
+            workshop_selection_choices = all_sets$question_set_name,
             submit_user_info_btn_label = interface_translator$t(submit_user_info_btn_label)
           )|> 
             shiny::showModal()
@@ -241,25 +318,35 @@ mod_user_info_modal_server <- function(
             id = id,
             modal_dialog_title = modal_dialog_title_load_session,
             load_session_text = load_session_text,
-            table_data = 
-              data.frame(
-                user_first_name = c("a", "b", "b"),
-                user_last_name = c("a", "b", "b"),
-                session_token =
-                  c(
-                    "bf5fe108b33dcbb3a3e3df3a0dda2717",
-                    "ec5500d4e1083a66f595921a3ecae7c7",
-                    "f796601e6885f8684cd34c70ee70ac37"
-                  ),
-                question_set = c(
-                  1,1,2
-                )
-              ),
             confirm_load_session_label = confirm_load_session_label
           )|> 
             shiny::showModal()
         }
       )
+      
+      
+      selected <- reactive(reactable::getReactableState("table", "selected"))
+      
+      output$table <- reactable::renderReactable({
+        reactable::reactable(
+          load_users_table() |> 
+            dplyr::select(
+              user_first_name,
+              user_last_name,
+              user_session,
+              workshop_set,
+              round_number,
+              question_number,
+              question_type
+            ), 
+          selection = "single",
+          searchable = TRUE,
+          theme = reactable::reactableTheme(
+            backgroundColor = "#153015",
+            searchInputStyle = list(color = "#153015")
+          )
+        )
+      })
       
       ## Create an InputValidator object
       iv <- InputValidator$new()
@@ -273,6 +360,11 @@ mod_user_info_modal_server <- function(
       # Submit User Info -------------------------------------------------------
       ## When the "Submit" button is clicked in the user info pop-up modal...
       
+      user_first_name <- reactiveVal()
+      user_last_name <- reactiveVal()
+      user_session <- reactiveVal()
+      workshop_selection <- reactiveVal()
+      
       shiny::observeEvent(input$submit_user_info_btn, {
         
         ## Start displaying errors in the UI
@@ -285,15 +377,101 @@ mod_user_info_modal_server <- function(
           input$workshop_selection
         )
         
+        user_first_name(input$user_first_name)
+        user_last_name(input$user_last_name)
+        user_session(session$token)
+        workshop_selection(input$workshop_selection)
+        
+        upsert_user_info(
+          pool = pool,
+          user_first_name = input$user_first_name,
+          user_last_name = input$user_last_name,
+          user_session = session$token,
+          workshop_set = input$workshop_selection,
+          round_number = rctv$current_group_number,
+          question_number = rctv$current_question_number,
+          question_type = rctv$current_question_type
+        )
+        
+        ## remove the open modal dialogue
+        shiny::removeModal()
+        
+      })
+      
+      shiny::observeEvent(input$confirm_selection_btn, {
+        
+        selected_user <- load_users_table() |> 
+          dplyr::slice(selected())
+        
+        
+        user_first_name(selected_user$user_first_name)
+        user_last_name(selected_user$user_last_name)
+        user_session(selected_user$user_session)
+        workshop_selection(selected_user$workshop_set)
+        
+        binary_responses <- load_users_binary_responses(
+          pool = pool, 
+          first_name = selected_user$user_first_name,
+          last_name = selected_user$user_last_name,
+          session = selected_user$user_session,
+          workshop = selected_user$workshop_set
+        ) |> 
+          dplyr::select(
+            Group = round_number,
+            Question = question_number,
+            QuestionText = question_text,
+            Index = index_in_set,
+            Response = response,
+            Confidence = confidence,
+            Truth = truth,
+            Brier = brier_score
+          ) |> 
+          dplyr::mutate(
+            Source = ""
+          )
+        
+        rctv$binary_tbl <- rctv$binary_tbl |>
+          rbind(binary_responses)
+        
+        range_responses <- load_users_range_responses(
+          pool = pool, 
+          first_name = selected_user$user_first_name,
+          last_name = selected_user$user_last_name,
+          session = selected_user$user_session,
+          workshop = selected_user$workshop_set
+        ) |> 
+          dplyr::select(
+            Group = round_number,
+            Question = question_number,
+            QuestionText = question_text,
+            Index = index_in_set,
+            Lower90 = lower_90,
+            Upper90 = upper_90,
+            Truth = truth,
+            RelativeError = relative_error
+          ) |> 
+          dplyr::mutate(
+            Source = ""
+          )
+        
+        rctv$range_tbl <- rctv$range_tbl |>
+          rbind(range_responses)
+        
+        rctv$current_group_number <- selected_user$round_number
+        rctv$current_question_number <- selected_user$question_number
+        rctv$current_question_type <- selected_user$question_type
+        
         ## remove the open modal dialogue
         shiny::removeModal()
         
       })
       
       list(
-        user_first_name = reactive({input$user_first_name}),
-        user_last_name = reactive({input$user_last_name}),
-        selected_language = reactive({input$selected_language}),
+        user_first_name = user_first_name,
+        user_last_name = user_last_name,
+        user_session = user_session,
+        workshop_selection = workshop_selection,
+        selected_language = reactive({selected_language()}),
         current_group_number = reactive({rctv$current_group_number}),
         current_question_number = reactive({rctv$current_question_number}),
         current_question_type = reactive({rctv$current_question_type})

@@ -1,0 +1,99 @@
+/* Make hyperlink text color white */
+a:link {
+  color: white;
+  background-color: transparent;
+}
+
+a:active {
+  color: white;
+  background-color: transparent;
+}
+
+a:visited {
+  color: white;
+  background-color: transparent;
+}
+
+/* Then make it Bonn yellow when hovered over */
+a:hover {
+  color: #FBBA00;
+  background-color: transparent;
+}
+
+/* Make tickmark text on sliderInput white */
+.irs-grid-text {
+  color: white;
+}
+
+.irs-single, .irs-bar-edge, .irs-bar {
+  background-color: var(--bs-warning) !important;
+}
+
+/* General cell styling */
+.handsontable td, 
+.handsontable th {
+  background-color: var(--bs-body-bg);
+  border-bottom: 2px solid var(--bs-secondary);
+  border-right: 2px solid var(--bs-secondary);
+}
+
+.handsontable .htDimmed {
+  color: var(--bs-card-color);
+}
+
+/* Header styling */
+.handsontable thead th {
+  background-color: var(--bs-secondary);
+  color: var(--bs-dark);
+  font-weight: bold;
+}
+
+/* Remove left border for specific elements */
+.handsontable .htNoFrame + td,
+.handsontable .htNoFrame + th,
+.handsontable.htRowHeaders thead tr th:nth-child(2),
+.handsontable td:first-of-type,
+.handsontable th:first-child,
+.handsontable th:nth-child(2) {
+  border-left: 2px solid var(--bs-secondary);
+}
+
+/* Remove top border for first row */
+.handsontable tr:first-child td,
+.handsontable tr:first-child th {
+  border-top: 2px solid var(--bs-secondary);
+}
+
+/* Custom scrollbar styling for rhandsontable */
+.handsontable ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.handsontable ::-webkit-scrollbar-track {
+  background: var(--bs-body-bg);
+}
+
+.handsontable ::-webkit-scrollbar-thumb {
+  background-color: var(--bs-secondary);
+  border-radius: 6px;
+  border: 3px solid var(--bs-body-bg);
+}
+
+/* Firefox scrollbar styling */
+.handsontable {
+  scrollbar-color: var(--bs-secondary) var(--bs-body-bg);
+  scrollbar-width: thin;
+}
+
+.handsontable .wtBorder.current {
+  background-color: var(--bs-danger) !important;
+}
+
+.handsontable .wtBorder.area {
+  background-color: var(--bs-danger) !important;
+}
+
+.handsontable tbody th.ht__highlight, .handsontable thead th.ht__highlight {
+    background-color: var(--bs-danger);
+}

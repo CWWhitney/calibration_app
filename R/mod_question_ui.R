@@ -60,7 +60,7 @@ mod_question_ui <- function(
     if (type == "binary") {
       bslib::layout_column_wrap(
         width = 1/2,
-        prettyRadioButtons(
+        shinyWidgets::prettyRadioButtons(
           inputId = ns("input_A"),
           label = word_for_answer,
           choices = list(TRUE, FALSE) |> purrr::set_names(c(word_for_correct, word_for_incorrect)),

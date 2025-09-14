@@ -118,6 +118,10 @@ mod_questions_page_ui <- function(id, tab_title, binary_results_panel_title, ran
 #' @inherit mod_questions_page_ui title description details examples
 mod_questions_page_server <- function(
     id,
+    user_first_name,
+    user_last_name,
+    user_session,
+    workshop_selection,
     current_question_type,
     current_group_number,
     current_question_number,
@@ -129,6 +133,7 @@ mod_questions_page_server <- function(
     issue_dialog_text_NA,
     issue_dialog_text_small_large,
     issue_dialog_button,
+    round_finished_dialog_text,
     confirm_dialog_title,
     confirm_dialog_button,
     word_for_question,
@@ -176,12 +181,13 @@ mod_questions_page_server <- function(
           current_question_number(),
           selected_language_rctv()
         )
-        current_question <- question_index %>% 
+        
+        current_question <- question_index() %>% 
           dplyr::filter(Index == current_question_number()) |> 
           dplyr::select(Group, QuestionNumber) |> 
           dplyr::mutate(Group = paste0("Group_", Group)) |> 
           dplyr::inner_join(
-            questions |> purrr::pluck(current_question_type()), 
+            questions() |> purrr::pluck(current_question_type()), 
             by = c("Group", "QuestionNumber")
           )
         
@@ -274,12 +280,38 @@ mod_questions_page_server <- function(
       })
       
       observeEvent(input$next_group, {
-        end_of_group(FALSE)
-        shiny::updateTabsetPanel(
-          session = session, 
-          inputId = "results_tabset", 
-          selected = paste0(rctv$current_question_type, "_results_panel")
-        )
+
+        proceed_round <- load_question_sets() |> 
+          dplyr::filter(question_set_name == workshop_selection()) |>
+          dplyr::pull(stringr::str_c("round_", rctv$current_group_number - 1)) |>
+          as.logical()
+        
+        if (isFALSE(proceed_round)) {
+          ## Build a modal to not proceed the round if the instructor has not enabled it.
+          modal <- shiny::modalDialog(
+            title = interface_translator$t(issue_dialog_title),
+            interface_translator$t(round_finished_dialog_text),
+            easyClose = FALSE,
+            footer = shiny::tagList(shiny::div(
+              ## Button to dismiss the modal
+              shiny::modalButton(
+                label = interface_translator$t(issue_dialog_button),
+                icon = shiny::icon("pen")
+              )
+            ))
+          )
+          
+          ## Launch the modal pop-up
+          shiny::showModal(modal)
+          
+        } else {
+          end_of_group(FALSE)
+          shiny::updateTabsetPanel(
+            session = session, 
+            inputId = "results_tabset", 
+            selected = paste0(rctv$current_question_type, "_results_panel")
+          )
+        }
       })
       
       # Question Responses -----------------------------------------------------
@@ -385,11 +417,12 @@ mod_questions_page_server <- function(
         ## Append a new row to the reactive "binary" or "range" data frame 
         if (current_question_type() == "binary") {
           
+          
           current_binary_tbl <- 
             data.frame(
               Group = current_group_number(), 
               Question = current_question_reactive()$QuestionNumber, 
-              QuestionText = current_question_reactive()[[selected_language_rctv()]], 
+              QuestionText = current_question_reactive()[["English"]], 
               Index = current_question_number(), 
               Response = current_response_1, 
               Confidence = paste0(current_response_2, "%"), 
@@ -402,6 +435,26 @@ mod_questions_page_server <- function(
               Source = current_question_reactive()$Source_link, 
               stringsAsFactors = FALSE
             )
+          
+          insert_binary_response(
+            pool = pool,
+            user_first_name = user_first_name(),
+            user_last_name = user_last_name(),
+            user_session = user_session(),
+            workshop_set = workshop_selection(),
+            round_number = current_group_number(),
+            question_number = current_question_reactive()$QuestionNumber,
+            question_text = current_question_reactive()[["English"]],
+            index_in_set = current_question_number(),
+            response = current_response_1,
+            confidence = paste0(current_response_2, "%"),
+            truth = current_question_reactive()$Answer,
+            brier_score = brier(
+              response = ifelse(current_response_1 == word_for_correct, "T", "F"),
+              confidence = (current_response_2 / 100),
+              correct_answer = current_question_reactive()$Answer
+            )
+          )
           
           rctv$binary_tbl <- rctv$binary_tbl |>
             rbind(current_binary_tbl)
@@ -419,29 +472,63 @@ mod_questions_page_server <- function(
             RelativeError = relative_error(
               lower_90 = current_response_1,
               upper_90 = current_response_2,
-              correct_answer = current_question_reactive()$Answer
+              correct_answer = as.numeric(current_question_reactive()$Answer)
             ), 
             Source = current_question_reactive()$Source_link, 
             stringsAsFactors = FALSE
           )
           
+          
+          insert_range_response(
+            pool = pool,
+            user_first_name = user_first_name(),
+            user_last_name = user_last_name(),
+            user_session = user_session(),
+            workshop_set = workshop_selection(),
+            round_number = current_group_number(),
+            question_number = current_question_reactive()$QuestionNumber,
+            question_text = current_question_reactive()[["English"]],
+            index_in_set = current_question_number(),
+            lower_90 = current_response_1,
+            upper_90 = current_response_2,
+            truth = current_question_reactive()$Answer,
+            relative_error = relative_error(
+              lower = current_response_1,
+              upper = current_response_2,
+              correct_answer = as.numeric(current_question_reactive()$Answer)
+            )
+          )
+          
+          
+          
           rctv$range_tbl <- rctv$range_tbl |>
             rbind(current_range_tbl)
         }
         
-        if (current_question_number() <= max(question_index$Index)) {
+        if (current_question_number() <= max(question_index()$Index)) {
           ## Increase the 'current_question_number' value by 1
           rctv$current_question_number <- current_question_number() + 1
           ## Get the corresponding group number for the next question
-          rctv$current_group_number <- question_index$Group[rctv$current_question_number]
+          rctv$current_group_number <- question_index()$Group[rctv$current_question_number]
           ## Get the corresponding question type for the next question
-          rctv$current_question_type <- question_index$QuestionType[rctv$current_question_number]
+          rctv$current_question_type <- question_index()$QuestionType[rctv$current_question_number]
         } 
+        
+        upsert_user_info(
+          pool = pool,
+          user_first_name = user_first_name(),
+          user_last_name = user_last_name(),
+          user_session = user_session(),
+          workshop_set = workshop_selection(),
+          round_number = rctv$current_group_number,
+          question_number = rctv$current_question_number,
+          question_type = rctv$current_question_type
+        )
         
         
         ## If the new question switches from "binary" to "range" (or vice versa), 
         ## change the "Tables" tab to show the current table
-        if (question_index$QuestionType[rctv$current_question_number] != question_index$QuestionType[rctv$current_question_number - 1]) {
+        if (question_index()$QuestionType[rctv$current_question_number] != question_index()$QuestionType[rctv$current_question_number - 1]) {
           shiny::updateTabsetPanel(
             session = session, 
             inputId = "results_tabset", 
@@ -451,7 +538,7 @@ mod_questions_page_server <- function(
         
         ## If the new question begins a new group, write the most current results to
         ## {pins} database and show a pop-up
-        if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
+        if (question_index()$Group[rctv$current_question_number] != question_index()$Group[rctv$current_question_number - 1]) {
           shiny::updateTabsetPanel(
             session = session, 
             inputId = "results_tabset", 
@@ -462,82 +549,10 @@ mod_questions_page_server <- function(
         }
         
         ## If the question is the last of the workshop
-        if (current_question_number() == max(question_index$Index)) {
+        if (current_question_number() == max(question_index()$Index)) {
           ## If the submission was the last question in the *entire* workshop.
           end_of_workshop(TRUE)
         }
-        
-        #   ## If the new question begins a new group, write the most current results to
-        #   ## {pins} database and show a pop-up
-        #   if (question_index$Group[rctv$current_question_number] != question_index$Group[rctv$current_question_number - 1]) {
-        #     
-        #     shiny::updateTabsetPanel(
-        #       session = session, 
-        #       inputId = "results_tabset", 
-        #       selected = "binary"
-        #     )
-        #     
-        #     # browser("HERE")
-        #     
-        #     # rctv$current_question_number <- 1
-        #     
-        #     rctv$binary_tbl_backend <- rctv$binary_tbl |> 
-        #       dplyr::rename_at( 2, ~"Question") |>
-        #       dplyr::rename_at( 5, ~"Response") |>
-        #       dplyr::rename_at( 6, ~"Confidence") |>
-        #       dplyr::rename_at( 7, ~"Truth")
-        #     
-        #     # write_to_pin(
-        #     #   board = board, 
-        #     #   type = "binary", 
-        #     #   data = rctv$binary_tbl_backend, 
-        #     #   user_first = trimws(input$user_first_name), 
-        #     #   user_last = trimws(input$user_last_name)
-        #     # )
-        #     
-        #     rctv$range_tbl_backend <- rctv$range_tbl |> 
-        #       dplyr::rename_at( 2, ~"Question") |>
-        #       dplyr::rename_at( 5, ~"Lower90") |>
-        #       dplyr::rename_at( 6, ~"Upper90") |>
-        #       dplyr::rename_at( 7, ~"Truth")
-        #     
-        #     # write_to_pin(
-        #     #   board = board, 
-        #     #   type = "range", 
-        #     #   data = rctv$range_tbl_backend, 
-        #     #   user_first = trimws(input$user_first_name), 
-        #     #   user_last = trimws(input$user_last_name)
-        #     # )
-        #     
-        #     # Show a "Group Complete" pop-up modal
-        #     end_of_group(TRUE)
-        #   }
-        #   
-        # } else {
-        #   ## If the submission was the last question in the *entire* workshop...
-        #   
-        #   end_of_workshop(TRUE)
-        #   
-        #   browser("here")
-        #   
-        #   # ## Write out the current results to the user's pin
-        #   # write_to_pin(
-        #   #   board = board, 
-        #   #   type = "binary", 
-        #   #   data = rctv$binary_tbl, 
-        #   #   user_first = trimws(input$user_first_name), 
-        #   #   user_last = trimws(input$user_last_name)
-        #   # )
-        #   # 
-        #   # write_to_pin(
-        #   #   board = board, 
-        #   #   type = "range", 
-        #   #   data = rctv$range_tbl, 
-        #   #   user_first = trimws(input$user_first_name), 
-        #   #   user_last = trimws(input$user_last_name)
-        #   # )
-        # }
-        
       })
       
       
@@ -546,7 +561,7 @@ mod_questions_page_server <- function(
       # Create the table to hold the "Binary" results & scores
       output$results_binary_tbl <- reactable::renderReactable({
         selected_language_rctv()
-        
+ 
         # Require the "binary" response table
         shiny::req(rctv$binary_tbl)
         
@@ -574,9 +589,9 @@ mod_questions_page_server <- function(
             Response = reactable::colDef(
               cell = function(value, index) {
                 text <- if (value == "TRUE") interface_translator$t(selected_language[31]) else interface_translator$t(selected_language[32])
-                
+
                 text
-              }, 
+              },
               name = interface_translator$t(selected_language[41])
             ),
             Confidence = reactable::colDef(show = TRUE, name = interface_translator$t(selected_language[40])),
@@ -593,7 +608,7 @@ mod_questions_page_server <- function(
                   target = "_blank",
                   text
                 )
-              }, 
+              },
               name = interface_translator$t(selected_language[43])
             ),
             QuestionText = reactable::colDef(show = FALSE),
