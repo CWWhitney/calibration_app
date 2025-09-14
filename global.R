@@ -25,6 +25,11 @@ load_users_table <- function() {
   DBI::dbReadTable(pool, "users_table")
 }
 
+## Define Google API authentication type
+## If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
+## to indicate that no authentication is necessary
+googlesheets4::gs4_deauth()
+
 # Connect to the SQLite database -----------------------------------------------
 ## Get the database path from the environment variable
 # "/srv/shiny-app-data/database/calibration.db"
@@ -132,11 +137,6 @@ range_translator <-
 range_translator$set_translation_language(language)
 
 # Import the Questions ---------------------------------------------------------
-
-## Define Google API authentication type
-## If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
-## to indicate that no authentication is necessary
-googlesheets4::gs4_deauth()
 
 ## Retrieve the URL of the Google Sheet
 questions_full <- get_full_data(
