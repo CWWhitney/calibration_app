@@ -25,10 +25,22 @@ load_users_table <- function() {
   DBI::dbReadTable(pool, "users_table")
 }
 
+
+# Import the Questions ---------------------------------------------------------
+
 ## Define Google API authentication type
 ## If the Google Sheet is public, simply call `googlesheets4::gs4_death()` here
 ## to indicate that no authentication is necessary
 googlesheets4::gs4_deauth()
+
+## Retrieve the URL of the Google Sheet
+questions_full <- get_full_data(
+  gs_url = Sys.getenv("google_sheets_url")
+) |> purrr::map(
+  \(x) x |>
+    dplyr::mutate(Number = as.integer(Number)) |>
+    dplyr::mutate(Answer = as.character(Answer))
+)
 
 # Connect to the SQLite database -----------------------------------------------
 ## Get the database path from the environment variable
@@ -136,16 +148,6 @@ range_translator <-
 
 range_translator$set_translation_language(language)
 
-# Import the Questions ---------------------------------------------------------
-
-## Retrieve the URL of the Google Sheet
-questions_full <- get_full_data(
-  gs_url = Sys.getenv("google_sheets_url")
-) |> purrr::map(
-  \(x) x |>
-    dplyr::mutate(Number = as.integer(Number)) |>
-    dplyr::mutate(Answer = as.character(Answer))
-)
 
 # Build UI Theme ---------------------------------------------------------------
 ## Develop the Bootstrap theme for the app
