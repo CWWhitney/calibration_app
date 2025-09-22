@@ -325,9 +325,9 @@ mod_questions_page_server <- function(
         mod_question_server(
           "question",
           question_type = current_question_type,
-          required_text_label = "Required.",
-          number_text_label = "Required to be a number.",
-          left_lower_label = "Left has to be lower than right."
+          required_text_label = selected_language[61],
+          number_text_label = selected_language[62],
+          left_lower_label = selected_language[63]
         )
       
       # Next Button ------------------------------------------------------------
