@@ -61,13 +61,13 @@ help_video_function <- function(round) {
 googlesheets4::gs4_deauth()
 
 ## Retrieve the URL of the Google Sheet
-# questions_full <- get_full_data(
-#   gs_url = Sys.getenv("google_sheets_url")
-# ) |> purrr::map(
-#   \(x) x |>
-#     dplyr::mutate(Number = as.integer(Number)) |>
-#     dplyr::mutate(Answer = as.character(Answer))
-# )
+questions_full <- get_full_data(
+  gs_url = Sys.getenv("google_sheets_url")
+) |> purrr::map(
+  \(x) x |>
+    dplyr::mutate(Number = as.integer(Number)) |>
+    dplyr::mutate(Answer = as.character(Answer))
+)
 
 # Connect to the SQLite database -----------------------------------------------
 ## Get the database path from the environment variable
