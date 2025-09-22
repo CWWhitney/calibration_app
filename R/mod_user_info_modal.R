@@ -325,7 +325,7 @@ mod_user_info_modal_server <- function(
             workshop_selection_label = interface_translator$t(workshop_selection_label),
             workshop_selection_choices = all_sets$question_set_name,
             submit_user_info_btn_label = interface_translator$t(submit_user_info_btn_label),
-            go_back_btn_label = interface_translator$t(go_back_btn_label)
+            go_back_btn_label = go_back_btn_label
           )|> 
             shiny::showModal()
         }
@@ -337,10 +337,10 @@ mod_user_info_modal_server <- function(
         {
           modal_user_info_modal_load_session(
             id = id,
-            modal_dialog_title = interface_translator$t(modal_dialog_title_load_session),
-            load_session_text = interface_translator$t(load_session_text),
-            confirm_load_session_label = interface_translator$t(confirm_load_session_label),
-            go_back_btn_label = interface_translator$t(go_back_btn_label)
+            modal_dialog_title = modal_dialog_title_load_session,
+            load_session_text = load_session_text,
+            confirm_load_session_label = confirm_load_session_label,
+            go_back_btn_label = go_back_btn_label
           )|> 
             shiny::showModal()
         }
