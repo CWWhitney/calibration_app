@@ -6,7 +6,7 @@ ui <- function() {
       # Set Up Global UI Elements ----------------------------------------------
       title = interface_translator$t(selected_language[1]),
       theme = app_theme,
-      collapsible = TRUE,
+      navbar_options = navbar_options(collapsible = TRUE),
       ## Ensure tickmark text on "Confidence" sliders is white  
       shiny::tags$head(
         shiny::tags$link(
@@ -18,7 +18,12 @@ ui <- function() {
           HTML("window.onbeforeunload = function(evt) {return true;}")
         )
       ), 
-      
+      # nav_spacer(),
+      # ## Language Selection ------------------------------------------------
+      # nav_item(
+      #   uiOutput("language_selection_ui"),
+      # ),
+      nav_spacer(),
       # Questions Page -------------------------------------------------------
       mod_questions_page_ui(
         id = "questions_page",
@@ -61,11 +66,11 @@ ui <- function() {
         tab_title =  interface_translator$t(selected_language[10]),
         url = "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
       ),
-      nav_spacer(),
-      ## Language Selection ------------------------------------------------
-      nav_item(
-        uiOutput("language_selection_ui")
-      )
+      footer = tags$footer(
+          class = "d-flex justify-content-end pb-3",
+          uiOutput("language_selection_ui")
+        )
+      
     )
   )
 }

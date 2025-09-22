@@ -25,6 +25,33 @@ load_users_table <- function() {
   DBI::dbReadTable(pool, "users_table")
 }
 
+help_video_function <- function(round) {
+  
+  urls = c(
+    "'https://www.youtube.com/embed/7P2YI9-smfU'",
+    "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'",
+    "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'",
+    "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'",
+    "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
+  )
+  
+  if(round <= 5) {
+    shiny::HTML(
+      glue::glue(
+        "<iframe width='560' height='315'", 
+        "src={urls[round]}", 
+        "title='YouTube video player' frameborder='0' allow='accelerometer;", 
+        "autoplay; clipboard-write; encrypted-media; gyroscope;", 
+        "picture-in-picture' allowfullscreen></iframe>", 
+        .sep = " "
+      )
+    )
+  } else {
+    0
+  }
+}
+
+
 
 # Import the Questions ---------------------------------------------------------
 
@@ -34,13 +61,13 @@ load_users_table <- function() {
 googlesheets4::gs4_deauth()
 
 ## Retrieve the URL of the Google Sheet
-questions_full <- get_full_data(
-  gs_url = Sys.getenv("google_sheets_url")
-) |> purrr::map(
-  \(x) x |>
-    dplyr::mutate(Number = as.integer(Number)) |>
-    dplyr::mutate(Answer = as.character(Answer))
-)
+# questions_full <- get_full_data(
+#   gs_url = Sys.getenv("google_sheets_url")
+# ) |> purrr::map(
+#   \(x) x |>
+#     dplyr::mutate(Number = as.integer(Number)) |>
+#     dplyr::mutate(Answer = as.character(Answer))
+# )
 
 # Connect to the SQLite database -----------------------------------------------
 ## Get the database path from the environment variable

@@ -116,6 +116,7 @@ server <- function(input, output, session) {
       modal_dialog_title_select_new_or_load = "Welcome to the Calibration App",
       new_session_button_label = "New session",
       load_session_button_label = "Load session",
+      go_back_btn_label = "GO BACK",
       introduction_text_elements = stringi::stri_rand_lipsum(2) |> lapply(htmltools::p),
       modal_dialog_title_new_session = selected_language[11],
       user_first_name_label = selected_language[12], 
@@ -240,10 +241,12 @@ server <- function(input, output, session) {
         "selected_language",
         label = NULL,
         choices = interface_translator$get_languages(),
-        selected = user_info_reactives$selected_language()
+        selected = user_info_reactives$selected_language(),
+        width = "120px"
       ) |> 
         tagAppendAttributes(
-          class = "mb-0"
+          class = "mb-0",
+          style = "float:right;"
         )
     })
   

@@ -79,7 +79,8 @@ modal_user_info_modal_new_session <-
     user_last_name_label,
     workshop_selection_label,
     workshop_selection_choices,
-    submit_user_info_btn_label
+    submit_user_info_btn_label,
+    go_back_btn_label
   ) {
     ns <- NS(id)
     shiny::modalDialog(
@@ -116,7 +117,8 @@ modal_user_info_modal_new_session <-
             inputId = ns("submit_user_info_btn"), 
             label = submit_user_info_btn_label,
             icon = shiny::icon("check")
-          )
+          ),
+          shiny::actionButton(ns("go_back"), go_back_btn_label)
         )
       )
     )
@@ -128,7 +130,8 @@ modal_user_info_modal_load_session <- function(
     id,
     modal_dialog_title,
     load_session_text,
-    confirm_load_session_label
+    confirm_load_session_label,
+    go_back_btn_label
 ) {
   ns <- NS(id)
   shiny::modalDialog(
@@ -147,7 +150,8 @@ modal_user_info_modal_load_session <- function(
           inputId = ns("confirm_selection_btn"), 
           label = confirm_load_session_label,
           icon = shiny::icon("check")
-        )
+        ),
+        shiny::actionButton(ns("go_back"), go_back_btn_label)
       )
     )
   )
@@ -169,6 +173,7 @@ mod_user_info_modal_server <- function(
     modal_dialog_title_select_new_or_load,
     new_session_button_label,
     load_session_button_label,
+    go_back_btn_label,
     introduction_text_elements,
     modal_dialog_title_new_session,
     user_first_name_label, 
@@ -291,6 +296,21 @@ mod_user_info_modal_server <- function(
           shiny::showModal()
       })
       
+      observe({
+        req(input$go_back)
+        
+        mod_user_info_modal_choose(
+          id = id,
+          modal_dialog_title = interface_translator$t(modal_dialog_title_select_new_or_load),
+          language_choices = language_choices,
+          language_initial_value = language_initial_value,
+          new_session_button_label = interface_translator$t(new_session_button_label),
+          load_session_button_label = interface_translator$t(load_session_button_label),
+          introduction_text_elements = interface_translator$t(introduction_text_elements)
+        ) |> 
+          shiny::showModal()
+      })
+      
       # New Session ------------------------------------------------------------
       observeEvent(
         input$new_session, 
@@ -304,7 +324,8 @@ mod_user_info_modal_server <- function(
             user_last_name_label = interface_translator$t(user_last_name_label),
             workshop_selection_label = interface_translator$t(workshop_selection_label),
             workshop_selection_choices = all_sets$question_set_name,
-            submit_user_info_btn_label = interface_translator$t(submit_user_info_btn_label)
+            submit_user_info_btn_label = interface_translator$t(submit_user_info_btn_label),
+            go_back_btn_label = interface_translator$t(go_back_btn_label)
           )|> 
             shiny::showModal()
         }
@@ -316,9 +337,10 @@ mod_user_info_modal_server <- function(
         {
           modal_user_info_modal_load_session(
             id = id,
-            modal_dialog_title = modal_dialog_title_load_session,
-            load_session_text = load_session_text,
-            confirm_load_session_label = confirm_load_session_label
+            modal_dialog_title = interface_translator$t(modal_dialog_title_load_session),
+            load_session_text = interface_translator$t(load_session_text),
+            confirm_load_session_label = interface_translator$t(confirm_load_session_label),
+            go_back_btn_label = interface_translator$t(go_back_btn_label)
           )|> 
             shiny::showModal()
         }

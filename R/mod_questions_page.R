@@ -176,13 +176,14 @@ mod_questions_page_server <- function(
       current_question_reactive <- reactive({
         # Require the current question type, group number, and question number
         shiny::req(
+          question_index(),
           current_question_type(), 
           current_group_number(), 
           current_question_number(),
           selected_language_rctv()
         )
         
-        current_question <- question_index() %>% 
+        current_question <- question_index() |> 
           dplyr::filter(Index == current_question_number()) |> 
           dplyr::select(Group, QuestionNumber) |> 
           dplyr::mutate(Group = paste0("Group_", Group)) |> 
@@ -195,7 +196,7 @@ mod_questions_page_server <- function(
         
       })
       
-      end_of_group <- reactiveVal(FALSE)
+      start_of_round <- reactiveVal(TRUE)
       end_of_workshop <- reactiveVal(FALSE)
       
       # Render Question UI -----------------------------------------------------
@@ -228,7 +229,7 @@ mod_questions_page_server <- function(
                 class = "bg-dark d-flex justify-content-end",
                 shiny::actionButton(
                   class = "btn btn-lg", 
-                  inputId = ns("next_group"), 
+                  inputId = ns("next_round"), 
                   label = interface_translator$t(completion_dialog_text_2), 
                   icon = shiny::icon(name = "arrow-right")
                 )
@@ -237,21 +238,30 @@ mod_questions_page_server <- function(
           )
         }
         
-        if (isTRUE(end_of_group())) { 
+        if (isTRUE(start_of_round())) { 
+          
           ## Show a "Group Complete" pop-up modal
+          help_videos_active <- load_question_sets() |> 
+            dplyr::filter(question_set_name == workshop_selection()) |>
+            dplyr::pull("help_videos_active") |>
+            as.logical()
+          
           return(
             bslib::card(
               bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark"),
               glue::glue(
                 interface_translator$t(group_complete_dialog_text_1)
               ),
+              if(help_videos_active) {
+                help_video_function(rctv$current_group_number)
+              },
               shiny::br(),
               interface_translator$t(group_complete_dialog_text_2),
               bslib::card_footer(
                 class = "bg-dark d-flex justify-content-end",
                 shiny::actionButton(
                   class = "btn btn-lg", 
-                  inputId = ns("next_group"), 
+                  inputId = ns("next_round"), 
                   label = interface_translator$t(group_complete_dialog_button), 
                   icon = shiny::icon(name = "arrow-right")
                 )
@@ -279,11 +289,11 @@ mod_questions_page_server <- function(
         )
       })
       
-      observeEvent(input$next_group, {
-
+      observeEvent(input$next_round, {
+        
         proceed_round <- load_question_sets() |> 
           dplyr::filter(question_set_name == workshop_selection()) |>
-          dplyr::pull(stringr::str_c("round_", rctv$current_group_number - 1)) |>
+          dplyr::pull(stringr::str_c("round_", rctv$current_group_number)) |>
           as.logical()
         
         if (isFALSE(proceed_round)) {
@@ -305,7 +315,7 @@ mod_questions_page_server <- function(
           shiny::showModal(modal)
           
         } else {
-          end_of_group(FALSE)
+          start_of_round(FALSE)
           shiny::updateTabsetPanel(
             session = session, 
             inputId = "results_tabset", 
@@ -545,7 +555,7 @@ mod_questions_page_server <- function(
             selected = "binary"
           )
           ## If the submission was the last question in a group.
-          end_of_group(TRUE)
+          start_of_round(TRUE)
         }
         
         ## If the question is the last of the workshop
@@ -561,12 +571,12 @@ mod_questions_page_server <- function(
       # Create the table to hold the "Binary" results & scores
       output$results_binary_tbl <- reactable::renderReactable({
         selected_language_rctv()
- 
+        
         # Require the "binary" response table
         shiny::req(rctv$binary_tbl)
         
         data <- rctv$binary_tbl |>
-          dplyr::filter(Group == current_group_number() - isTRUE(end_of_group()))
+          dplyr::filter(Group == current_group_number() - isTRUE(start_of_round()))
         
         #colnames(rctv$binary_tbl)[colnames(rctv$binary_tbl) == "Question"] = "interface_translator$t(selected_language[42])"
         
@@ -589,7 +599,7 @@ mod_questions_page_server <- function(
             Response = reactable::colDef(
               cell = function(value, index) {
                 text <- if (value == "TRUE") interface_translator$t(selected_language[31]) else interface_translator$t(selected_language[32])
-
+                
                 text
               },
               name = interface_translator$t(selected_language[41])
@@ -630,7 +640,7 @@ mod_questions_page_server <- function(
         shiny::req(rctv$range_tbl)
         
         data <- rctv$range_tbl |>
-          dplyr::filter(Group == current_group_number() - isTRUE(end_of_group()))
+          dplyr::filter(Group == current_group_number() - isTRUE(start_of_round()))
         
         # Populate the interactive table with the "range" data from the current
         # question group
