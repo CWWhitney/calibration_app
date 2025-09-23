@@ -108,6 +108,8 @@ server <- function(input, output, session) {
   questions <- reactiveVal()
   question_index <- reactiveVal()
   
+  global_selected_language <- reactiveVal()
+  
   # User Info Modal ------------------------------------------------------------
   ## On app launch, display pop-up modal for user to enter first & last name
   user_info_reactives <- 
@@ -117,7 +119,7 @@ server <- function(input, output, session) {
       new_session_button_label = selected_language[52],
       load_session_button_label = selected_language[53],
       go_back_btn_label = "GO BACK",
-      introduction_text_elements = selected_language[60] |> lapply(htmltools::p),
+      introduction_text_element = selected_language[60],
       modal_dialog_title_new_session = selected_language[11],
       user_first_name_label = selected_language[12], 
       user_last_name_label = selected_language[13],
@@ -131,7 +133,8 @@ server <- function(input, output, session) {
       confirm_load_session_label = selected_language[59],
       language_choices = interface_translator$get_languages(),
       language_initial_value = interface_translator$get_key_translation(),
-      rctv = rctv
+      rctv = rctv,
+      global_selected_language = global_selected_language
     )
   
   
@@ -189,7 +192,6 @@ server <- function(input, output, session) {
     user_last_name = user_info_reactives$user_last_name,
     user_session = user_info_reactives$user_session,
     workshop_selection = user_info_reactives$workshop_selection,
-    current_question_type = reactive(rctv$current_question_type),
     current_group_number = reactive(rctv$current_group_number),
     current_question_number = reactive(rctv$current_question_number),
     question_index = question_index,
@@ -237,6 +239,7 @@ server <- function(input, output, session) {
   output$language_selection_ui <- 
     renderUI({
       req(user_info_reactives$selected_language())
+      
       selectInput(
         "selected_language",
         label = NULL,
@@ -251,6 +254,8 @@ server <- function(input, output, session) {
     })
   
   observeEvent(input$selected_language, {
+    
     shiny.i18n::update_lang(input$selected_language)
+    global_selected_language(input$selected_language)
   })
 }

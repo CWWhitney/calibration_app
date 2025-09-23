@@ -122,7 +122,7 @@ mod_questions_page_server <- function(
     user_last_name,
     user_session,
     workshop_selection,
-    current_question_type,
+    # current_question_type,
     current_group_number,
     current_question_number,
     question_index,
@@ -177,18 +177,19 @@ mod_questions_page_server <- function(
         # Require the current question type, group number, and question number
         shiny::req(
           question_index(),
-          current_question_type(), 
           current_group_number(), 
           current_question_number(),
           selected_language_rctv()
         )
         
-        current_question <- question_index() |> 
+        current_question_index <- question_index() |> 
           dplyr::filter(Index == current_question_number()) |> 
-          dplyr::select(Group, QuestionNumber) |> 
-          dplyr::mutate(Group = paste0("Group_", Group)) |> 
+          dplyr::select(Group, QuestionNumber, QuestionType) |> 
+          dplyr::mutate(Group = paste0("Group_", Group))
+        
+        current_question <- current_question_index |> 
           dplyr::inner_join(
-            questions() |> purrr::pluck(current_question_type()), 
+            questions() |> purrr::pluck(current_question_index$QuestionType), 
             by = c("Group", "QuestionNumber")
           )
         
@@ -196,24 +197,17 @@ mod_questions_page_server <- function(
         
       })
       
+      current_question_type <- 
+        reactive({
+          current_question_reactive() |> 
+            pull("QuestionType")
+        })
+      
       start_of_round <- reactiveVal(TRUE)
       end_of_workshop <- reactiveVal(FALSE)
       
       # Render Question UI -----------------------------------------------------
       output$question_ui <- shiny::renderUI({
-        
-        question <- current_question_reactive() |> 
-          dplyr::pull(
-            selected_language_rctv()
-          )
-        
-        if (current_question_type() == "binary") {
-          question <- binary_translator$t(question)
-        }
-        
-        if(current_question_type() == "range") {
-          question <- range_translator$t(question)
-        }
         
         if (isTRUE(end_of_workshop())) {
           
@@ -229,7 +223,7 @@ mod_questions_page_server <- function(
                 class = "bg-dark d-flex justify-content-end",
                 shiny::actionButton(
                   class = "btn btn-lg", 
-                  inputId = ns("next_round"), 
+                  inputId = ns("end_workshop"), 
                   label = interface_translator$t(completion_dialog_text_2), 
                   icon = shiny::icon(name = "arrow-right")
                 )
@@ -237,6 +231,20 @@ mod_questions_page_server <- function(
             )
           )
         }
+        
+        question <- current_question_reactive() |> 
+          dplyr::pull(
+            selected_language_rctv()
+          )
+        
+        if (current_question_type() == "binary") {
+          question <- binary_translator$t(question)
+        }
+        
+        if(current_question_type() == "range") {
+          question <- range_translator$t(question)
+        }
+        
         
         if (isTRUE(start_of_round())) { 
           
@@ -269,6 +277,8 @@ mod_questions_page_server <- function(
             )
           )
         } 
+        
+        
         # Display the appropriate UI response elements based on the current question type
         return(
           mod_question_ui(
@@ -319,7 +329,7 @@ mod_questions_page_server <- function(
           shiny::updateTabsetPanel(
             session = session, 
             inputId = "results_tabset", 
-            selected = paste0(rctv$current_question_type, "_results_panel")
+            selected = paste0(current_question_type(), "_results_panel")
           )
         }
       })
@@ -515,13 +525,20 @@ mod_questions_page_server <- function(
             rbind(current_range_tbl)
         }
         
+        ## If the question is the last of the workshop
+        if (current_question_number() == max(question_index()$Index)) {
+          ## If the submission was the last question in the *entire* workshop.
+          print("here")
+          end_of_workshop(TRUE)
+        }
+        
         if (current_question_number() <= max(question_index()$Index)) {
           ## Increase the 'current_question_number' value by 1
           rctv$current_question_number <- current_question_number() + 1
           ## Get the corresponding group number for the next question
           rctv$current_group_number <- question_index()$Group[rctv$current_question_number]
           ## Get the corresponding question type for the next question
-          rctv$current_question_type <- question_index()$QuestionType[rctv$current_question_number]
+          # rctv$current_question_type <- question_index()$QuestionType[rctv$current_question_number]
         } 
         
         upsert_user_info(
@@ -532,7 +549,8 @@ mod_questions_page_server <- function(
           workshop_set = workshop_selection(),
           round_number = rctv$current_group_number,
           question_number = rctv$current_question_number,
-          question_type = rctv$current_question_type
+          # question_type = rctv$current_question_type
+          question_type = current_question_type()
         )
         
         
@@ -542,7 +560,7 @@ mod_questions_page_server <- function(
           shiny::updateTabsetPanel(
             session = session, 
             inputId = "results_tabset", 
-            selected = paste0(rctv$current_question_type, "_results_panel")
+            selected = paste0(current_question_type(), "_results_panel")
           )
         }
         
@@ -558,11 +576,6 @@ mod_questions_page_server <- function(
           start_of_round(TRUE)
         }
         
-        ## If the question is the last of the workshop
-        if (current_question_number() == max(question_index()$Index)) {
-          ## If the submission was the last question in the *entire* workshop.
-          end_of_workshop(TRUE)
-        }
       })
       
       
