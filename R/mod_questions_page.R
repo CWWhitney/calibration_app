@@ -275,8 +275,7 @@ mod_questions_page_server <- function(
               )
             )
           } else {
-            browser()
-            
+
             return(
               bslib::card(
                 bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark"),

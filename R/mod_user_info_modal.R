@@ -353,8 +353,9 @@ mod_user_info_modal_server <- function(
         {
           all_sets <- 
             load_question_sets() |> 
-            dplyr::arrange(-created)
-          
+            dplyr::filter(question_set_active == 1) |> 
+            dplyr::arrange(dplyr::desc(created))
+
           modal_user_info_modal_new_session(
             id = id,
             modal_dialog_title = interface_translator$t(modal_dialog_title_new_session),
