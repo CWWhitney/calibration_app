@@ -139,7 +139,7 @@ interface_translator <-
     translation_json_path = "interface_translations.json"
   )
 
-interface_translator$set_translation_language(language)
+interface_translator$set_translation_language("English")
 
 
 ## Binary ----------------------------------------------------------------------
@@ -156,7 +156,7 @@ list(
 binary_translator <- 
   Translator$new(translation_json_path = "binary_translations.json")
 
-binary_translator$set_translation_language(language)
+binary_translator$set_translation_language("English")
 
 ## Range -----------------------------------------------------------------------
 list(
@@ -173,7 +173,7 @@ list(
 range_translator <- 
   Translator$new(translation_json_path = "range_translations.json")
 
-range_translator$set_translation_language(language)
+range_translator$set_translation_language("English")
 
 
 # Build UI Theme ---------------------------------------------------------------

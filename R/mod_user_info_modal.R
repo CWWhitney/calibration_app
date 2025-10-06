@@ -315,7 +315,7 @@ mod_user_info_modal_server <- function(
           req(global_selected_language())
         },
         {
-         req(initial_modal()) 
+          req(initial_modal()) 
           mod_user_info_modal_choose(
             id = id,
             modal_dialog_title = interface_translator$t(modal_dialog_title_select_new_or_load),
@@ -351,7 +351,9 @@ mod_user_info_modal_server <- function(
       observeEvent(
         input$new_session, 
         {
-          all_sets <- load_question_sets()
+          all_sets <- 
+            load_question_sets() |> 
+            dplyr::arrange(-created)
           
           modal_user_info_modal_new_session(
             id = id,
@@ -410,9 +412,83 @@ mod_user_info_modal_server <- function(
       iv <- InputValidator$new()
       
       ## Add validation rules
-      iv$add_rule("user_first_name", sv_required(message = interface_translator$t(user_first_name_required_label)))
-      iv$add_rule("user_last_name", sv_required(message = interface_translator$t(user_last_name_required_label)))
-      iv$add_rule("workshop_selection", sv_required(message = interface_translator$t(workshop_selection_required_label)))
+      # iv$add_rule("user_first_name", sv_required(message = interface_translator$t(user_first_name_required_label)))
+      
+      iv$add_rule("user_first_name", function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
+        
+        if (!test(value)) {
+          interface_translator$t(user_first_name_required_label)
+        }
+      })
+      
+      # iv$add_rule("user_last_name", sv_required(message = interface_translator$t(user_last_name_required_label)))
+      
+      iv$add_rule("user_last_name", function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
+        
+        if (!test(value)) {
+          interface_translator$t(user_last_name_required_label)
+        }
+      })
+      
+      # iv$add_rule("workshop_selection", sv_required(message = interface_translator$t(workshop_selection_required_label)))
+      
+      iv$add_rule("workshop_selection", function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
+        
+        if (!test(value)) {
+          interface_translator$t(workshop_selection_required_label)
+        }
+      })
       
       
       # Submit User Info -------------------------------------------------------

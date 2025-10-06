@@ -42,34 +42,20 @@ ui <- function() {
       ), 
       # Help Pages ------------------------------------------------------------
       mod_help_page_ui(
-        id = "help_page_1",
+        id = "help_page",
         tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/7P2YI9-smfU'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_2",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_3",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_4",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'"
-      ),
-      mod_help_page_ui(
-        id = "help_page_5",
-        tab_title =  interface_translator$t(selected_language[10]),
-        url = "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
+        url = c(
+          "'https://www.youtube.com/embed/7P2YI9-smfU'",
+          "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'",
+          "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'",
+          "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'",
+          "'https://www.youtube.com/embed/qwHvGh_9tRs?si=Mit1VkZ544EgMF3C'"
+        )
       ),
       footer = tags$footer(
-          class = "d-flex justify-content-end pb-3",
-          uiOutput("language_selection_ui")
-        )
+        class = "d-flex justify-content-end pb-3",
+        uiOutput("language_selection_ui")
+      )
       
     )
   )

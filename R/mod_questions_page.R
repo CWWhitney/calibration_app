@@ -152,10 +152,14 @@ mod_questions_page_server <- function(
     completion_dialog_title,
     completion_dialog_text_1,
     completion_dialog_text_2,
+    first_group_dialog_title,
+    first_group_dialog_text_videos,
+    first_group_dialog_text_no_videos,
     group_complete_dialog_title,
     group_complete_dialog_text_1,
     group_complete_dialog_button,
-    group_complete_dialog_text_2
+    group_complete_dialog_text_2_videos,
+    group_complete_dialog_text_2_no_videos
 ) {
   moduleServer(
     id,
@@ -218,16 +222,7 @@ mod_questions_page_server <- function(
                 interface_translator$t(completion_dialog_text_1)
               ),
               shiny::br(),
-              interface_translator$t(completion_dialog_text_2),
-              bslib::card_footer(
-                class = "bg-dark d-flex justify-content-end",
-                shiny::actionButton(
-                  class = "btn btn-lg", 
-                  inputId = ns("end_workshop"), 
-                  label = interface_translator$t(completion_dialog_text_2), 
-                  icon = shiny::icon(name = "arrow-right")
-                )
-              )
+              interface_translator$t(completion_dialog_text_2)
             )
           )
         }
@@ -254,29 +249,61 @@ mod_questions_page_server <- function(
             dplyr::pull("help_videos_active") |>
             as.logical()
           
-          return(
-            bslib::card(
-              bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark"),
-              glue::glue(
-                interface_translator$t(group_complete_dialog_text_1)
-              ),
-              if(help_videos_active) {
-                help_video_function(rctv$current_group_number)
-              },
-              shiny::br(),
-              interface_translator$t(group_complete_dialog_text_2),
-              bslib::card_footer(
-                class = "bg-dark d-flex justify-content-end",
-                shiny::actionButton(
-                  class = "btn btn-lg", 
-                  inputId = ns("next_round"), 
-                  label = interface_translator$t(group_complete_dialog_button), 
-                  icon = shiny::icon(name = "arrow-right")
+          if((rctv$current_group_number - 1) == 0) {
+            
+            return(
+              bslib::card(
+                bslib::card_header(h3(interface_translator$t(first_group_dialog_title)), class = "bg-dark"),
+                
+                if(help_videos_active) {
+                  shiny::tagList(
+                    interface_translator$t(first_group_dialog_text_videos),
+                    help_video_function(rctv$current_group_number)
+                  )
+                } else {
+                  interface_translator$t(first_group_dialog_text_no_videos)
+                },
+                bslib::card_footer(
+                  class = "bg-dark d-flex justify-content-end",
+                  shiny::actionButton(
+                    class = "btn btn-lg", 
+                    inputId = ns("next_round"), 
+                    label = interface_translator$t(group_complete_dialog_button), 
+                    icon = shiny::icon(name = "arrow-right")
+                  )
                 )
               )
             )
-          )
-        } 
+          } else {
+            browser()
+            
+            return(
+              bslib::card(
+                bslib::card_header(h3(interface_translator$t(group_complete_dialog_title)), class = "bg-dark"),
+                glue::glue(
+                  interface_translator$t(group_complete_dialog_text_1)
+                ),
+                if(help_videos_active) {
+                  shiny::tagList(
+                    help_video_function(rctv$current_group_number),
+                    interface_translator$t(group_complete_dialog_text_2_videos)
+                  )
+                } else {
+                  interface_translator$t(group_complete_dialog_text_2_no_videos)
+                },
+                bslib::card_footer(
+                  class = "bg-dark d-flex justify-content-end",
+                  shiny::actionButton(
+                    class = "btn btn-lg", 
+                    inputId = ns("next_round"), 
+                    label = interface_translator$t(group_complete_dialog_button), 
+                    icon = shiny::icon(name = "arrow-right")
+                  )
+                )
+              )
+            )
+          } 
+        }
         
         
         # Display the appropriate UI response elements based on the current question type

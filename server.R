@@ -132,7 +132,7 @@ server <- function(input, output, session) {
       load_session_text = selected_language[58],
       confirm_load_session_label = selected_language[59],
       language_choices = interface_translator$get_languages(),
-      language_initial_value = interface_translator$get_key_translation(),
+      language_initial_value = "English",
       rctv = rctv,
       global_selected_language = global_selected_language
     )
@@ -203,7 +203,7 @@ server <- function(input, output, session) {
     are properly defined.",
     issue_dialog_text_small_large = paste0(selected_language[16], selected_language[17]),
     issue_dialog_button = selected_language[18],
-    round_finished_dialog_text = "The instructor has not yet enabled the next round to start. Please try again once the instructor has allowed it.",
+    round_finished_dialog_text = selected_language[30],
     confirm_dialog_title = selected_language[23],
     confirm_dialog_button = selected_language[14],
     word_for_question = selected_language[44],
@@ -222,10 +222,14 @@ server <- function(input, output, session) {
     completion_dialog_title = selected_language[24],
     completion_dialog_text_1 = selected_language[25],
     completion_dialog_text_2 = selected_language[26],
+    first_group_dialog_title = selected_language[64],
+    first_group_dialog_text_videos = selected_language[65],
+    first_group_dialog_text_no_videos = selected_language[66],
     group_complete_dialog_title = selected_language[27],
     group_complete_dialog_text_1 = selected_language[28],
     group_complete_dialog_button = selected_language[29],
-    group_complete_dialog_text_2 = selected_language[30]
+    group_complete_dialog_text_2_videos = selected_language[67],
+    group_complete_dialog_text_2_no_videos = ""
   )
   
   

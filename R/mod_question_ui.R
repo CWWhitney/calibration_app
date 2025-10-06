@@ -135,15 +135,114 @@ mod_question_server <- function(id, question_type, required_text_label, number_t
       binary_iv <- InputValidator$new()
       binary_iv$condition(~ question_type() == "binary")
       
-      binary_iv$add_rule("input_A", sv_required(interface_translator$t(required_text_label)))
-      binary_iv$add_rule("input_B", sv_required(interface_translator$t(required_text_label)))
+      # binary_iv$add_rule("input_A", sv_required(interface_translator$t(required_text_label)))
+      # binary_iv$add_rule("input_B", sv_required(interface_translator$t(required_text_label)))
+      
+      
+      binary_iv$add_rule("input_A", function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
         
+        if (!test(value)) {
+          interface_translator$t(required_text_label)
+        }
+      })
+      
+      binary_iv$add_rule("input_B", function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
+        
+        if (!test(value)) {
+          interface_translator$t(required_text_label)
+        }
+      })
+      
+      
+      
       ## Conditional validator for "range" type
       range_iv <- InputValidator$new()
       range_iv$condition(~ question_type() == "range")
       
-      range_iv$add_rule("input_A", sv_required(interface_translator$t(number_text_label)))
-      range_iv$add_rule("input_B", sv_required(interface_translator$t(number_text_label)))
+      # range_iv$add_rule("input_A", sv_required(interface_translator$t(number_text_label)))
+      # range_iv$add_rule("input_B", sv_required(interface_translator$t(number_text_label)))
+      
+      range_iv$add_rule("input_A", function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
+        
+        if (!test(value)) {
+          interface_translator$t(number_text_label)
+        }
+      })
+      
+      range_iv$add_rule("input_B",  function (value) {
+        test <- function(val) {
+          if (is.null(val))
+            return(FALSE)
+          if (inherits(val, "try-error"))
+            return(FALSE)
+          if (!is.atomic(val))
+            return(TRUE)
+          if (length(val) == 0)
+            return(FALSE)
+          if (all(is.na(val)))
+            return(FALSE)
+          if (is.character(val) && !any(nzchar(stats::na.omit(val))))
+            return(FALSE)
+          if (inherits(val, "shinyActionButtonValue") && val == 0)
+            return(FALSE)
+          TRUE
+        }
+        
+        if (!test(value)) {
+          interface_translator$t(number_text_label)
+        }
+      })
       
       range_iv$add_rule("input_A", function(value) {
         if (input$input_B < input$input_A && !is.na(input$input_A) && !is.na(input$input_B)) {
