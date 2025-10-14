@@ -71,6 +71,47 @@ mod_user_info_modal_choose <-
   }
 
 
+modal_user_info_modal_new_session_from_link <- 
+  function(
+    id,
+    modal_dialog_title,
+    user_first_name_label, 
+    user_last_name_label,
+    submit_user_info_btn_label
+  ) {
+    ns <- NS(id)
+    shiny::modalDialog(
+      title = modal_dialog_title,
+      shiny::tagList(
+        bslib::layout_column_wrap(
+          width = 1/2,
+          shiny::textInput(
+            inputId = ns("user_first_name"), 
+            label = user_first_name_label,
+            placeholder = user_first_name_label,
+          ), 
+          shiny::textInput(
+            inputId = ns("user_last_name"), 
+            label = user_last_name_label,
+            placeholder = user_last_name_label
+          )
+        )
+      ), 
+      easyClose = FALSE, 
+      size = "m",
+      footer = shiny::tagList(
+        shiny::div(
+          ## Button to submit user's information
+          shiny::actionButton(
+            inputId = ns("submit_user_info_btn_from_link"), 
+            label = submit_user_info_btn_label,
+            icon = shiny::icon("check")
+          )
+        )
+      )
+    )
+  }
+
 modal_user_info_modal_new_session <- 
   function(
     id,
@@ -99,14 +140,16 @@ modal_user_info_modal_new_session <-
             placeholder = user_last_name_label
           )
         ),
-        bslib::layout_column_wrap(
-          width = 1,
-          shiny::selectInput(
-            inputId = ns("workshop_selection"), 
-            label = workshop_selection_label,
-            choices = workshop_selection_choices
+        if(!is.null(workshop_selection_choices)) {
+          bslib::layout_column_wrap(
+            width = 1,
+            shiny::selectInput(
+              inputId = ns("workshop_selection"),
+              label = workshop_selection_label,
+              choices = workshop_selection_choices
+            )
           )
-        )
+        }
       ), 
       easyClose = FALSE, 
       size = "m",
@@ -208,6 +251,7 @@ mod_user_info_modal_server <- function(
       initial_modal <- reactiveVal(TRUE)
       # App Restore ------------------------------------------------------------
       app_restored <- reactiveVal(FALSE)
+      app_restored_from_link <- reactiveVal(FALSE)
       
       
       onRestore(function(state) {
@@ -215,13 +259,28 @@ mod_user_info_modal_server <- function(
         ## Parse URL parameters
         query <- parseQueryString(session$clientData$url_search)
         
-        selected_user <- load_users_table() |> 
-          filter(
-            user_first_name == query$user_first_name,
-            user_last_name == query$user_last_name,
-            user_session == query$user_session,
-            workshop_set == query$workshops_set
+        if(
+          all(
+            c(
+              "user_first_name",
+              "user_last_name",
+              "user_session",
+              "workshop_set"
+            ) %in% 
+            names(query)
           )
+        ) {
+          selected_user <- load_users_table() |> 
+            filter(
+              user_first_name == query$user_first_name,
+              user_last_name == query$user_last_name,
+              user_session == query$user_session,
+              workshop_set == query$workshop_set
+            )
+        }  else {
+          selected_user <- 
+            data.frame()
+        }
         
         if(nrow(selected_user) == 1) {
           
@@ -284,19 +343,25 @@ mod_user_info_modal_server <- function(
           rctv$range_tbl <- rctv$range_tbl |>
             rbind(range_responses)
           
-          if(query$selected_language %in% language_choices) {
-            selected_language(query$selected_language)
-          } else {
-            selected_language(language_initial_value)
-          }
           
           initial_modal(FALSE)
+        } else if("workshop_set" %in% names(query)) {
+          app_restored_from_link(TRUE)
+          workshop_selection(query$workshop_set)
+          initial_modal(FALSE)
+        }
+        
+        if(isTRUE(query$selected_language %in% language_choices)) {
+          selected_language(query$selected_language)
+        } else {
+          selected_language(language_initial_value)
         }
       })
       
       
       observe({
         req(!app_restored())
+        req(!app_restored_from_link())
         
         mod_user_info_modal_choose(
           id = id,
@@ -347,6 +412,22 @@ mod_user_info_modal_server <- function(
             shiny::showModal()
         })
       
+      # New Session from link --------------------------------------------------
+      observeEvent(
+        req(global_selected_language()),
+        {
+          req(app_restored_from_link())
+          modal_user_info_modal_new_session_from_link(
+            id = id,
+            modal_dialog_title = interface_translator$t(modal_dialog_title_new_session),
+            user_first_name_label = interface_translator$t(user_first_name_label), 
+            user_last_name_label = interface_translator$t(user_last_name_label),
+            submit_user_info_btn_label = interface_translator$t(submit_user_info_btn_label)
+          )|> 
+            shiny::showModal()
+        }
+      )
+      
       # New Session ------------------------------------------------------------
       observeEvent(
         input$new_session, 
@@ -355,7 +436,7 @@ mod_user_info_modal_server <- function(
             load_question_sets() |> 
             dplyr::filter(question_set_active == 1) |> 
             dplyr::arrange(dplyr::desc(created))
-
+          
           modal_user_info_modal_new_session(
             id = id,
             modal_dialog_title = interface_translator$t(modal_dialog_title_new_session),
@@ -523,6 +604,38 @@ mod_user_info_modal_server <- function(
           user_last_name = input$user_last_name,
           user_session = session$token,
           workshop_set = input$workshop_selection,
+          round_number = rctv$current_group_number,
+          question_number = rctv$current_question_number,
+          question_type = ""
+        )
+        
+        initial_modal(FALSE)
+        ## remove the open modal dialogue
+        shiny::removeModal()
+        
+      })
+      
+      shiny::observeEvent(input$submit_user_info_btn_from_link, {
+        
+        ## Start displaying errors in the UI
+        iv$enable()
+        
+        ## require that the "First Name" and "Last Name" fields have been populated
+        shiny::req(
+          input$user_first_name, 
+          input$user_last_name
+        )
+        
+        user_first_name(input$user_first_name)
+        user_last_name(input$user_last_name)
+        user_session(session$token)
+        
+        upsert_user_info(
+          pool = pool,
+          user_first_name = input$user_first_name,
+          user_last_name = input$user_last_name,
+          user_session = session$token,
+          workshop_set = workshop_selection(),
           round_number = rctv$current_group_number,
           question_number = rctv$current_question_number,
           question_type = ""

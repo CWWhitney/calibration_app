@@ -61,7 +61,7 @@ server <- function(input, output, session) {
       "?user_first_name=", user_info_reactives$user_first_name(),
       "&user_last_name=", user_info_reactives$user_last_name(),
       "&user_session=", user_info_reactives$user_session(),
-      "&workshops_set=", user_info_reactives$workshop_selection(),
+      "&workshop_set=", user_info_reactives$workshop_selection(),
       "&selected_language=", input$selected_language
     )
     
