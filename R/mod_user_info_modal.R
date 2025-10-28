@@ -425,7 +425,8 @@ mod_user_info_modal_server <- function(
             submit_user_info_btn_label = interface_translator$t(submit_user_info_btn_label)
           )|> 
             shiny::showModal()
-        }
+        },
+        once = TRUE
       )
       
       # New Session ------------------------------------------------------------
