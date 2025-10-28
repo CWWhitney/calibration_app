@@ -37,14 +37,6 @@ help_video_function <- function(round) {
   
   if(round <= 5) {
     shiny::HTML(
-      # glue::glue(
-      #   "<iframe width='560' height='315'",
-      #   "src={urls[round]}",
-      #   "title='YouTube video player' frameborder='0' allow='accelerometer;",
-      #   "autoplay; clipboard-write; encrypted-media; gyroscope;",
-      #   "picture-in-picture' allowfullscreen></iframe>",
-      #   .sep = " "
-      # )
       glue::glue(
         "<div style='position: relative; width: 100%; padding-bottom: 56.25%; height: 0;'>",
         "  <iframe src={urls[round]}",
