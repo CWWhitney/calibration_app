@@ -6,7 +6,7 @@ generate_binary_metrics_chart <- function(data) {
   data %>% 
     dplyr::mutate(
       Group = paste0("Group ", Group), 
-      Truth = ifelse(Truth == "T", "TRUE", "FALSE"), 
+      Truth = ifelse(Truth == "T", selected_language[31], selected_language[32]), 
       Confidence = stringr::str_replace(
         string = Confidence, 
         pattern = "%", 
@@ -22,11 +22,11 @@ generate_binary_metrics_chart <- function(data) {
     echarts4r::e_charts(x = Group) |> 
     echarts4r::e_bar(
       serie = Correct, 
-      name = "Correct"
+      name = selected_language[38]
     ) |> 
     echarts4r::e_line(
       serie = Confidence, 
-      name = "Predicted", 
+      name = selected_language[39], 
       symbol = "circle", 
       symbolSize = 20
     ) |> 
@@ -68,11 +68,11 @@ generate_range_metrics_chart <- function(data) {
     echarts4r::e_charts(x = Group) |> 
     echarts4r::e_bar(
       serie = Correct, 
-      name = "Correct"
+      name = "Korrekt"
     ) |> 
     echarts4r::e_line(
       serie = Confidence, 
-      name = "Confidence", 
+      name = selected_language[40], 
       symbol = "circle", 
       symbolSize = 20
     ) |> 
