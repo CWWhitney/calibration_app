@@ -28,7 +28,7 @@ load_users_table <- function() {
 help_video_function <- function(round) {
   
   urls = c(
-    "'https://www.youtube.com/embed/7P2YI9-smfU'",
+    "'https://www.youtube.com/embed/QPdJNqXHxmI'",
     "'https://www.youtube.com/embed/OtYAomR9pZE?si=k8jtETxukBYJvWE0'",
     "'https://www.youtube.com/embed/3YeWSHCUh9w?si=Jb7A8CjZZkyG0l0X'",
     "'https://www.youtube.com/embed/eKvCAZd7px8?si=y9eucgVBZXa32Ag7'",
